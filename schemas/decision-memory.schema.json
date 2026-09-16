@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SPARI Decision Memory Record",
+  "type": "object",
+  "required": [
+    "capability",
+    "candidate",
+    "solution_decision",
+    "outcome_state"
+  ],
+  "properties": {
+    "capability": {
+      "type": "string"
+    },
+    "candidate": {
+      "type": "string"
+    },
+    "candidate_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source_repository": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "package_name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "commit": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "solution_decision": {
+      "enum": [
+        "ADOPT",
+        "ADAPT",
+        "COMPOSE",
+        "REFERENCE",
+        "REJECT",
+        "BUILD"
+      ]
+    },
+    "reuse_mode": {
+      "enum": [
+        "PRODUCT_BASE",
+        "DEPENDENCY",
+        "SOURCE_COMPONENT",
+        "REFERENCE_PATTERN",
+        "API_INTEGRATION",
+        "VENDORED_COMPONENT",
+        "CUSTOM_IMPLEMENTATION",
+        null
+      ]
+    },
+    "license_state": {
+      "enum": [
+        "REFERENCE_ONLY",
+        "PATTERN_ONLY",
+        "DEPENDENCY_ALLOWED",
+        "CODE_REUSE_ALLOWED",
+        "REVIEW_REQUIRED",
+        "DENIED",
+        null
+      ]
+    },
+    "outcome_state": {
+      "enum": [
+        "VALIDATED",
+        "VALIDATED_WITH_LIMITATIONS",
+        "REQUIRES_RECOMPOSITION",
+        "REJECTED_AFTER_IMPLEMENTATION",
+        "UNKNOWN_OUTCOME"
+      ]
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "revalidation_triggers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "last_verified": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

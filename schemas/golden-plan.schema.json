@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SPARI Golden Plan",
+  "type": "object",
+  "required": [
+    "goal",
+    "confirmed_intent",
+    "non_goals",
+    "in_scope",
+    "out_of_scope",
+    "required_capabilities",
+    "constraints",
+    "success_criteria"
+  ],
+  "properties": {
+    "goal": {
+      "type": "string"
+    },
+    "confirmed_intent": {
+      "type": "string"
+    },
+    "non_goals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "in_scope": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "out_of_scope": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "required_capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "existing_system_context": {},
+    "technical_environment": {},
+    "success_criteria": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "known_facts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "unknowns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "allowed_scope_refinement": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
