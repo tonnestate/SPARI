@@ -28,6 +28,8 @@ Its primary focus is simple:
 
 SPARI is not a package recommender and not a link collector. It is a closed Build-vs-Borrow decision loop.
 
+SPARI is not a universal package-registry search engine. In v0.x, GitHub, PyPI, and the existing internal codebase are the only first-class software sources; npm, crates.io, Maven, NuGet, Go modules, Hugging Face, OCI registries, and other ecosystems are explicitly out of scope for the current build.
+
 ---
 
 ## Why SPARI exists
@@ -115,7 +117,7 @@ Software Prior Art
 + Outcome Learning
 ```
 
-Its technical method is **GitHub-first and PyPI-first prior-art intelligence**.
+Its external research method is **GitHub-first and PyPI-first prior-art intelligence**. 
 
 Its engineering decision is broader:
 
