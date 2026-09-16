@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.1.2 — 2026-09-16
+
+Internal-prior-art and execution-boundary release.
+
+- added `INTERNAL_SOFTWARE_MAP` as a first-class artifact before consequential external research;
+- added capability-to-code, dependency, architecture-boundary, installed-dependency, and internal-reuse mapping;
+- made active internal context relevance-constrained rather than a full repository dump;
+- formalized the separation between SPARI decisioning and coding execution;
+- added executor-agnostic `EXECUTION_CONTRACT`;
+- added structured `EXECUTION_OUTCOME`;
+- added base/result revision linkage for auditable implementation evidence;
+- added planned-vs-actual reuse and planned-vs-actual Custom Delta tracking;
+- added contract-deviation and unexpected-custom-code reporting;
+- clarified that passing tests do not prove Build-vs-Borrow adherence;
+- added Aider as conceptual prior art for repository mapping and execution-boundary design;
+- added schemas for internal software maps, execution contracts, and execution outcomes;
+- expanded failure codes and adversarial tests for internal-reuse blindness and executor scope drift.
+
 ## 0.1.1 — 2026-09-16
 
 Build-vs-Borrow clarification and research-governance release.

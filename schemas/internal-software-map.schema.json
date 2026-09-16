@@ -1,0 +1,188 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SPARI Internal Software Map",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "project",
+    "base_revision",
+    "capabilities",
+    "evidence_refs"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.2"
+    },
+    "project": {
+      "type": "string"
+    },
+    "base_revision": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "scope": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "manifests": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "modules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "path"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "kind": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "summary": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "symbols": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "from",
+          "to"
+        ],
+        "properties": {
+          "from": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "kind": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "capability",
+          "coverage"
+        ],
+        "properties": {
+          "capability": {
+            "type": "string"
+          },
+          "coverage": {
+            "enum": [
+              "FULL",
+              "PARTIAL",
+              "NONE",
+              "UNKNOWN"
+            ]
+          },
+          "implementations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "evidence_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "architecture_boundaries": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "installed_dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "internal_reuse_candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "artifact",
+          "decision"
+        ],
+        "properties": {
+          "artifact": {
+            "type": "string"
+          },
+          "decision": {
+            "enum": [
+              "KEEP_INTERNAL",
+              "EXTEND_INTERNAL",
+              "ADAPT_INTERNAL",
+              "REPLACE_INTERNAL",
+              "REFERENCE_INTERNAL",
+              "NOT_RELEVANT"
+            ]
+          },
+          "reason": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "unresolved_areas": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

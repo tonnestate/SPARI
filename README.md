@@ -65,6 +65,7 @@ request
 INSTEAD:
 
 raw intent
+→ internal software map
 → broad GitHub/PyPI recon
 → solution-space map
 → a few qualified questions
@@ -116,6 +117,51 @@ BUILD
 The goal is not to maximize reuse at any cost.
 
 The goal is to find the strongest existing foundation and build only the part that evidence shows is genuinely missing.
+
+---
+
+# Internal software is prior art too
+
+v0.1.2 closes an important gap: SPARI must understand the software you already own before searching for more software.
+
+The first question is no longer merely:
+
+> What exists on GitHub or PyPI?
+
+It is:
+
+```text
+What do we already own?
+        +
+What can we borrow externally?
+        +
+What should we compose?
+        +
+What genuinely remains to build?
+```
+
+SPARI therefore produces an `INTERNAL_SOFTWARE_MAP` before consequential external research.
+
+It maps the relevant parts of the current system:
+
+```text
+repositories / workspaces
+packages and modules
+important symbols and interfaces
+dependency relationships
+installed dependencies
+architectural boundaries
+capability-to-code mappings
+internal reuse candidates
+```
+
+The durable map may be rich.
+
+The active model context should contain only the capability-relevant slice — not a dump of the whole repository.
+
+This is inspired by a proven idea in coding systems such as Aider: repository context becomes more useful when important code relationships are mapped and the active representation is constrained to relevant context rather than blindly loading everything.
+
+See [`references/internal-software-map.md`](references/internal-software-map.md).
 
 ---
 
@@ -249,7 +295,7 @@ SPARI can also be used standalone when the caller supplies an equivalent minimum
 
 SPARI should be rigorous without becoming bureaucratic.
 
-v0.1.1 defines three research depths:
+v0.1.2 defines three research depths:
 
 ## PREFLIGHT
 
@@ -414,7 +460,7 @@ PyPI package
 
 GitHub and PyPI remain SPARI's primary external sources.
 
-v0.1.1 does **not** expand the research scope to every package ecosystem.
+v0.1.2 does **not** expand the research scope to every package ecosystem.
 
 Instead, the data model becomes ecosystem-neutral so future adapters can be added without rewriting the decision engine.
 
@@ -430,7 +476,7 @@ Hugging Face
 OCI registries
 ```
 
-These are future extension points, not v0.1.1 research requirements.
+These are future extension points, not v0.1.2 research requirements.
 
 See [`references/source-model.md`](references/source-model.md).
 
@@ -794,6 +840,51 @@ no solution exists
 
 ---
 
+# SPARI decides. Coding agents execute.
+
+SPARI is deliberately not another coding agent.
+
+Execution systems such as Aider, Claude Code, Codex, and other engineering agents are good at changing code.
+
+SPARI answers a different question first:
+
+> **Which code should exist at all?**
+
+The boundary is explicit:
+
+```text
+SPARI
+Build-vs-Borrow decision
+        ↓
+Reuse Blueprint
+        ↓
+Custom Delta
+        ↓
+EXECUTION_CONTRACT
+        ↓
+Aider / Claude Code / Codex / other executor
+        ↓
+EXECUTION_OUTCOME
+        ↓
+SPARI verification + Decision Memory
+```
+
+This prevents the execution layer from silently replacing a reuse decision with more custom code simply because generating code is easier.
+
+The contract is executor-agnostic.
+
+It records what must be reused, what may change, what custom work is allowed, what must be verified, and what evidence has to come back.
+
+The result is also structured: repository revisions, actual dependencies, files changed, verification results, abandoned components, integration failures, actual Custom Delta, and contract deviations.
+
+A green test suite is useful evidence.
+
+It is **not** sufficient evidence that the Build-vs-Borrow decision was respected.
+
+See [`references/execution-boundary.md`](references/execution-boundary.md).
+
+---
+
 # The closed loop
 
 SPARI is not finished when it recommends software.
@@ -962,6 +1053,8 @@ SPARI/
 │   ├── failure-codes.md
 │   ├── golden-plan.md
 │   ├── intakegov-handoff.md
+│   ├── internal-software-map.md
+│   ├── execution-boundary.md
 │   ├── license-provenance.md
 │   ├── memory-schema.md
 │   ├── research-budget.md
@@ -971,7 +1064,10 @@ SPARI/
 │
 ├── schemas/
 │   ├── decision-memory.schema.json
+│   ├── execution-contract.schema.json
+│   ├── execution-outcome.schema.json
 │   ├── golden-plan.schema.json
+│   ├── internal-software-map.schema.json
 │   ├── research-profile.schema.json
 │   └── source-artifact.schema.json
 │
@@ -1208,7 +1304,7 @@ Relevant concepts:
 
 https://github.com/tomzx/agents
 
-Used as **conceptual research only** in SPARI v0.1.1 unless a concrete applicable license is separately verified for a specific reuse.
+Used as **conceptual research only** in SPARI v0.1.2 unless a concrete applicable license is separately verified for a specific reuse.
 
 Relevant concepts:
 
@@ -1217,6 +1313,22 @@ Relevant concepts:
 - independent verification.
 
 ---
+
+## Aider
+
+https://github.com/Aider-AI/aider
+
+**License:** Apache-2.0
+
+Relevant concepts:
+
+- repository-wide code mapping;
+- selecting relevant repository context within a token budget;
+- using code relationships to preserve existing abstractions;
+- separating architectural reasoning from file editing;
+- Git-native execution evidence.
+
+Aider is not a SPARI dependency and solves a different problem. It is useful prior art for SPARI's internal software mapping and executor boundary.
 
 # External software-intelligence infrastructure
 
@@ -1239,11 +1351,11 @@ These are infrastructure candidates, not mandatory bundled dependencies.
 # Status
 
 ```text
-v0.1.1
+v0.1.2
 Experimental
 ```
 
-v0.1.1 sharpens SPARI from a prior-art research skill into an explicit **Build-vs-Borrow and Software Composition Engine** while keeping GitHub, PyPI, and internal software as the primary v0.x research scope.
+v0.1.2 makes internal software first-class prior art and formalizes the boundary between Build-vs-Borrow intelligence and code execution through `INTERNAL_SOFTWARE_MAP`, `EXECUTION_CONTRACT`, and `EXECUTION_OUTCOME`.
 
 ---
 

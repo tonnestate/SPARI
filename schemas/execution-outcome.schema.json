@@ -1,0 +1,198 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SPARI Execution Outcome",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "executor",
+    "planned_custom_delta",
+    "actual_custom_delta",
+    "evidence_refs"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.2"
+    },
+    "status": {
+      "enum": [
+        "VALIDATED",
+        "VALIDATED_WITH_LIMITATIONS",
+        "REQUIRES_RECOMPOSITION",
+        "REJECTED_AFTER_IMPLEMENTATION",
+        "UNKNOWN_OUTCOME"
+      ]
+    },
+    "executor": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "repository": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "base_revision": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "result_revision": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "planned_reuse": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "actual_reuse": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "planned_custom_delta": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "actual_custom_delta": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "dependencies_added": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "dependencies_removed": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "files_changed": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "result"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "result": {
+            "enum": [
+              "PASS",
+              "FAIL",
+              "SKIPPED",
+              "UNKNOWN"
+            ]
+          },
+          "evidence_ref": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "lint_static_analysis": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "result"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "result": {
+            "enum": [
+              "PASS",
+              "FAIL",
+              "SKIPPED",
+              "UNKNOWN"
+            ]
+          },
+          "evidence_ref": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "integration_failures": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "abandoned_components": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "unexpected_custom_code": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "contract_deviations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

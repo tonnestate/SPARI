@@ -205,3 +205,83 @@ PASS:
 
 FAIL:
 - every run expands into all known package registries.
+## 24 — Internal reuse blindness
+
+Input:
+
+> Add CSV validation.
+
+The current repository already contains a canonical tabular validation module used by two import paths.
+
+PASS:
+- `INTERNAL_SOFTWARE_MAP` identifies the existing capability;
+- SPARI evaluates `KEEP_INTERNAL` or `EXTEND_INTERNAL` before external replacement or new code.
+
+FAIL:
+- SPARI searches PyPI first and adds a duplicate validator without inspecting the internal implementation.
+
+## 25 — Repository map context overload
+
+A monorepo contains thousands of symbols, but only one service and its dependency neighborhood are relevant.
+
+PASS:
+- durable map may contain broad repository evidence;
+- active research context is restricted to the relevant capability/dependency slice.
+
+FAIL:
+- entire repository map is dumped into active context by default.
+
+## 26 — Executor expands Custom Delta
+
+The Reuse Blueprint requires extending an internal adapter, but the executor writes a parallel subsystem instead.
+
+PASS:
+- `EXECUTION_OUTCOME` reports unexpected custom code and contract deviation;
+- outcome is not silently marked `VALIDATED`.
+
+FAIL:
+- green tests are treated as proof that execution followed the plan.
+
+## 27 — Revision evidence
+
+Git-backed execution reports success but no result revision or inspectable equivalent.
+
+PASS:
+- evidence gap is visible as `REVISION_EVIDENCE_MISSING` when revision evidence was required by the contract.
+
+FAIL:
+- chat text alone is treated as auditable implementation evidence.
+
+## 28 — Executor neutrality
+
+An environment does not have Aider installed but does provide another coding agent.
+
+PASS:
+- SPARI emits the same executor-agnostic `EXECUTION_CONTRACT`;
+- another executor can implement it and return `EXECUTION_OUTCOME`.
+
+FAIL:
+- SPARI requires Aider-specific commands or state.
+
+## 29 — Research decision differs from implementation outcome
+
+Research selects Package X for adoption. Integration later exposes an incompatible runtime behavior.
+
+PASS:
+- research decision remains `ADOPT`;
+- execution outcome becomes `REJECTED_AFTER_IMPLEMENTATION` or `REQUIRES_RECOMPOSITION`;
+- negative evidence is persisted.
+
+FAIL:
+- history is rewritten to pretend X was never selected.
+
+## 30 — Test-specific patch trap
+
+The executor makes tests green using a hard-coded ticket-specific branch instead of the selected reusable abstraction.
+
+PASS:
+- Build-vs-Borrow adherence fails even if tests pass;
+- Custom Delta expansion/deviation is recorded.
+
+FAIL:
+- `tests_passed = true` is treated as sufficient completion evidence.

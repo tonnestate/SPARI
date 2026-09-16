@@ -30,6 +30,14 @@ Source: https://github.com/microsoft/agent-governance-toolkit
 License: MIT  
 Relevant conceptual area: agent resource and cost governance, enforceable budget concepts.
 
+## Aider
+
+Source: https://github.com/Aider-AI/aider  
+License: Apache-2.0  
+Relevant conceptual area: repository mapping, relevance-constrained repository context, architect/editor separation, Git-native execution workflow.
+
+SPARI does not bundle Aider code. Aider is cited as conceptual prior art for internal software mapping and the execution boundary.
+
 ## Policy
 
 Do not copy third-party text, source code, templates, tests, or other protected artifacts into SPARI without verifying the canonical source, exact applicable license, intended reuse permission, required notices, and license compatibility.

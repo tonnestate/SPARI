@@ -40,3 +40,19 @@ Capture:
 A candidate becomes a trusted reusable base only after source/version, legal state, real implementation outcome, limitations, and revalidation triggers are known.
 
 Negative outcomes are valuable memory. Do not rediscover and retry them without new evidence.
+
+
+## Execution evidence
+
+Prefer a structured `EXECUTION_OUTCOME` over a prose completion claim.
+
+When revision control is available, link the researched decision to:
+
+- base revision;
+- result revision;
+- planned vs actual reuse;
+- planned vs actual Custom Delta;
+- verification evidence;
+- deviations.
+
+This lets future revalidation inspect the implementation state that produced the recorded outcome.

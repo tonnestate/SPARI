@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SPARI Execution Contract",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "golden_plan_ref",
+    "reuse_blueprint_ref",
+    "planned_custom_delta",
+    "verification_requirements"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.2"
+    },
+    "golden_plan_ref": {
+      "type": "string"
+    },
+    "reuse_blueprint_ref": {
+      "type": "string"
+    },
+    "base_revision": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "planned_custom_delta": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "required_reuse": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "required_internal_components": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "allowed_substitutions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "prohibited_scope_changes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "hard_constraints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "verification_requirements": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidence_requirements": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

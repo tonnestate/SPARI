@@ -149,6 +149,36 @@
       "items": {
         "type": "string"
       }
+    },
+    "internal_map_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "execution_contract_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "execution_outcome_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "base_revision": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "result_revision": {
+      "type": [
+        "string",
+        "null"
+      ]
     }
   }
 }

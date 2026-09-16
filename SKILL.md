@@ -3,7 +3,7 @@ name: spari
 description: Build-vs-Borrow and software composition intelligence for AI engineering agents. Broadly scouts GitHub, PyPI, and the current system before solution scope is frozen, asks only a few evidence-informed questions, then deeply evaluates source, compatibility, security, license, provenance, and reuse options before substantial custom code is written. Persists outcomes so future agents start from validated software intelligence instead of zero.
 license: Apache-2.0
 metadata:
-  version: "0.1.1"
+  version: "0.1.2"
   status: experimental
   category: software-intelligence
   updated: "2026-09-16"
@@ -17,7 +17,7 @@ metadata:
 
 SPARI exists to stop AI agents from rebuilding software that already exists.
 
-Its primary job is to evaluate GitHub repositories, PyPI packages, and existing internal software before substantial custom implementation begins; decide what should be adopted, adapted, composed, referenced, rejected, or built; and feed real implementation outcomes back into future decisions.
+Its primary job is to map what the current system already contains, evaluate GitHub repositories and PyPI packages before substantial custom implementation begins, decide what should be adopted, adapted, composed, referenced, rejected, or built, hand only the justified delta to an execution agent, and feed machine-checkable implementation outcomes back into future decisions.
 
 SPARI is not a generic project manager, interview framework, search-results generator, or code generator.
 
@@ -25,6 +25,7 @@ SPARI is not a generic project manager, interview framework, search-results gene
 
 ```text
 Raw intent
+→ Internal Software Map
 → Broad GitHub/PyPI recon
 → Solution-space map
 → Few evidence-informed questions
@@ -50,14 +51,16 @@ Raw intent
 2. Do not make the user define a solution space the agent has not investigated.
 3. Treat literal wording as a starting signal, not the final ontology.
 4. Do not convert discovered alternatives into confirmed requirements without confirmation when material.
-5. Check internal software, GitHub, and PyPI before substantial custom implementation.
+5. Map relevant internal software before external reuse research, then check GitHub and PyPI before substantial custom implementation.
 6. Source evidence outranks README claims, popularity, rankings, and model memory.
 7. Apply hard constraints before qualitative preference.
 8. Separate claimed source from verified source.
 9. Do not reuse external artifacts without a license/provenance decision.
 10. Search failure or budget exhaustion never implies that no reusable solution exists.
 11. `BUILD` must be justified; it is never the default.
-12. Feed implementation outcomes back into decision memory.
+12. Separate the Build-vs-Borrow decision from code execution.
+13. Require structured execution evidence rather than accepting narrative claims of completion.
+14. Feed implementation outcomes back into decision memory.
 
 ## Relationship to IntakeGov
 
@@ -114,13 +117,34 @@ See `references/research-budget.md`.
 
 SPARI v0.x intentionally prioritizes:
 
-1. existing internal software;
+1. existing internal software, represented through an `INTERNAL_SOFTWARE_MAP`;
 2. GitHub;
 3. PyPI.
 
 Its evidence model is ecosystem-neutral so future adapters can be added without rewriting the decision engine. Future ecosystems are extension points, not mandatory v0.x search scope.
 
 See `references/source-model.md`.
+
+## Phase 0 — Internal Software Map
+
+Internal software is prior art too.
+
+Before external research, inspect the current system strongly enough to answer:
+
+- what capabilities already exist;
+- which modules, packages, classes, functions, services, and interfaces implement them;
+- which internal abstractions should be reused rather than duplicated;
+- which dependencies are already installed;
+- which architectural boundaries constrain new work;
+- which areas are relevant to the current request.
+
+Produce `INTERNAL_SOFTWARE_MAP`.
+
+The durable map may be rich, but the active agent context should receive only the slice relevant to the current capability and decision. A full repository dump is not a context strategy.
+
+The map is not merely a file tree. It should preserve useful relationships between code entities and capabilities where evidence permits.
+
+See `references/internal-software-map.md`.
 
 ## Phase 1 — Broad Recon
 
@@ -378,38 +402,53 @@ Deep Research converges when:
 
 If required sources are unavailable or budget ends early, research remains incomplete.
 
-## Phase 16 — Implementation handoff
+## Phase 16 — Execution contract
 
-Hand downstream engineering:
+SPARI decides what should be built; an execution agent performs the code changes.
 
-- Golden Plan;
-- capability map;
-- Research Profile;
-- candidate evidence;
-- source evidence;
-- Reuse Blueprint;
-- Custom Delta;
-- license/provenance decisions;
-- rejected alternatives;
-- proof-of-fit evidence;
-- known risks.
+The executor may be Aider, Claude Code, Codex, another coding agent, or a human engineering workflow. SPARI must not depend on one executor.
 
-SPARI does not need to own implementation.
+Before execution, emit an `EXECUTION_CONTRACT` containing at minimum:
 
-## Phase 17 — Outcome feedback
+- Golden Plan reference/version;
+- Reuse Blueprint reference/version;
+- planned Custom Delta;
+- components that must be reused or retained;
+- allowed substitutions;
+- prohibited scope changes;
+- hard constraints;
+- verification requirements;
+- evidence expected from the executor;
+- base repository revision when available.
 
-The loop is incomplete until implementation results return.
+The executor must not silently expand the Custom Delta because writing new code is easier.
 
-Record:
+See `references/execution-boundary.md`.
 
-- planned vs actual components;
-- abandoned candidates;
+
+## Phase 17 — Structured execution outcome
+
+The loop is incomplete until implementation evidence returns.
+
+Require an `EXECUTION_OUTCOME` rather than a prose-only completion claim.
+
+Where applicable, record:
+
+- executor identity/type;
+- repository;
+- base revision;
+- result revision;
+- planned reuse vs actual reuse;
+- dependencies added/removed;
+- files changed;
+- planned Custom Delta vs actual Custom Delta;
+- tests/verification executed and results;
+- lint/static-analysis results;
 - integration failures;
-- unexpected incompatibilities;
-- verification evidence;
-- operational limitations;
-- actual Custom Delta;
-- whether the reuse decision held up.
+- abandoned components;
+- unexpected custom code;
+- deviations from the Execution Contract;
+- evidence references.
 
 Outcome states:
 
@@ -418,6 +457,11 @@ Outcome states:
 - `REQUIRES_RECOMPOSITION`
 - `REJECTED_AFTER_IMPLEMENTATION`
 - `UNKNOWN_OUTCOME`
+
+A green test suite does not by itself prove that the Build-vs-Borrow decision was followed.
+
+See `references/execution-boundary.md`.
+
 
 ## Phase 18 — Decision Memory
 
@@ -461,6 +505,7 @@ Revalidation re-enters the same Build-vs-Borrow loop.
 Depending on research depth:
 
 - `RESEARCH_PROFILE`
+- `INTERNAL_SOFTWARE_MAP`
 - `SOLUTION_SPACE_BRIEF`
 - `GOLDEN_PLAN`
 - `CAPABILITY_MAP`
@@ -471,6 +516,8 @@ Depending on research depth:
 - `REUSE_BLUEPRINT`
 - `CUSTOM_DELTA`
 - `LICENSE_PROVENANCE_DECISIONS`
+- `EXECUTION_CONTRACT`
+- `EXECUTION_OUTCOME`
 - `OUTCOME_RECORD`
 - `DECISION_MEMORY_UPDATE`
 
