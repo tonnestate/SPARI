@@ -1,7 +1,7 @@
 # SPARI
 
 <p align="center">
-  <strong>Classify before you execute.</strong><br>
+  <strong>Build-vs-Borrow</strong><br>
  SPARI is a Build-vs-Borrow engine for AI software development.
 </p>
 
