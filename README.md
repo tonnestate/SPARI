@@ -1,5 +1,19 @@
 # SPARI
 
+<p align="center">
+  <strong>Classify before you execute.</strong><br>
+  An always-first project and product intake governor for AI agents.
+</p>
+
+<p align="center">
+  <img alt="License" src="https://img.shields.io/badge/license-Apache--2.0-blue">
+  <img alt="Status" src="https://img.shields.io/badge/status-experimental-orange">
+  <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-green">
+  <img alt="Agent Skill" src="https://img.shields.io/badge/agent-skill-purple">
+</p>
+
+---
+
 **Build-vs-Borrow and Software Composition Engine for AI Agents**
 
 *A Software Intelligence and Reuse Layer for AI Agents.*
