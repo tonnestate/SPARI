@@ -2,7 +2,7 @@
 
 <p align="center">
   <strong>Classify before you execute.</strong><br>
-  An always-first project and product intake governor for AI agents.
+  An Software Intelligence and Reuse Layer for AI Agents
 </p>
 
 <p align="center">
