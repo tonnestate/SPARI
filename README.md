@@ -2,7 +2,7 @@
 
 <p align="center">
   <strong>Classify before you execute.</strong><br>
-  An Software Intelligence and Reuse Layer for AI Agents
+  A Software Intelligence and Reuse Layer for AI Agents
 </p>
 
 <p align="center">
