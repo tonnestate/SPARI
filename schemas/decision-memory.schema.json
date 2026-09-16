@@ -110,6 +110,45 @@
         "string",
         "null"
       ]
+    },
+    "source_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "ecosystem": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source_verification": {
+      "enum": [
+        "SOURCE_UNKNOWN",
+        "SOURCE_CLAIMED",
+        "SOURCE_VERIFIED",
+        "SOURCE_CONFLICT",
+        null
+      ]
+    },
+    "declared_license": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "detected_licenses": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "memory_scope": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
     }
   }
 }

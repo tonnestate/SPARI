@@ -18,6 +18,18 @@ No affiliation or endorsement is implied.
 - project-state-governor — https://github.com/Ghost011118/project-state-governor — Apache-2.0 — durable project truth.
 - tomzx/agents — https://github.com/tomzx/agents — used as conceptual research only in v0.1.0; no code/text reused without separate verified license review.
 
+## search-first
+
+Source: https://github.com/shimo4228/search-first  
+License: MIT  
+Relevant conceptual area: research-before-coding discipline, proportional quick/full research, explicit reuse verdicts.
+
+## Microsoft Agent Governance Toolkit
+
+Source: https://github.com/microsoft/agent-governance-toolkit  
+License: MIT  
+Relevant conceptual area: agent resource and cost governance, enforceable budget concepts.
+
 ## Policy
 
 Do not copy third-party text, source code, templates, tests, or other protected artifacts into SPARI without verifying the canonical source, exact applicable license, intended reuse permission, required notices, and license compatibility.

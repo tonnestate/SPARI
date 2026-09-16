@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SPARI Source Artifact",
+  "type": "object",
+  "required": [
+    "source_type",
+    "name",
+    "source_verification"
+  ],
+  "properties": {
+    "source_type": {
+      "enum": [
+        "INTERNAL",
+        "GITHUB",
+        "PYPI",
+        "OTHER_REGISTRY",
+        "OTHER_SCM"
+      ]
+    },
+    "ecosystem": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "namespace": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "name": {
+      "type": "string"
+    },
+    "version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "revision": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "distribution_hash": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "claimed_source": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "verified_source": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source_verification": {
+      "enum": [
+        "SOURCE_UNKNOWN",
+        "SOURCE_CLAIMED",
+        "SOURCE_VERIFIED",
+        "SOURCE_CONFLICT"
+      ]
+    },
+    "provenance_state": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "declared_license": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "detected_licenses": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "effective_reuse_decision": {
+      "enum": [
+        "REFERENCE_ONLY",
+        "PATTERN_ONLY",
+        "DEPENDENCY_ALLOWED",
+        "CODE_REUSE_ALLOWED",
+        "REVIEW_REQUIRED",
+        "DENIED",
+        null
+      ]
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

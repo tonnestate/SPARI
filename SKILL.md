@@ -1,9 +1,9 @@
 ---
 name: spari
-description: Software Prior Art & Reuse Intelligence for AI engineering agents. Broadly scouts GitHub and PyPI before solution scope is frozen, asks only a few evidence-informed questions, then performs deep source-level research to compose the strongest reusable solution before custom development begins. Persists decisions and outcomes so future agents start from accumulated software intelligence instead of zero.
+description: Build-vs-Borrow and software composition intelligence for AI engineering agents. Broadly scouts GitHub, PyPI, and the current system before solution scope is frozen, asks only a few evidence-informed questions, then deeply evaluates source, compatibility, security, license, provenance, and reuse options before substantial custom code is written. Persists outcomes so future agents start from validated software intelligence instead of zero.
 license: Apache-2.0
 metadata:
-  version: "0.1.0"
+  version: "0.1.1"
   status: experimental
   category: software-intelligence
   updated: "2026-09-16"
@@ -11,70 +11,57 @@ metadata:
 
 # SPARI
 
-**Software Prior Art & Reuse Intelligence**
+**Build-vs-Borrow and Software Composition Engine for AI Agents**
+
+*Software Prior Art & Reuse Intelligence*
 
 SPARI exists to stop AI agents from rebuilding software that already exists.
 
-Its primary job is to evaluate GitHub repositories and PyPI packages before substantial custom implementation begins, then preserve what was learned so future agents do not repeat the same discovery work.
+Its primary job is to evaluate GitHub repositories, PyPI packages, and existing internal software before substantial custom implementation begins; decide what should be adopted, adapted, composed, referenced, rejected, or built; and feed real implementation outcomes back into future decisions.
 
-SPARI is not a generic project manager, not an interview framework, and not a search-results generator.
+SPARI is not a generic project manager, interview framework, search-results generator, or code generator.
 
-It is a closed software-reuse intelligence loop:
+## Closed loop
 
 ```text
 Raw intent
-   ↓
-Broad GitHub/PyPI recon
-   ↓
-Solution-space map
-   ↓
-Few evidence-informed questions
-   ↓
-Confirmed intent + Golden Plan
-   ↓
-Deep GitHub/PyPI research
-   ↓
-Source inspection + candidate evaluation
-   ↓
-Reuse composition
-   ↓
-Minimal justified custom delta
-   ↓
-Implementation handoff
-   ↓
-Outcome + verification feedback
-   ↓
-Decision memory + revalidation triggers
-   ↓
-Next SPARI run starts smarter
+→ Broad GitHub/PyPI recon
+→ Solution-space map
+→ Few evidence-informed questions
+→ Confirmed intent + Golden Plan
+→ Deep GitHub/PyPI research
+→ Source inspection + evaluation
+→ Build-vs-Borrow composition
+→ Minimal justified Custom Delta
+→ Implementation handoff
+→ Outcome verification
+→ Decision memory
+→ Revalidation
+→ Next run starts smarter
 ```
 
 ## Core objective
 
-Given a technical or product request:
-
-> Discover what already exists, understand the broader solution space before narrowing it, identify the best GitHub codebases and PyPI packages, determine what can legally and technically be reused, compose the strongest existing foundation, and minimize unnecessary new code.
+> Explore existing software before freezing the solution, then compose the strongest reusable foundation and build only the part that evidence shows is genuinely missing.
 
 ## Core invariants
 
 1. Do not freeze the solution before Broad Recon.
-2. Do not ask the user to define a solution space the agent has not yet investigated.
-3. Do not interpret the user's literal wording as the final ontology.
-4. Do not turn discovered alternatives into confirmed requirements without confirmation when the distinction is material.
-5. Do not begin substantial custom implementation before internal, GitHub, and PyPI prior art has been evaluated.
-6. Do not treat README claims, popularity, or passing tests as sufficient evidence.
-7. Do not reuse external artifacts without a license/provenance decision.
-8. Do not end at recommendation time. Feed implementation outcome back into SPARI memory.
-9. Search failure is not evidence that no reusable solution exists.
-10. BUILD must be justified; it is never the default.
+2. Do not make the user define a solution space the agent has not investigated.
+3. Treat literal wording as a starting signal, not the final ontology.
+4. Do not convert discovered alternatives into confirmed requirements without confirmation when material.
+5. Check internal software, GitHub, and PyPI before substantial custom implementation.
+6. Source evidence outranks README claims, popularity, rankings, and model memory.
+7. Apply hard constraints before qualitative preference.
+8. Separate claimed source from verified source.
+9. Do not reuse external artifacts without a license/provenance decision.
+10. Search failure or budget exhaustion never implies that no reusable solution exists.
+11. `BUILD` must be justified; it is never the default.
+12. Feed implementation outcomes back into decision memory.
 
 ## Relationship to IntakeGov
 
-SPARI expects an upstream intake layer such as IntakeGov to decide whether work is a project/change/investigation and whether enough is known to begin reconnaissance.
-
-SPARI can start at `RECON_READY`, intentionally earlier than full requirement completion.
-
-Suggested maturity:
+SPARI works best after an intake layer such as IntakeGov has established `RECON_READY`.
 
 ```text
 RAW
@@ -84,17 +71,62 @@ RAW
 → EXECUTION_READY
 ```
 
-SPARI normally starts at `RECON_READY`.
+`RECON_READY` means enough is known to search intelligently; full requirements do not yet need to exist.
+
+SPARI may also run standalone when the caller supplies an equivalent minimum context.
 
 See `references/intakegov-handoff.md`.
+
+## Research depth
+
+Choose proportionally:
+
+- `PREFLIGHT` — local inspection plus focused GitHub/PyPI check for a small or obvious generic need.
+- `TARGETED` — due diligence on a known capability or named candidate, with focused alternatives.
+- `FULL` — Broad Recon, qualified questions, Golden Plan, research swarm, source inspection, independent evaluation, composition, and Custom Delta.
+
+Research may escalate upward when evidence increases ambiguity, impact, or risk.
+
+A lighter mode never bypasses required license, provenance, security, or compatibility gates.
+
+See `references/research-depth.md`.
+
+## Research budget
+
+Research quality and resource control are separate.
+
+`QUALITY_STOP` is convergence.
+
+`RESOURCE_STOP` is an optional configured budget over scouts, candidates, proofs of fit, strong-model escalations, tokens, or monetary cost.
+
+If the resource envelope ends before evidence is sufficient:
+
+```text
+RESEARCH_BUDGET_EXHAUSTED
+→ RESEARCH_INCOMPLETE
+```
+
+Never convert budget exhaustion into `BUILD`.
+
+See `references/research-budget.md`.
+
+## Source model
+
+SPARI v0.x intentionally prioritizes:
+
+1. existing internal software;
+2. GitHub;
+3. PyPI.
+
+Its evidence model is ecosystem-neutral so future adapters can be added without rewriting the decision engine. Future ecosystems are extension points, not mandatory v0.x search scope.
+
+See `references/source-model.md`.
 
 ## Phase 1 — Broad Recon
 
 Broad Recon is deliberately broader than the user's literal request.
 
-Treat the literal wording as a starting signal.
-
-Expand only along meaningful semantic relationships:
+Expand along meaningful semantic relationships:
 
 ```text
 literal request
@@ -110,32 +142,14 @@ Example:
 "Excel import"
 → Excel parsing
 → tabular ingestion
-→ schema validation / mapping
-→ ETL / import frameworks
-→ complete data-import systems
+→ validation/mapping
+→ ETL/import frameworks
+→ complete import systems
 ```
 
-Example:
+Prioritize internal context, GitHub, and PyPI. Supporting evidence may include official docs, deps.dev, OSV, OpenSSF, registry metadata, releases, and attestations.
 
-```text
-"RAG"
-→ vector retrieval
-→ hybrid retrieval
-→ GraphRAG
-→ knowledge graphs
-→ knowledge systems
-→ agent memory / document intelligence
-```
-
-Broad Recon must prioritize:
-
-1. GitHub
-2. PyPI
-3. existing internal code and dependencies
-
-It may use structured supporting sources such as deps.dev, OSV, OpenSSF, package metadata, and official documentation.
-
-Broad Recon is not Deep Research. Its goal is to map the solution space cheaply and broadly.
+Goal: map the solution space cheaply and broadly, not choose the final implementation.
 
 Output: `SOLUTION_SPACE_BRIEF`.
 
@@ -143,25 +157,15 @@ See `references/broad-recon.md`.
 
 ## Phase 2 — Evidence-informed clarification
 
-After Broad Recon, ask only a few questions that materially distinguish between real solution families already discovered.
+After Broad Recon, ask only a few questions whose answers materially distinguish between solution families already discovered.
 
-Do not perform a generic interview.
+Do not conduct a generic interview.
 
-Good:
+Questions should reduce real decision uncertainty, not collect arbitrary preferences.
 
-> The recon found that the strongest existing systems split between a graph-centric and a retrieval-centric architecture. Do explicit entity relationships need to be first-class and queryable?
+## Phase 3 — Golden Plan
 
-Bad:
-
-> Which vector database do you want?
-
-unless the user has already constrained that choice.
-
-## Phase 3 — Confirmed intent and Golden Plan
-
-After Broad Recon and any necessary clarification, establish the Golden Plan.
-
-Required fields:
+After Broad Recon and required clarification, establish:
 
 - `GOAL`
 - `CONFIRMED_INTENT`
@@ -177,120 +181,105 @@ Required fields:
 - `UNKNOWNS`
 - `ALLOWED_SCOPE_REFINEMENT`
 
-Deep Research may refine the solution shape. It may not silently replace confirmed intent because an easier implementation exists.
+Deep Research may refine the technical shape but may not silently replace confirmed intent because an easier implementation exists.
 
 See `references/golden-plan.md`.
 
 ## Phase 4 — Capability map
 
-Translate the Golden Plan into a capability map. Capabilities are the unit of research and composition.
+Translate the Golden Plan into capabilities.
+
+Capabilities are the unit of discovery, comparison, composition, and Custom Delta accounting.
 
 ## Phase 5 — Deep Research
 
 Deep Research compares concrete reusable software.
 
-Prefer parallel low-cost research agents for breadth and stronger evaluators for synthesis and judgement.
+Prefer cheap parallel agents for breadth and stronger evaluators for judgement.
 
-Recommended scouts:
+Typical scout responsibilities include:
 
-- GitHub whole-product scout
-- GitHub framework scout
-- GitHub implementation scout
-- PyPI primary-package scout
-- PyPI alternative-package scout
-- internal-reuse scout
-- security/maintenance scout
-- license/provenance scout
+- whole GitHub products;
+- frameworks/bases;
+- implementation patterns;
+- primary PyPI packages;
+- alternative PyPI packages;
+- internal reuse;
+- maintenance/security;
+- license/provenance.
 
-Scouts gather evidence. They do not make the final composition decision.
+Scouts collect evidence. They do not independently finalize the architecture.
 
-See `references/research-swarm.md`.
+See `references/research-swarm.md` and `references/deep-research.md`.
 
 ## Phase 6 — Candidate linking
 
-For serious PyPI candidates, resolve where possible:
+For serious package candidates, resolve where possible:
 
-- package name;
-- exact version;
-- canonical source repository;
-- release/tag;
-- commit;
-- hashes;
-- Python compatibility;
+- exact package/version;
+- distribution artifact/hash;
+- claimed source;
+- verified source where possible;
+- release/tag/commit;
+- runtime compatibility;
 - dependencies;
 - provenance/attestation.
 
-Treat package metadata and source code as one evidence chain.
+Do not collapse `CLAIMED_SOURCE` into `VERIFIED_SOURCE`.
+
+Treat registry metadata and source code as one evidence chain.
 
 ## Phase 7 — Source inspection
 
-Shortlisted candidates must be inspected beyond README-level claims.
+Shortlisted candidates must be inspected beyond README-level claims where access permits.
 
-Inspect as relevant:
-
-- source tree;
-- architecture;
-- relevant modules;
-- APIs;
-- extension points;
-- tests;
-- release history;
-- maintenance;
-- dependency footprint;
-- integration complexity;
-- migration burden;
-- issue quality;
-- security posture;
-- license scope;
-- provenance.
+Inspect relevant source, architecture, modules, APIs, extension points, tests, release/maintenance state, dependencies, integration burden, security posture, license scope, and provenance.
 
 Source evidence outranks marketing claims.
 
 ## Phase 8 — Capability coverage
 
-Build a capability coverage matrix and identify:
+Build a capability coverage view that identifies:
 
 - strongest whole-product base;
 - strongest component libraries;
 - internal components worth keeping;
+- useful reference implementations;
 - gaps that genuinely remain.
 
 ## Phase 9 — Hard gates
 
-Apply non-negotiable constraints before trade-off comparison.
+Eliminate or explicitly mitigate candidates that fail mandatory constraints such as:
 
-Examples:
+- runtime/platform compatibility;
+- deployment requirements;
+- architecture constraints;
+- security requirements;
+- license compatibility;
+- provenance requirements.
 
-- runtime incompatibility;
-- Python-version incompatibility;
-- unsupported deployment environment;
-- unacceptable license;
-- unresolved provenance;
-- critical known vulnerability without acceptable mitigation;
-- architectural conflict with mandatory constraints.
-
-Popularity does not compensate for a failed hard gate.
+Popularity never compensates for a failed hard gate.
 
 ## Phase 10 — Independent evaluation
 
-Evaluate surviving candidates in two passes:
+Use two passes for consequential decisions:
 
 1. technical evaluator;
 2. contrarian reviewer.
 
-Resolve disagreement using evidence. Run a proof-of-fit when material uncertainty remains.
+Resolve disagreements with evidence. Run a proof-of-fit when a material uncertainty cannot be settled from source/docs alone.
 
 The evaluation must answer:
 
-- Which GitHub repository is the best overall base?
-- Which PyPI packages are better than the base implementation for specific capabilities?
-- Which internal components should remain?
-- Which repositories are useful only as references?
-- Which custom capabilities remain unavoidable?
+- best overall base;
+- best component packages;
+- internal components to retain;
+- reference-only candidates;
+- genuinely unavoidable custom capabilities.
 
-## Phase 11 — Reuse decisions
+## Phase 11 — Build-vs-Borrow decisions
 
-Assign each serious candidate one solution decision:
+Assign each serious candidate one decision:
 
 - `ADOPT`
 - `ADAPT`
@@ -299,9 +288,9 @@ Assign each serious candidate one solution decision:
 - `REJECT`
 - `BUILD`
 
-`BUILD` requires explicit evidence that viable existing options are insufficient.
+`BUILD` requires evidence that viable existing options or compositions are insufficient.
 
-Assign selected artifacts one role:
+Selected artifacts may take roles such as:
 
 - `PRODUCT_BASE`
 - `DEPENDENCY`
@@ -313,7 +302,20 @@ Assign selected artifacts one role:
 
 ## Phase 12 — License and provenance
 
-Before incorporation, resolve one legal reuse state:
+Track, where available:
+
+- `DECLARED_LICENSE`
+- `DETECTED_LICENSE`
+- `EFFECTIVE_REUSE_DECISION`
+
+Track source state separately:
+
+- `SOURCE_UNKNOWN`
+- `SOURCE_CLAIMED`
+- `SOURCE_VERIFIED`
+- `SOURCE_CONFLICT`
+
+Before incorporation, resolve one reuse state:
 
 - `REFERENCE_ONLY`
 - `PATTERN_ONLY`
@@ -324,11 +326,15 @@ Before incorporation, resolve one legal reuse state:
 
 No reuse decision means no reuse.
 
+`PROVENANCE_VERIFIED` establishes stronger origin/integrity evidence; it does not prove security or suitability.
+
 See `references/license-provenance.md`.
 
 ## Phase 13 — Reuse Blueprint
 
-Produce a concrete composition:
+Produce a concrete composition, not a winner list.
+
+Example:
 
 ```text
 BASE
@@ -344,33 +350,33 @@ REPLACE
 Repo A module C with PyPI Package D
 
 REFERENCE_ONLY
-Repo E architecture pattern
+Repo E pattern
 
 CUSTOM
 adapter F
 ```
 
-The output is not "Repo A wins." It is the smallest strong composition of existing software.
+See `references/evaluation-composition.md`.
 
 ## Phase 14 — Custom Delta
 
-Produce `CUSTOM_DELTA`: only what still needs to be implemented after reuse.
+Produce `CUSTOM_DELTA`: only the capabilities that still require custom implementation after reuse composition.
 
-A large custom delta is acceptable when justified. The purpose is to avoid unnecessary reinvention, not force reuse.
+Each item should state why existing internal software, repositories, packages, or compositions are insufficient.
+
+A large Custom Delta is acceptable when justified.
 
 ## Phase 15 — Research convergence
 
-Deep Research is converged when:
+Deep Research converges when:
 
 - major solution families are stable;
 - repeated searches mostly return known candidates;
-- new candidates no longer materially change the comparison;
-- finalists have enough source evidence for a decision;
+- new candidates no longer materially change the decision;
+- finalists have sufficient evidence;
 - unresolved uncertainty is explicit.
 
-If GitHub, PyPI, or another required source is unavailable, mark research incomplete.
-
-Never convert source unavailability into permission to `BUILD`.
+If required sources are unavailable or budget ends early, research remains incomplete.
 
 ## Phase 16 — Implementation handoff
 
@@ -378,11 +384,13 @@ Hand downstream engineering:
 
 - Golden Plan;
 - capability map;
+- Research Profile;
 - candidate evidence;
+- source evidence;
 - Reuse Blueprint;
 - Custom Delta;
 - license/provenance decisions;
-- rejected alternatives and reasons;
+- rejected alternatives;
 - proof-of-fit evidence;
 - known risks.
 
@@ -394,15 +402,13 @@ The loop is incomplete until implementation results return.
 
 Record:
 
-- what was actually implemented;
-- which selected components were used;
-- which were abandoned;
+- planned vs actual components;
+- abandoned candidates;
 - integration failures;
 - unexpected incompatibilities;
-- tests/evidence;
+- verification evidence;
 - operational limitations;
-- user/system outcome;
-- custom code actually required;
+- actual Custom Delta;
 - whether the reuse decision held up.
 
 Outcome states:
@@ -415,15 +421,13 @@ Outcome states:
 
 ## Phase 18 — Decision Memory
 
-Persist software intelligence so future runs do not start from zero.
-
-Store:
+Persist:
 
 - capability;
 - candidate;
-- source;
-- version/commit;
+- source/version/revision;
 - evaluation;
+- source verification;
 - license/provenance;
 - selected role;
 - implementation outcome;
@@ -431,32 +435,37 @@ Store:
 - revalidation triggers;
 - last verified date.
 
-A future SPARI run must query existing decision memory before repeating external research.
+Before fresh external research, query prior memory and determine whether revalidation is needed.
 
-See `references/closed-loop.md` and `references/memory-schema.md`.
+Retrieve only records relevant to the current capability, constraints, ecosystem, candidate family, and freshness. Do not inject the full historical store into active context.
+
+See `references/memory-schema.md` and `references/closed-loop.md`.
 
 ## Phase 19 — Revalidation
 
-Re-open a previous decision when triggered by:
+Re-open decisions when triggered by material changes such as:
 
-- major version change;
-- repository maintenance collapse;
-- new security advisory;
-- license change;
-- provenance change;
+- major release;
+- maintenance collapse;
+- security advisory;
+- license/provenance change;
 - breaking dependency change;
-- materially better alternative;
-- previous integration failure;
-- target runtime/environment change.
+- stronger alternative;
+- integration failure;
+- target environment change.
 
-Revalidation feeds back into the same research loop.
+Revalidation re-enters the same Build-vs-Borrow loop.
 
 ## Required outputs
 
+Depending on research depth:
+
+- `RESEARCH_PROFILE`
 - `SOLUTION_SPACE_BRIEF`
 - `GOLDEN_PLAN`
 - `CAPABILITY_MAP`
 - `CANDIDATE_SET`
+- `SOURCE_EVIDENCE`
 - `CAPABILITY_COVERAGE_MATRIX`
 - `CANDIDATE_EVALUATIONS`
 - `REUSE_BLUEPRINT`
@@ -467,12 +476,12 @@ Revalidation feeds back into the same research loop.
 
 ## Failure handling
 
-Use explicit failure states instead of hallucinating completion.
+Use explicit failures rather than hallucinated completion.
 
 See `references/failure-codes.md`.
 
 ## Guiding principle
 
 > Explore existing software before you freeze the solution.  
-> Deeply evaluate and compose the strongest reusable base before you write what is missing.  
+> Decide Build-vs-Borrow with evidence, then compose the strongest reusable base before you write what is missing.  
 > Feed the real implementation outcome back into the next decision.

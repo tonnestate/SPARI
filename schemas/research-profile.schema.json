@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SPARI Research Profile",
+  "type": "object",
+  "required": [
+    "depth"
+  ],
+  "properties": {
+    "depth": {
+      "enum": [
+        "PREFLIGHT",
+        "TARGETED",
+        "FULL"
+      ]
+    },
+    "max_scouts": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "max_candidates_screened": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "max_candidates_deep_inspected": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "max_proofs_of_fit": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "max_strong_model_escalations": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "max_tokens": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "max_cost": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "quality_stop": {
+      "const": "CONVERGENCE"
+    },
+    "on_budget_exhaustion": {
+      "const": "RESEARCH_INCOMPLETE"
+    }
+  }
+}

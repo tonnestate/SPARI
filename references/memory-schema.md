@@ -35,3 +35,21 @@ Before new research:
 2. determine whether evidence is still valid;
 3. revalidate only triggered areas;
 4. research remaining gaps.
+
+
+## Retrieval discipline
+
+Durable memory may be rich. Active context should be selective.
+
+Before injecting prior decisions into a new run:
+
+1. match the current capability;
+2. match relevant runtime/project constraints;
+3. match ecosystem/source family;
+4. check freshness;
+5. check revalidation triggers;
+6. retrieve only records that can materially affect the decision.
+
+Do not dump the full SPARI history into every agent context.
+
+This prevents institutional memory from becoming context rot.

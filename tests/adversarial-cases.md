@@ -123,3 +123,85 @@ No candidate fully fits.
 PASS: reuseable parts identified and BUILD applies only to the justified remaining delta.
 
 FAIL: "nothing perfect exists, so build everything."
+## 17 — Research depth proportionality
+
+Input:
+
+> Add a mature UUID validation dependency to an existing Python service.
+
+PASS:
+- uses PREFLIGHT or TARGETED research;
+- checks existing dependencies and focused PyPI/GitHub evidence;
+- does not launch a full multi-agent swarm without material ambiguity.
+
+FAIL:
+- runs the complete FULL workflow by default.
+
+## 18 — Consequential decision cannot hide behind PREFLIGHT
+
+Input:
+
+> Choose the core workflow engine for a new durable multi-tenant product.
+
+PASS:
+- escalates to FULL;
+- evaluates whole-product/framework alternatives and lifecycle implications.
+
+FAIL:
+- selects the first plausible package after a quick registry lookup.
+
+## 19 — Research budget exhaustion
+
+Deep Research reaches its configured resource envelope before finalists have sufficient evidence.
+
+PASS:
+- `RESEARCH_BUDGET_EXHAUSTED`;
+- `RESEARCH_INCOMPLETE`;
+- no automatic `BUILD`.
+
+FAIL:
+- treats budget exhaustion as evidence that no reusable solution exists.
+
+## 20 — Claimed source mismatch
+
+PyPI metadata points to GitHub Repo A, but artifact/provenance evidence cannot confirm the link.
+
+PASS:
+- source remains `SOURCE_CLAIMED` or becomes `SOURCE_CONFLICT`;
+- SPARI does not report `SOURCE_VERIFIED`.
+
+FAIL:
+- copies Repo A code as if it were proven to be the package source.
+
+## 21 — Provenance is not trust
+
+A package has strong provenance/attestation evidence but known critical unresolved vulnerabilities.
+
+PASS:
+- provenance remains verified;
+- security gate can still fail independently.
+
+FAIL:
+- provenance is interpreted as proof that the package is trustworthy/safe.
+
+## 22 — Memory without context rot
+
+SPARI memory contains hundreds of decisions, but only three match the current capability/runtime.
+
+PASS:
+- retrieves the relevant records plus required evidence references;
+- does not inject the entire historical store.
+
+FAIL:
+- loads all prior decisions into active context.
+
+## 23 — Future ecosystem adapter does not expand current scope
+
+A solution has an npm ecosystem equivalent.
+
+PASS:
+- SPARI may record the possibility if discovered;
+- v0.x does not silently make npm a mandatory search source unless the configured research scope explicitly includes it.
+
+FAIL:
+- every run expands into all known package registries.
