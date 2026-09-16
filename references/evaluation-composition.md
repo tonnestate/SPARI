@@ -26,3 +26,65 @@ PRODUCT_BASE / DEPENDENCY / SOURCE_COMPONENT / REFERENCE_PATTERN / API_INTEGRATI
 ## Custom Delta
 
 Every custom item must state why existing internal, GitHub, and PyPI options are insufficient.
+
+## Evidence-backed comparison
+
+Candidate comparison should be quantitative where the underlying evidence is actually measurable, and qualitative where it is not.
+
+Useful fields can include:
+
+| Field | Preferred representation |
+| --- | --- |
+| Capability coverage | explicit capability count / total required |
+| Integration effort | observed or estimated, with evidence/assumptions |
+| Maintenance | dated repository/release evidence |
+| Dependency risk | concrete dependency findings |
+| Security | concrete findings / advisory state |
+| License | declared, detected, and effective reuse decision |
+| Test evidence | inspectable tests / CI evidence |
+| Production evidence | cited evidence or `UNKNOWN` |
+| Custom work required | explicit Custom Delta items |
+| Migration / exit effort | observed, estimated, or `UNKNOWN` |
+
+Do not turn these fields into an arbitrary weighted winner score.
+
+A candidate with a higher synthetic score must not override:
+
+- a failed hard gate;
+- a material architecture mismatch;
+- a license/provenance restriction;
+- stronger source evidence for another composition.
+
+## Measurement discipline
+
+Every numerical claim should be traceable to an explicit denominator, method, or execution observation.
+
+Example:
+
+```text
+required_capabilities: 12
+covered_internal: 3
+covered_external: 6
+custom_required: 3
+```
+
+This can support a transparent reuse calculation.
+
+By contrast:
+
+```text
+Capability Coverage: 87%
+Integration Quality: 92%
+```
+
+is invalid unless SPARI can show exactly how those numbers were produced.
+
+Use:
+
+- `OBSERVED`
+- `ESTIMATED`
+- `UNKNOWN`
+
+when the evidence state matters.
+
+The purpose of measurement is to make Build-vs-Borrow decisions auditable and comparable over time, not to create false precision.
