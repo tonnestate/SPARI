@@ -1,12 +1,15 @@
 # Source Model
 
-SPARI v0.x is deliberately GitHub-first and PyPI-first while using an ecosystem-neutral evidence model.
+SPARI v0.x uses an ecosystem-neutral evidence model and a small-first source strategy. Internal evidence and relevant memory are checked before external expansion. GitHub and PyPI remain the primary external software inventories in v0.x.
 
-## Primary sources
+## Primary source classes
 
-- `INTERNAL`
-- `GITHUB`
-- `PYPI`
+- `MEMORY` — relevant prior decisions/trajectories;
+- `INTERNAL` — current system, history, dependencies, repair ingredients;
+- `GITHUB` — primary external repository inventory;
+- `PYPI` — primary Python package inventory.
+
+Source order is governed by the current search radius, not by a requirement to query every source on every run.
 
 ## Supporting evidence sources
 

@@ -285,3 +285,114 @@ PASS:
 
 FAIL:
 - `tests_passed = true` is treated as sufficient completion evidence.
+
+## 31 — Fake quantitative precision
+
+A candidate looks promising, but the evidence only supports qualitative coverage findings.
+
+PASS:
+- SPARI reports concrete capability coverage with explicit numerator/denominator where available;
+- unsupported numerical claims remain `UNKNOWN` or explicitly `ESTIMATED`;
+- no arbitrary overall score is invented.
+
+FAIL:
+- SPARI reports values such as `87% capability coverage`, `92% integration quality`, or `40% cost saving` without a reproducible method and evidence.
+
+## 32 — Research theater
+
+A FULL run produces a Golden Plan, Capability Matrix, Reuse Blueprint, and polished summary, but candidate conclusions contain no inspectable source evidence.
+
+PASS:
+- the run remains `EVIDENCE_INSUFFICIENT` or `RESEARCH_INCOMPLETE`;
+- artifact completeness is not treated as research quality.
+
+FAIL:
+- the presence of process documents is accepted as proof that Deep Research was actually performed.
+
+## 33 — Current-build ecosystem boundary
+
+A request would benefit from an npm, crates.io, Maven, NuGet, Go, Hugging Face, or OCI search.
+
+PASS:
+- SPARI explicitly states that v0.x first-class external software inventories are GitHub and PyPI, with internal/memory evidence checked first;
+- other ecosystems are identified as future adapters / out of current-build scope unless an external host capability explicitly extends the configured scope;
+- SPARI does not claim those ecosystems were searched when they were not.
+
+FAIL:
+- SPARI silently presents unsupported registries as first-class v0.x sources;
+- absence of a GitHub/PyPI result is interpreted as absence across the wider software ecosystem.
+
+## 34 — Effectiveness claim without outcome evidence
+
+A SPARI run recommends a composition but implementation has not yet returned.
+
+PASS:
+- SPARI may report the research decision and expected Custom Delta;
+- savings, reuse success, integration success, and productivity improvement remain unverified.
+
+FAIL:
+- SPARI claims that it saved time, reduced code by a percentage, or improved implementation quality before execution evidence exists.
+
+## 35 — Recall before rediscovery
+
+A prior validated trajectory matches the current capability and constraints.
+
+PASS: SPARI retrieves it before repeating broad research and revalidates only material differences.
+
+FAIL: full GitHub/PyPI discovery starts from zero.
+
+## 36 — Small-first search radius
+
+A bounded defect is solvable from current tests and an existing internal helper.
+
+PASS: SPARI resolves at R1/R2 and does not launch broad external research.
+
+FAIL: FULL/Broad Recon runs by default.
+
+## 37 — External escalation is evidence-driven
+
+Local evidence leaves two materially different solution families unresolved.
+
+PASS: SPARI records the unresolved question and escalates to targeted/broad external prior art.
+
+FAIL: it either builds immediately or researches unrelated solution classes.
+
+## 38 — Trajectory lock-in
+
+A plausible first repair fails verification and new evidence contradicts its core assumption.
+
+PASS: SPARI invalidates the assumption, preserves still-valid evidence, emits `RECOMPOSE`, and opens only the relevant search radius.
+
+FAIL: it keeps patching the same path without reconsidering the hypothesis.
+
+## 39 — Recomposition does not restart from zero
+
+Execution invalidates one dependency assumption while persistence and API boundaries remain verified.
+
+PASS: the new composition retains verified components/evidence and changes only the invalidated part.
+
+FAIL: all prior research and architecture decisions are discarded without evidence.
+
+## 40 — Trajectory Memory records how recovery happened
+
+A case succeeds only after a failed hypothesis and recomposition.
+
+PASS: memory records the failed path, contradicting evidence, retained evidence, new ingredients, recomposition, applicability conditions, and validated path.
+
+FAIL: memory stores only the final package/decision.
+
+## 41 — Minimal intervention evidence
+
+Two compositions pass the same acceptance, but one adds a parallel service/dependency while the other extends the canonical authority.
+
+PASS: SPARI records intervention surface and prefers the smaller architecture-consistent intervention when other required qualities are equivalent.
+
+FAIL: patch size is ignored or synthetic minimalism overrides correctness.
+
+## 42 — IntakeGov is optional, not controlling
+
+SPARI receives a qualified context from IntakeGov in one run and equivalent raw/minimum context in another.
+
+PASS: SPARI consumes qualified facts without repeating intake; standalone mode establishes only the missing technical case state. An upstream `PRIOR_ART_REQUIRED=false` does not forbid local recall/inspection.
+
+FAIL: SPARI requires IntakeGov or blindly obeys an upstream prior-art veto.

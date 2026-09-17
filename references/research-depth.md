@@ -1,62 +1,49 @@
-# Research Depth
+# Research Depth and Search Radius
 
-SPARI research depth is proportional to impact, ambiguity, irreversibility, integration cost, and lifecycle ownership.
+SPARI v0.1.3 starts small. Research depth is governed by unresolved decision value, not by a fixed sequence of phases.
 
-## PREFLIGHT
+## Search radius
 
-Use when:
+### R0_RECALL
+Retrieve relevant Decision Memory and Trajectory Memory.
 
-- the capability is narrow;
-- the target environment is already known;
-- one or two obvious reuse candidates are likely;
-- the decision is cheap to reverse.
+### R1_LOCAL
+Inspect the current code, tests, manifests, dependencies, and relevant internal-software-map slice.
 
-Minimum:
+### R2_RELATED_INTERNAL
+Inspect analogous modules, repository history, previous fixes, nearby capabilities, and internal repair ingredients.
 
-1. inspect local code/dependencies;
-2. focused GitHub/PyPI search;
-3. verify obvious candidate facts;
-4. issue a reuse/build verdict.
+### R3_TARGETED_EXTERNAL
+Use focused GitHub/PyPI/standards/reference searches for a specific unresolved capability, pattern, candidate, or design question.
 
-Escalate if the search reveals multiple credible solution families or material risk.
+### R4_BROAD_EXTERNAL
+Use semantic solution-space expansion, broader candidate discovery, research swarm, and comparative evaluation when the solution family itself remains uncertain.
 
-## TARGETED
+## Escalation rule
 
-Use when:
+Move outward only when evidence at the current radius leaves material uncertainty that can change:
 
-- the user names a specific package/repository;
-- a capability is known but the dependency choice is unresolved;
-- the main need is due diligence rather than solution-space discovery.
+- the selected composition;
+- Custom Delta;
+- intervention surface;
+- hard-gate outcome;
+- architecture risk;
+- verification strategy.
 
-Check:
+Do not escalate merely because another search could be performed.
 
-- exact version/revision;
-- source linkage;
-- compatibility;
-- maintenance;
-- security;
-- license/provenance;
-- focused alternatives;
-- integration/exit cost.
+## Compatibility profiles
 
-## FULL
+`PREFLIGHT`, `TARGETED`, and `FULL` remain valid profiles:
 
-Use when:
+- `PREFLIGHT` normally uses R0–R1 and may escalate;
+- `TARGETED` normally uses R0–R3 around a known capability/candidate;
+- `FULL` permits R0–R4 and independent evaluation for consequential or ambiguous decisions.
 
-- the request is consequential or architectural;
-- the solution space is unclear;
-- whole products and component libraries may compete;
-- several capabilities need composition;
-- the result will become a durable base.
+Profiles are ceilings and expected operating ranges, not mandatory linear pipelines.
 
-FULL includes Broad Recon, evidence-informed clarification, Golden Plan, Deep Research, source inspection, independent evaluation, contrarian review, composition, and Custom Delta.
+## Stop rule
 
-## Escalation
+`QUALITY_STOP` when additional search no longer materially changes the candidate frontier, composition, Custom Delta, intervention surface, hard-gate outcome, or verification plan.
 
-Research can move upward:
-
-`PREFLIGHT → TARGETED → FULL`
-
-when evidence shows higher ambiguity or impact.
-
-Do not silently downgrade mandatory hard gates because a lighter research mode was selected.
+`RESOURCE_STOP` remains separate. Budget exhaustion never means `BUILD`.

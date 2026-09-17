@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SPARI Trajectory Record",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "case_ref",
+    "events",
+    "outcome_state"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.3"
+    },
+    "trajectory_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "case_ref": {
+      "type": "string"
+    },
+    "capability": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "observed_signal": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "event_type",
+          "evidence"
+        ],
+        "properties": {
+          "event_type": {
+            "enum": [
+              "HYPOTHESIS",
+              "ATTEMPT",
+              "EVIDENCE",
+              "INVALIDATION",
+              "RECOMPOSITION",
+              "VERIFICATION",
+              "STOP"
+            ]
+          },
+          "summary": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "composition_ref": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "revision_ref": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "invalidated_assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "retained_evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "repair_ingredients": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "abandoned_paths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "validated_path": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "applicability_conditions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "outcome_state": {
+      "enum": [
+        "VALIDATED",
+        "VALIDATED_WITH_LIMITATIONS",
+        "REJECTED_AFTER_IMPLEMENTATION",
+        "UNKNOWN_OUTCOME"
+      ]
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

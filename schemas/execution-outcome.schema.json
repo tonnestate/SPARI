@@ -12,7 +12,7 @@
   ],
   "properties": {
     "schema_version": {
-      "const": "0.1.2"
+      "const": "0.1.3"
     },
     "status": {
       "enum": [
@@ -192,6 +192,63 @@
       "type": "array",
       "items": {
         "type": "string"
+      }
+    },
+    "engineering_case_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "composition_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "trajectory_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "recomposition_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "intervention_surface": {
+      "type": "object",
+      "properties": {
+        "production_files_changed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "symbols_changed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "public_interfaces_changed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "dependencies_added_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "authorities_added": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "persistence_changed": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "architecture_boundaries_crossed": {
+          "type": "integer",
+          "minimum": 0
+        }
       }
     }
   }

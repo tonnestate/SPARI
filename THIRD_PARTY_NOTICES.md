@@ -43,3 +43,12 @@ SPARI does not bundle Aider code. Aider is cited as conceptual prior art for int
 Do not copy third-party text, source code, templates, tests, or other protected artifacts into SPARI without verifying the canonical source, exact applicable license, intended reuse permission, required notices, and license compatibility.
 
 When uncertain, treat external work as conceptual reference and independently implement the idea.
+
+## Academic conceptual prior art added for v0.1.3
+
+- RepairAgent — Bouzenia, Devanbu, Pradel — https://arxiv.org/abs/2403.17134 — conceptual prior art for interleaving diagnosis, repair-ingredient retrieval, attempts, validation, and feedback-driven repair. No paper text or implementation copied.
+- SWE-Search — https://arxiv.org/abs/2410.20285 — conceptual prior art for search/backtracking over software-agent trajectories and escaping linear solution paths. No paper text or implementation copied.
+- CodePlan — https://arxiv.org/abs/2309.12499 — conceptual prior art for adaptive repository-level planning as code and evidence change. No paper text or implementation copied.
+- RepoCoder — https://aclanthology.org/2023.emnlp-main.151/ — conceptual prior art for iterative retrieval-generation over repository context. No paper text or implementation copied.
+
+These works support research hypotheses and design comparison only; they do not establish SPARI performance claims.

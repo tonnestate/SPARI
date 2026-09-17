@@ -1,101 +1,108 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "SPARI Execution Contract",
+  "title": "SPARI Engineering Case",
   "type": "object",
   "required": [
     "schema_version",
-    "golden_plan_ref",
-    "reuse_blueprint_ref",
-    "planned_custom_delta",
-    "verification_requirements"
+    "outcome",
+    "known_evidence",
+    "constraints",
+    "unknowns"
   ],
   "properties": {
     "schema_version": {
       "const": "0.1.3"
     },
-    "golden_plan_ref": {
+    "case_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source_context_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "outcome": {
       "type": "string"
     },
-    "reuse_blueprint_ref": {
-      "type": "string"
-    },
-    "base_revision": {
+    "affected_capability": {
       "type": [
         "string",
         "null"
       ]
     },
-    "planned_custom_delta": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
-    "required_reuse": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
-    "required_internal_components": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
-    "allowed_substitutions": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
-    "prohibited_scope_changes": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
-    "hard_constraints": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
-    "verification_requirements": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
-    "evidence_requirements": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
-    "engineering_case_ref": {
+    "observed_signal": {
       "type": [
         "string",
         "null"
       ]
     },
-    "composition_version": {
+    "known_evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "unknowns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "current_hypotheses": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "current_composition_ref": {
       "type": [
         "string",
         "null"
       ]
     },
-    "intervention_constraints": {
+    "previous_attempts": {
       "type": "array",
       "items": {
         "type": "string"
       }
     },
-    "checkpoint_conditions": {
+    "contradicting_evidence": {
       "type": "array",
       "items": {
         "type": "string"
       }
+    },
+    "decision_memory_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "trajectory_memory_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "search_radius": {
+      "enum": [
+        "R0_RECALL",
+        "R1_LOCAL",
+        "R2_RELATED_INTERNAL",
+        "R3_TARGETED_EXTERNAL",
+        "R4_BROAD_EXTERNAL",
+        null
+      ]
     }
   }
 }

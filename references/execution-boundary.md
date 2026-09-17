@@ -1,121 +1,92 @@
-# Execution Boundary and Outcome Contract
+# Execution Boundary, Evidence Checkpoints, and Recomposition
 
-SPARI is a Build-vs-Borrow decision and composition layer.
-
-It does not need to be the coding executor.
+SPARI owns Build-vs-Borrow composition and recomposition. It does not need to be the coding executor.
 
 ## Separation of responsibilities
 
 ```text
-SPARI
-decides what should be reused/composed/built
+SPARI composition vN
         ↓
-EXECUTION_CONTRACT
+EXECUTION_CONTRACT vN
         ↓
 coding executor
-implements the justified delta
+implements a bounded justified delta
         ↓
-EXECUTION_OUTCOME
+EVIDENCE CHECKPOINT / EXECUTION_OUTCOME
         ↓
 SPARI
-verifies decision adherence and learns
+CONTINUE | ADAPT | RECOMPOSE | STOP
 ```
 
-Possible executors include Aider, Claude Code, Codex, other coding agents, CI-assisted workflows, or humans.
+Possible executors include Aider, Claude Code, Codex, other coding agents, CI-assisted workflows, or humans. The contract is executor-agnostic.
 
-The contract is executor-agnostic.
+## Why the boundary exists
 
-## Why this boundary exists
+Execution systems are optimized to modify software. SPARI preserves the prior-art/composition decision so execution cannot silently convert `reuse/extend existing component` into `write a parallel helper/subsystem because it is easier`.
 
-A coding system is optimized to modify software.
-
-That creates a natural bias toward producing code.
-
-SPARI exists to preserve the prior Build-vs-Borrow decision so execution cannot silently convert:
-
-```text
-reuse existing component
-```
-
-into:
-
-```text
-write a new helper because it is easier
-```
+The boundary is not a one-way handoff. New execution evidence may return control to SPARI before the whole task is finished.
 
 ## EXECUTION_CONTRACT
 
-The handoff should identify:
+Identify where applicable:
 
-- `golden_plan_ref`
-- `reuse_blueprint_ref`
-- `base_revision`
-- `planned_custom_delta`
-- `required_reuse`
-- `required_internal_components`
-- `allowed_substitutions`
-- `prohibited_scope_changes`
-- `hard_constraints`
-- `verification_requirements`
-- `evidence_requirements`
+- `engineering_case_ref`;
+- `composition_version`;
+- `golden_plan_ref`;
+- `reuse_blueprint_ref`;
+- `base_revision`;
+- `planned_custom_delta`;
+- `required_reuse`;
+- `required_internal_components`;
+- `allowed_substitutions`;
+- `prohibited_scope_changes`;
+- `hard_constraints`;
+- `intervention_constraints`;
+- `verification_requirements`;
+- `evidence_requirements`;
+- `checkpoint_conditions`.
 
-The contract can allow bounded adaptation, but scope expansion must be visible.
+Bounded adaptation is allowed. Scope or architecture expansion must be visible.
 
-## EXECUTION_OUTCOME
+## Evidence checkpoint
 
-The executor returns structured evidence such as:
+A checkpoint may be requested after a meaningful implementation/test step, after contradictory evidence, or before a material architecture/dependency expansion. Return inspectable evidence rather than narrative confidence.
 
-- executor/type;
-- repository;
-- base/result revision;
-- actual reused components;
+SPARI may respond:
+
+- `CONTINUE` — current composition remains supported;
+- `ADAPT` — bounded implementation detail changes without changing composition;
+- `RECOMPOSE` — material evidence invalidated or materially improved the current composition;
+- `STOP` — safety, hard gate, or unresolved evidence prevents continuation.
+
+## Recomposition contract
+
+`RECOMPOSE` must record:
+
+- triggering evidence;
+- invalidated assumptions/hypotheses;
+- retained evidence and components;
+- abandoned path;
+- newly discovered/retrieved repair ingredients;
+- previous composition version;
+- new composition version;
+- Custom Delta before/after;
+- intervention surface before/after;
+- verification required for the new path.
+
+Do not erase the failed path from history. It becomes Trajectory Memory.
+
+## Intervention surface
+
+Where measurable, record the surface of the intervention:
+
+- production files changed;
+- symbols/classes/functions changed;
+- public interfaces changed;
 - dependencies added/removed;
-- files changed;
-- actual custom delta;
-- tests/verification executed;
-- lint/static-analysis results;
-- integration failures;
-- abandoned components;
-- unexpected custom code;
-- contract deviations;
-- evidence references.
+- services/authorities introduced;
+- persistence/schema changes;
+- architecture boundaries crossed;
+- abandoned code/components.
 
-## Revision linkage
-
-When Git or another revision system is available, record the before/after revisions.
-
-This makes the execution result auditable and lets later systems inspect the real implementation instead of trusting a chat summary.
-
-## Test success is not enough
-
-A test can pass while the system-level decision was violated.
-
-Examples:
-
-- a test-specific hard-coded route;
-- duplicated helper instead of the required internal abstraction;
-- replaced dependency despite a reuse decision;
-- larger Custom Delta than approved.
-
-Therefore SPARI checks both:
-
-```text
-behavioral verification
-+
-Build-vs-Borrow adherence
-```
-
-## Feedback
-
-The structured result updates Decision Memory.
-
-Research selection and implementation outcome remain separate fields.
-
-A candidate can be:
-
-```text
-research_decision: ADOPT
-implementation_outcome: REJECTED_AFTER_IMPLEMENTATION
-```
-
-This negative evidence is valuable future prior art.
+The objective is not synthetic minimalism. Prefer the smallest architecture-consistent intervention that satisfies verified requirements.

@@ -179,6 +179,18 @@
         "string",
         "null"
       ]
+    },
+    "trajectory_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "engineering_case_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
     }
   }
 }

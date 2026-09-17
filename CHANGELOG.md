@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.1.3 — 2026-09-17
+
+Recomposition and trajectory-memory release.
+
+- changed SPARI from a primarily front-loaded research pipeline to a small-first evidence-driven engineering loop;
+- added compact `ENGINEERING_CASE` working state to bridge raw/qualified context into recall and technical evidence without duplicating intake governance;
+- added Decision Memory + Trajectory Memory separation (`what was decided` vs `how the problem was escaped/solved`);
+- made Recomposition a first-class control transition during execution rather than only a post-execution outcome;
+- added bounded execution checkpoints with `CONTINUE / ADAPT / RECOMPOSE / STOP`;
+- added adaptive search radius `R0_RECALL` through `R4_BROAD_EXTERNAL`;
+- preserved `PREFLIGHT / TARGETED / FULL` as compatibility profiles/ceilings rather than mandatory linear workflows;
+- changed Broad Recon and Deep Research from default sequencing to uncertainty-driven escalation;
+- added intervention-surface evidence for minimal architecture-consistent changes;
+- made IntakeGov explicitly optional: qualified context is consumed when available, but SPARI remains standalone-capable;
+- added schemas for `ENGINEERING_CASE` and `TRAJECTORY_RECORD`;
+- extended execution/memory schemas with composition version, trajectory references, checkpoints, and intervention evidence;
+- added adversarial cases for recall-first behavior, trajectory lock-in, recomposition, small-first research, and minimal intervention;
+- preserved v0.1.2 evidence as `EVIDENCE.md`; v0.1.3 hypotheses remain experimental until separately evaluated.
+
 ## 0.1.2 — 2026-09-16
 
 Internal-prior-art and execution-boundary release.

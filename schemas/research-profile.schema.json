@@ -67,6 +67,29 @@
     },
     "on_budget_exhaustion": {
       "const": "RESEARCH_INCOMPLETE"
+    },
+    "initial_search_radius": {
+      "enum": [
+        "R0_RECALL",
+        "R1_LOCAL",
+        "R2_RELATED_INTERNAL",
+        "R3_TARGETED_EXTERNAL",
+        "R4_BROAD_EXTERNAL",
+        null
+      ]
+    },
+    "max_search_radius": {
+      "enum": [
+        "R0_RECALL",
+        "R1_LOCAL",
+        "R2_RELATED_INTERNAL",
+        "R3_TARGETED_EXTERNAL",
+        "R4_BROAD_EXTERNAL",
+        null
+      ]
+    },
+    "escalate_only_on_material_uncertainty": {
+      "type": "boolean"
     }
   }
 }

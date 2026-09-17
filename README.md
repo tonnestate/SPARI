@@ -1,32 +1,18 @@
 # SPARI
 
-<p align="center">
-  <strong>Reuse before you rebuild.</strong><br>
-  SPARI is a Build-vs-Borrow engine for AI software development.
-</p>
+**Evidence-Driven Prior-Art, Composition and Recomposition for AI Engineering Agents**
 
-<p align="center">
-  <img alt="License" src="https://img.shields.io/badge/license-Apache--2.0-blue">
-  <img alt="Status" src="https://img.shields.io/badge/status-experimental-orange">
-  <img alt="Version" src="https://img.shields.io/badge/version-0.1.2-green">
-  <img alt="Agent Skill" src="https://img.shields.io/badge/agent-skill-purple">
-</p>
+*A Software Intelligence, Reuse and Strategy-Repair Layer for AI Agents.*
 
----
-
-**Build-vs-Borrow and Software Composition Engine for AI Agents**
-
-*A Software Intelligence and Reuse Layer for AI Agents.*
-
-> Research broadly. Reuse intelligently. Build only what is missing.
+> Recall first. Reuse what exists. Recompose when evidence changes. Build only what is missing.
 
 SPARI — **Software Prior Art & Reuse Intelligence** — makes existing software the starting point of AI engineering instead of an afterthought.
 
 Its primary focus is simple:
 
-> **Before substantial custom code is written, determine what already exists on GitHub, PyPI, and inside the current system — then compose the strongest reusable solution and justify whatever still needs to be built.**
+> **Before an agent commits to a solution path, recall what is already known, inspect the smallest relevant internal context, widen to external prior art only when uncertainty requires it, and compose the smallest justified intervention. If execution evidence falsifies that path, recompose instead of patching blindly.**
 
-SPARI is not a package recommender and not a link collector. It is a closed Build-vs-Borrow decision loop.
+SPARI is not a package recommender and not a link collector. It is a closed prior-art, composition, execution-evidence, and recomposition loop.
 
 ---
 
@@ -78,22 +64,18 @@ request
 ```text
 INSTEAD:
 
-raw intent
-→ internal software map
-→ broad GitHub/PyPI recon
-→ solution-space map
-→ a few qualified questions
-→ confirmed intent
-→ Golden Plan
-→ deep GitHub/PyPI research
-→ source inspection
-→ Build-vs-Borrow decision
-→ reuse composition
-→ minimal custom delta
-→ implementation
+raw or qualified case
+→ recall relevant decisions and trajectories
+→ inspect smallest relevant local/internal context
+→ widen search radius only when needed
+→ compose strongest existing ingredients
+→ minimal custom delta + intervention surface
+→ bounded execution
+→ evidence checkpoint
+→ continue / adapt / RECOMPOSE / stop
 → verified outcome
-→ decision memory
-→ smarter next run
+→ decision + trajectory memory
+→ smarter next similar case
 ```
 
 **Custom code becomes the justified remainder, not the starting assumption.**
@@ -112,10 +94,12 @@ Software Prior Art
 + Software Composition
 + License & Provenance
 + Decision Memory
++ Trajectory Memory
++ Evidence-Driven Recomposition
 + Outcome Learning
 ```
 
-Its external research method is **GitHub- and PyPI-centered prior-art intelligence**.
+Its technical method is **small-first prior-art intelligence**: recall and local/internal evidence first, targeted GitHub/PyPI when needed, broad research only when the solution space remains materially uncertain.
 
 Its engineering decision is broader:
 
@@ -136,7 +120,7 @@ The goal is to find the strongest existing foundation and build only the part th
 
 # Internal software is prior art too
 
-v0.1.2 closes an important gap: SPARI must understand the software you already own before searching for more software.
+v0.1.3 preserves a key v0.1.2 principle: SPARI must understand the software you already own before searching for more software.
 
 The first question is no longer merely:
 
@@ -179,7 +163,7 @@ See [`references/internal-software-map.md`](references/internal-software-map.md)
 
 ---
 
-# Broad Recon comes before requirement freeze
+# Broad Recon is an escalation, not a reflex
 
 The user's first wording is useful evidence of intent.
 
@@ -191,7 +175,7 @@ If someone says:
 
 searching only for chairs may miss that the real problem belongs to a broader seating or furniture solution space.
 
-SPARI therefore expands the **research scope** before it freezes the **solution scope**:
+When the current case still has material solution-family uncertainty, SPARI may expand the **research scope** before it freezes the **solution scope**:
 
 ```text
 literal request
@@ -309,15 +293,16 @@ SPARI can also be used standalone when the caller supplies an equivalent minimum
 
 SPARI should be rigorous without becoming bureaucratic.
 
-v0.1.2 defines three research depths:
+v0.1.3 keeps three compatibility research profiles, but starts at the smallest useful search radius:
 
 ## PREFLIGHT
 
 For a small or obvious generic mechanism.
 
 ```text
-existing project check
-→ focused GitHub/PyPI check
+R0 recall
+→ R1 local/internal inspection
+→ focused external check only if unresolved
 → reuse/build verdict
 ```
 
@@ -474,7 +459,7 @@ PyPI package
 
 GitHub and PyPI remain SPARI's primary external sources.
 
-v0.1.2 does **not** expand the research scope to every package ecosystem.
+v0.1.3 does **not** expand the research scope to every package ecosystem.
 
 Instead, the data model becomes ecosystem-neutral so future adapters can be added without rewriting the decision engine.
 
@@ -490,9 +475,7 @@ Hugging Face
 OCI registries
 ```
 
-These are future extension points, not v0.1.2 research requirements.
-
-**SPARI is not a universal software-registry crawler. v0.x is intentionally limited to the existing internal codebase, GitHub, and PyPI; npm, crates.io, Go modules, Maven Central, NuGet, Hugging Face, OCI registries, and other ecosystems are future adapters, not part of the current build.**
+These are future extension points, not v0.1.3 mandatory research requirements.
 
 See [`references/source-model.md`](references/source-model.md).
 
@@ -858,7 +841,7 @@ no solution exists
 
 # SPARI decides. Coding agents execute.
 
-SPARI is deliberately not another coding agent.
+SPARI is deliberately not another coding agent. In v0.1.3 it also does not disappear after a one-way handoff: execution evidence can return control for adaptation or recomposition.
 
 Execution systems such as Aider, Claude Code, Codex, and other engineering agents are good at changing code.
 
@@ -869,20 +852,21 @@ SPARI answers a different question first:
 The boundary is explicit:
 
 ```text
-SPARI
-Build-vs-Borrow decision
+SPARI composition vN
         ↓
-Reuse Blueprint
+Reuse Blueprint + Custom Delta
         ↓
-Custom Delta
-        ↓
-EXECUTION_CONTRACT
+EXECUTION_CONTRACT vN
         ↓
 Aider / Claude Code / Codex / other executor
         ↓
-EXECUTION_OUTCOME
+Evidence checkpoint
         ↓
-SPARI verification + Decision Memory
+CONTINUE | ADAPT | RECOMPOSE | STOP
+        ↓
+verified outcome
+        ↓
+Decision Memory + Trajectory Memory
 ```
 
 This prevents the execution layer from silently replacing a reuse decision with more custom code simply because generating code is easier.
@@ -908,16 +892,16 @@ SPARI is not finished when it recommends software.
 The full loop is:
 
 ```text
-DISCOVER
-→ EVALUATE
+CASE
+→ RECALL
+→ RETRIEVE / INSPECT
 → COMPOSE
-→ HAND OFF
-→ IMPLEMENT
+→ BOUNDED EXECUTION
+→ EVIDENCE CHECKPOINT
+→ CONTINUE / ADAPT / RECOMPOSE / STOP
 → VERIFY OUTCOME
-→ RECORD RESULT
-→ UPDATE DECISION MEMORY
-→ REVALIDATE WHEN REQUIRED
-→ DISCOVER SMARTER NEXT TIME
+→ UPDATE DECISION + TRAJECTORY MEMORY
+→ START THE NEXT SIMILAR CASE SMARTER
 ```
 
 Without outcome feedback, research remains theoretical.
@@ -929,49 +913,6 @@ A repository may expose hidden architectural limitations.
 A less obvious candidate may outperform the research favorite in the real environment.
 
 SPARI must remember that.
-
----
-
-# Evidence without false precision
-
-SPARI should make Build-vs-Borrow outcomes measurable where the evidence supports it.
-
-Useful evidence includes:
-
-```text
-capabilities_total
-capabilities_covered_internal
-capabilities_covered_external
-capabilities_custom_required
-
-candidates_discovered
-candidates_failed_hard_gates
-candidates_deep_inspected
-
-planned_reuse
-actual_reuse
-
-planned_custom_delta
-actual_custom_delta
-
-verification_outcome
-```
-
-Derived measures such as reuse yield are allowed only when the underlying capability units are explicitly defined and comparable.
-
-SPARI must distinguish:
-
-```text
-OBSERVED
-ESTIMATED
-UNKNOWN
-```
-
-Do not manufacture percentages, scores, LOC savings, cost reductions, or productivity claims merely to make a decision look quantitative.
-
-Measurement exists to make the decision auditable and empirically testable — not to replace engineering judgement with a synthetic score.
-
-See [`references/evaluation-composition.md`](references/evaluation-composition.md) and [`references/closed-loop.md`](references/closed-loop.md).
 
 ---
 
@@ -993,11 +934,11 @@ Otherwise the same bad recommendation can be rediscovered forever.
 
 ---
 
-# Decision Memory without context rot
+# Decision + Trajectory Memory without context rot
 
 SPARI stores rich evidence, but future agents should not receive the entire history on every run.
 
-Decision Memory is retrieved by relevance:
+Decision Memory and Trajectory Memory are retrieved by relevance:
 
 ```text
 current capability
@@ -1012,6 +953,24 @@ The durable store can contain full evidence references.
 The active context should contain only the records that materially bind the current decision.
 
 This preserves institutional learning without turning memory into a new source of context noise.
+
+---
+
+# Trajectory Memory: how did we get out?
+
+Decision Memory answers **what was decided**. Trajectory Memory answers **how the engineering path changed when evidence contradicted the current solution**.
+
+SPARI preserves inspectable episode state such as hypotheses, attempts, contradicting evidence, invalidated assumptions, retained evidence, repair ingredients, recomposition events, composition versions, and the final validated path. It does not require or store hidden chain-of-thought.
+
+This enables a future case to reuse a recovery pattern instead of merely reusing a final package choice.
+
+---
+
+# Recomposition is strategy repair
+
+Recomposition is first-class in v0.1.3. When execution evidence materially invalidates the current composition, SPARI should not continue blind trial-and-error and should not restart all research from zero. It records what failed, keeps what remains supported, reopens only the relevant search radius, and versions a new composition.
+
+The target is the smallest architecture-consistent intervention that satisfies verified requirements — not the fewest lines at any cost.
 
 ---
 
@@ -1070,7 +1029,6 @@ Missing evidence is not negative evidence.
 SPARI is not:
 
 - a generic web-search skill;
-- a universal software-registry crawler;
 - a GitHub link collector;
 - a PyPI recommendation list;
 - a long requirements interview;
@@ -1154,9 +1112,7 @@ SPARI is tested against the failure modes it exists to prevent:
 - budget exhaustion converted into fake certainty;
 - repeated research despite validated memory;
 - failed implementation outcomes forgotten by later agents;
-- ecosystem expansion that accidentally changes SPARI's v0.x scope;
-- fake quantitative precision without inspectable evidence;
-- research artifacts being mistaken for evidence of research quality.
+- ecosystem expansion that accidentally changes SPARI's v0.x scope.
 
 See [`tests/adversarial-cases.md`](tests/adversarial-cases.md).
 
@@ -1366,7 +1322,7 @@ Relevant concepts:
 
 https://github.com/tomzx/agents
 
-Used as **conceptual research only** in SPARI v0.1.2 unless a concrete applicable license is separately verified for a specific reuse.
+Used as **conceptual research only** in SPARI v0.1.3 unless a concrete applicable license is separately verified for a specific reuse.
 
 Relevant concepts:
 
@@ -1392,8 +1348,6 @@ Relevant concepts:
 
 Aider is not a SPARI dependency and solves a different problem. It is useful prior art for SPARI's internal software mapping and executor boundary.
 
----
-
 # External software-intelligence infrastructure
 
 SPARI is designed to use structured software sources before resorting to generic scraping.
@@ -1415,11 +1369,11 @@ These are infrastructure candidates, not mandatory bundled dependencies.
 # Status
 
 ```text
-v0.1.2
+v0.1.3
 Experimental
 ```
 
-v0.1.2 makes internal software first-class prior art and formalizes the boundary between Build-vs-Borrow intelligence and code execution through `INTERNAL_SOFTWARE_MAP`, `EXECUTION_CONTRACT`, and `EXECUTION_OUTCOME`.
+v0.1.3 keeps the v0.1.2 prior-art and execution contracts, but changes orchestration: small-first recall/retrieval, adaptive search radius, first-class recomposition, trajectory memory, bounded evidence checkpoints, and intervention-surface evidence. See [`EVIDENCE.md`](EVIDENCE.md) for the preserved v0.1.2 evaluation baseline.
 
 ---
 

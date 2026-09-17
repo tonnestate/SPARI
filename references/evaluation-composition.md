@@ -88,3 +88,11 @@ Use:
 when the evidence state matters.
 
 The purpose of measurement is to make Build-vs-Borrow decisions auditable and comparable over time, not to create false precision.
+
+## Intervention Surface (v0.1.3)
+
+Composition quality is not only capability coverage or Custom Delta. For existing systems, also preserve the intervention surface where measurable: files/symbols/interfaces/dependencies/authorities/persistence/boundaries changed.
+
+Prefer the smallest architecture-consistent composition that satisfies verified requirements. Do not minimize patch size at the expense of correctness, maintainability, safety, or explicit requirements.
+
+When execution evidence invalidates a composition, do not patch indefinitely inside the same assumption set. Emit a recomposition event, retain still-valid evidence, reopen only the relevant search radius, and version the new composition.

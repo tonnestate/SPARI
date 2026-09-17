@@ -1,17 +1,18 @@
 # Deep Research
 
-Deep Research starts after Broad Recon and the Golden Plan.
+Deep Research is a conditional escalation after the Engineering Case, recall, and narrower evidence have identified a consequential unresolved decision. It does not need to run after every Broad Recon and is not a mandatory precondition for implementation.
 
-Search:
+Search as required:
 
 - complete GitHub products;
 - mature GitHub frameworks;
 - strong reference implementations;
-- PyPI packages for each capability;
+- PyPI packages for unresolved capabilities;
 - packages already used by the current project;
-- internal reusable components.
+- internal reusable components and repair ingredients;
+- repository history / previous fixes when relevant.
 
-Collect:
+Collect only evidence that can affect the decision:
 
 - canonical source;
 - version/tag/commit;
@@ -28,4 +29,4 @@ Collect:
 
 Finalists require source-level inspection where access permits.
 
-Deep Research converges when solution families and finalists stabilize and new searches stop materially changing the decision.
+Deep Research converges when solution families and finalists stabilize and additional evidence no longer materially changes composition, Custom Delta, intervention surface, hard gates, or verification.

@@ -27,3 +27,11 @@ Discovery failure never implies permission to build from scratch.
 - `EXECUTION_SCOPE_DRIFT`
 - `CUSTOM_DELTA_EXPANDED_UNJUSTIFIED`
 - `REVISION_EVIDENCE_MISSING`
+
+- `ENGINEERING_CASE_INSUFFICIENT`
+- `TRAJECTORY_EVIDENCE_MISSING`
+- `RECOMPOSITION_UNJUSTIFIED`
+- `RECOMPOSITION_EVIDENCE_MISSING`
+- `INTERVENTION_SURFACE_UNKNOWN`
+
+Recomposition failure never implies permission to continue blind trial-and-error. Preserve the last supported composition and surface the unresolved evidence gap.
