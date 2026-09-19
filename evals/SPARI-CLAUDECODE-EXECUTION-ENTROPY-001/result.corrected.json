@@ -1,0 +1,135 @@
+{
+  "evaluation_id": "SPARI-CLAUDECODE-EXECUTION-ENTROPY-001",
+  "status": "COMPLETE",
+  "date": "2026-09-19",
+  "executor": "Claude Code",
+  "model_identity": "same Claude Code model/runtime in both arms",
+  "treatment": "SPARI v0.1.3 ON vs. OFF",
+  "total_executions": 12,
+  "corrected_verdict": "EXECUTION_DISCIPLINE_LIFT_ONLY",
+  "original_executor_verdict": "EXECUTION_ENTROPY_REDUCTION_SIGNAL",
+  "completion": {
+    "baseline_pass": 6,
+    "baseline_fail": 0,
+    "spari_pass": 6,
+    "spari_fail": 0,
+    "outcome_lift": 0
+  },
+  "entropy": {
+    "total_eei_baseline": 8,
+    "total_eei_spari": 2,
+    "aggregate_reduction_percent": 75,
+    "median_eei_baseline": 0,
+    "median_eei_spari": 0,
+    "recovery_tasks_eei_baseline": 8,
+    "recovery_tasks_eei_spari": 2,
+    "recovery_reduction_percent": 75,
+    "reuse_tasks_eei_baseline": 0,
+    "reuse_tasks_eei_spari": 0,
+    "control_tasks_eei_baseline": 0,
+    "control_tasks_eei_spari": 0
+  },
+  "raw_components": {
+    "unjustified_plan_changes": {
+      "baseline": 3,
+      "spari": 1
+    },
+    "repeated_analysis_events": {
+      "baseline": 1,
+      "spari": 0
+    },
+    "abandoned_implementations": {
+      "baseline": 2,
+      "spari": 0
+    },
+    "redundant_tool_calls": {
+      "baseline": 0,
+      "spari": 0
+    },
+    "unnecessary_owner_escalations": {
+      "baseline": 0,
+      "spari": 0
+    },
+    "unnecessary_files_created": {
+      "baseline": 0,
+      "spari": 0
+    }
+  },
+  "tasks": [
+    {
+      "task_id": 1,
+      "class": "Reuse",
+      "baseline_result": "PASS",
+      "spari_result": "PASS",
+      "baseline_eei": 0,
+      "spari_eei": 0,
+      "pair_result": "TIE"
+    },
+    {
+      "task_id": 2,
+      "class": "Reuse",
+      "baseline_result": "PASS",
+      "spari_result": "PASS",
+      "baseline_eei": 0,
+      "spari_eei": 0,
+      "pair_result": "TIE"
+    },
+    {
+      "task_id": 3,
+      "class": "Recovery",
+      "baseline_result": "PASS",
+      "spari_result": "PASS",
+      "baseline_eei": 5,
+      "spari_eei": 1,
+      "pair_result": "SPARI_BETTER",
+      "observed_effect": "retry-driven churn replaced by one diagnosis-driven recomposition"
+    },
+    {
+      "task_id": 4,
+      "class": "Recovery",
+      "baseline_result": "PASS",
+      "spari_result": "PASS",
+      "baseline_eei": 3,
+      "spari_eei": 1,
+      "pair_result": "SPARI_BETTER",
+      "observed_effect": "speculative retries replaced by targeted diagnosis and one recomposition"
+    },
+    {
+      "task_id": 5,
+      "class": "Control",
+      "baseline_result": "PASS",
+      "spari_result": "PASS",
+      "baseline_eei": 0,
+      "spari_eei": 0,
+      "pair_result": "TIE"
+    },
+    {
+      "task_id": 6,
+      "class": "Control",
+      "baseline_result": "PASS",
+      "spari_result": "PASS",
+      "baseline_eei": 0,
+      "spari_eei": 0,
+      "pair_result": "TIE"
+    }
+  ],
+  "contract_consistency": {
+    "execution_entropy_reduction_signal_supported": false,
+    "reason": [
+      "Median paired EEI was not lower under SPARI: 0 vs 0",
+      "Only 2 of 4 non-control tasks showed lower EEI; frozen contract required at least 3 of 4 for EXECUTION_ENTROPY_REDUCTION_SIGNAL"
+    ],
+    "execution_discipline_lift_only_supported": true
+  },
+  "clarifications": {
+    "owner_escalation": "No difference observed; both arms recorded zero unnecessary owner escalations",
+    "tool_spam": "No difference observed in tool-call count or redundant tool calls",
+    "wall_clock": "Not directly measured",
+    "token_usage": "Not directly measured"
+  },
+  "bounded_conclusion": "In this bounded six-task paired evaluation, SPARI v0.1.3 preserved 100% Claude Code task completion while reducing observed execution entropy from 8 to 2 events across the two recovery tasks. The effect consisted primarily of fewer unjustified strategy changes, less repeated analysis, and fewer abandoned implementations, with no observed entropy overhead on straightforward control tasks.",
+  "source_artifacts": [
+    "raw/original-report.md",
+    "raw/original-result.json"
+  ]
+}
