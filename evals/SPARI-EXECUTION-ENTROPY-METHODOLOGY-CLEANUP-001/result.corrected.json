@@ -1,0 +1,106 @@
+{
+  "cleanup_id": "SPARI-EXECUTION-ENTROPY-METHODOLOGY-CLEANUP-001",
+  "status": "COMPLETE",
+  "date": "2026-09-19",
+  "source_evaluation": "SPARI-CLAUDECODE-EXECUTION-ENTROPY-001",
+  "methodology": "Deterministic event-coding with productive-recomposition correction",
+  "coding_rules_version": "1.0",
+  "new_executions": 0,
+  "new_tasks": 0,
+  "final_verdict": "OBSERVED_RECOVERY_ENTROPY_ELIMINATED",
+  "original_claim": {
+    "baseline_eei": 8,
+    "spari_eei": 2,
+    "reduction_percent": 75,
+    "verdict": "EXECUTION_ENTROPY_REDUCTION_SIGNAL"
+  },
+  "revised_claim": {
+    "baseline_eei": 4,
+    "spari_eei": 0,
+    "baseline_recovery_eei": 4,
+    "spari_recovery_eei": 0,
+    "reduction_percent": 100,
+    "verdict": "OBSERVED_RECOVERY_ENTROPY_ELIMINATED"
+  },
+  "task_results": [
+    {
+      "task_id": 1,
+      "class": "Reuse",
+      "baseline_eei": 0,
+      "spari_eei": 0,
+      "pair_result": "TIE"
+    },
+    {
+      "task_id": 2,
+      "class": "Reuse",
+      "baseline_eei": 0,
+      "spari_eei": 0,
+      "pair_result": "TIE"
+    },
+    {
+      "task_id": 3,
+      "class": "Recovery",
+      "baseline_eei": 2,
+      "spari_eei": 0,
+      "pair_result": "SPARI_BETTER",
+      "baseline_entropy": [
+        "1 unjustified plan change after acceptance had already been achieved",
+        "1 abandoned functional implementation"
+      ],
+      "spari_behavior": "diagnostic-driven productive recomposition"
+    },
+    {
+      "task_id": 4,
+      "class": "Recovery",
+      "baseline_eei": 2,
+      "spari_eei": 0,
+      "pair_result": "SPARI_BETTER",
+      "baseline_entropy": [
+        "2 speculative plan changes without root-cause diagnosis"
+      ],
+      "spari_behavior": "root-cause diagnosis followed by targeted correction"
+    },
+    {
+      "task_id": 5,
+      "class": "Control",
+      "baseline_eei": 0,
+      "spari_eei": 0,
+      "pair_result": "TIE"
+    },
+    {
+      "task_id": 6,
+      "class": "Control",
+      "baseline_eei": 0,
+      "spari_eei": 0,
+      "pair_result": "TIE"
+    }
+  ],
+  "coding_rules": {
+    "productive_recomposition": {
+      "eei_contribution": 0,
+      "definition": "Evidence-driven strategy change that directly responds to newly observed failure or diagnostic evidence."
+    },
+    "unjustified_plan_change": {
+      "eei_contribution": 1,
+      "definition": "Speculative or arbitrary strategy change without materially new evidence."
+    },
+    "abandoned_implementation": {
+      "eei_contribution": 1,
+      "definition": "Functional or executable work superseded through avoidable branching without retained reusable value."
+    },
+    "unknown_policy": "0 EEI and report separately",
+    "double_counting_policy": "Each physical execution event contributes at most one EEI point unless separate independently observable events occurred."
+  },
+  "bounded_conclusion": "In the audited Claude Code recovery tasks, SPARI v0.1.3 reduced measured unproductive recovery execution entropy from 4 EEI events to 0 while preserving 100% verified task completion. The effect resulted from replacing speculative recovery changes with diagnostic, evidence-driven recomposition.",
+  "scope_limitations": [
+    "100% reduction applies only to the two bounded recovery tasks",
+    "No claim that SPARI eliminates all agent entropy",
+    "No claim that SPARI eliminates uncertainty or necessary exploration",
+    "No generalization beyond the tested Claude Code setup",
+    "No new runs were conducted during cleanup"
+  ],
+  "source_artifacts": [
+    "raw/original-report.md",
+    "raw/original-result.json"
+  ]
+}

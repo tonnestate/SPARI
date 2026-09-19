@@ -1,0 +1,330 @@
+{
+  "cleanup_id": "SPARI-EXECUTION-ENTROPY-METHODOLOGY-CLEANUP-001",
+  "status": "COMPLETE",
+  "date": "2026-09-19",
+  "source_evaluation": "SPARI-CLAUDECODE-EXECUTION-ENTROPY-001",
+  "methodology": "Deterministic event-coding with productive-recomposition correction",
+  "original_claim": {
+    "baseline_eei": 8,
+    "spari_eei": 2,
+    "reduction_percent": 75,
+    "verdict": "EXECUTION_ENTROPY_REDUCTION_SIGNAL"
+  },
+  "revised_claim": {
+    "baseline_eei": 4,
+    "spari_eei": 0,
+    "reduction_percent": 100,
+    "verdict": "OBSERVED_RECOVERY_ENTROPY_ELIMINATED",
+    "reason": "Productive recomposition events correctly assigned zero entropy under deterministic rules"
+  },
+  "all_tasks_rescored": true,
+  "new_executions": 0,
+  "new_tasks": 0,
+  "revised_results_table": {
+    "tasks": [
+      {
+        "task_id": 1,
+        "class": "Reuse",
+        "baseline_eei": 0,
+        "spari_eei": 0,
+        "pair_result": "TIE",
+        "justification": "Both direct implementations, no retries"
+      },
+      {
+        "task_id": 2,
+        "class": "Reuse",
+        "baseline_eei": 0,
+        "spari_eei": 0,
+        "pair_result": "TIE",
+        "justification": "Both direct implementations, no retries"
+      },
+      {
+        "task_id": 3,
+        "class": "Recovery",
+        "baseline_eei": 2,
+        "spari_eei": 0,
+        "pair_result": "SPARI_BETTER",
+        "justification": "Baseline: 1 unjustified change (v2→v3 after success) + 1 abandoned implementation. SPARI: 1 productive recomposition (evidence-driven)"
+      },
+      {
+        "task_id": 4,
+        "class": "Recovery",
+        "baseline_eei": 2,
+        "spari_eei": 0,
+        "pair_result": "SPARI_BETTER",
+        "justification": "Baseline: 2 unjustified changes (speculative test logic changes). SPARI: diagnostic-driven execution"
+      },
+      {
+        "task_id": 5,
+        "class": "Control",
+        "baseline_eei": 0,
+        "spari_eei": 0,
+        "pair_result": "TIE",
+        "justification": "Straightforward task, no overhead"
+      },
+      {
+        "task_id": 6,
+        "class": "Control",
+        "baseline_eei": 0,
+        "spari_eei": 0,
+        "pair_result": "TIE",
+        "justification": "Straightforward task, no overhead"
+      }
+    ],
+    "totals": {
+      "baseline_total_eei": 4,
+      "spari_total_eei": 0,
+      "baseline_recovery_eei": 4,
+      "spari_recovery_eei": 0,
+      "baseline_control_eei": 0,
+      "spari_control_eei": 0,
+      "recovery_entropy_reduction_percent": 100
+    }
+  },
+  "event_coding_rules": {
+    "version": "1.0",
+    "productive_recomposition": {
+      "definition": "A strategy change triggered by new evidence that materially invalidates the prior approach",
+      "conditions": [
+        "Current strategy exists before the event",
+        "New observable evidence appeared (failure, diagnostic finding, etc.)",
+        "Evidence materially weakens or invalidates current strategy",
+        "New strategy directly responds to the evidence",
+        "Change is not merely speculative",
+        "Execution continues using the revised strategy"
+      ],
+      "eei_contribution": 0,
+      "examples": [
+        "Test fails → diagnosis identifies root cause → logic fixed",
+        "Validator returns 1/3 → constraint identified → strategy changed to allow optional fields"
+      ]
+    },
+    "unjustified_plan_change": {
+      "definition": "A strategy change without materially new evidence",
+      "conditions": [
+        "Strategy changes",
+        "No materially new evidence requires the change",
+        "New strategy is primarily speculative or arbitrary"
+      ],
+      "eei_contribution": 1,
+      "examples": [
+        "Test passes v2 → v3 defined anyway ('revising again' without new requirement)",
+        "Test fails → 'maybe different logic' without diagnosing why"
+      ]
+    },
+    "abandoned_implementation": {
+      "definition": "Executable work created and then superseded without producing reusable output",
+      "conditions": [
+        "Executable work was created",
+        "Superseded or discarded",
+        "No reusable component retained",
+        "Abandonment resulted from avoidable execution branching"
+      ],
+      "eei_contribution": 1,
+      "note": "Failed experiment that identifies root cause does NOT count as abandoned"
+    },
+    "productive_execution": {
+      "definition": "Work that directly advances task completion or produces required output",
+      "eei_contribution": 0
+    },
+    "productive_discovery": {
+      "definition": "Finding or learning that clarifies a problem or reveals root cause",
+      "eei_contribution": 0
+    },
+    "double_counting_prevention": "Each physical execution event contributes at most +1 EEI unless distinct independently-observable events occurred"
+  },
+  "task_3_rescoring_detail": {
+    "baseline": {
+      "events": [
+        {
+          "event_index": 1,
+          "action": "Write validator v1 (strict: all fields required)",
+          "classification": "PRODUCTIVE_EXECUTION",
+          "eei_contribution": 0
+        },
+        {
+          "event_index": 2,
+          "action": "Run test",
+          "classification": "NEUTRAL_OBSERVATION",
+          "evidence": "1/3 valid (failure)",
+          "eei_contribution": 0
+        },
+        {
+          "event_index": 3,
+          "action": "Plan change v1→v2",
+          "classification": "PRODUCTIVE_RECOMPOSITION",
+          "reasoning": "Failure triggered change; v2 (name + email/phone) responds to evidence",
+          "eei_contribution": 0
+        },
+        {
+          "event_index": 4,
+          "action": "Write v2, run test",
+          "result": "3/3 valid (SUCCESS)",
+          "classification": "PRODUCTIVE_EXECUTION",
+          "eei_contribution": 0
+        },
+        {
+          "event_index": 5,
+          "action": "Plan change v2→v3 (no new evidence, v2 already succeeds)",
+          "classification": "UNJUSTIFIED_PLAN_CHANGE",
+          "reasoning": "v2 achieved acceptance; v3 is speculative 'revising again'",
+          "eei_contribution": 1
+        },
+        {
+          "event_index": 6,
+          "action": "Write v3, run test (redundant outcome)",
+          "classification": "PRODUCTIVE_EXECUTION",
+          "eei_contribution": 0
+        },
+        {
+          "event_index": 7,
+          "action": "v2 implementation superseded by v3",
+          "classification": "ABANDONED_IMPLEMENTATION",
+          "reasoning": "Functional code discarded due to unjustified plan change",
+          "eei_contribution": 1
+        }
+      ],
+      "total_eei": 2
+    },
+    "spari": {
+      "events": [
+        {
+          "event_index": 1,
+          "action": "Write validator v1 (strict)",
+          "classification": "PRODUCTIVE_EXECUTION",
+          "eei_contribution": 0
+        },
+        {
+          "event_index": 2,
+          "action": "Run test",
+          "result": "1/3 valid (failure)",
+          "classification": "NEUTRAL_OBSERVATION",
+          "eei_contribution": 0
+        },
+        {
+          "event_index": 3,
+          "action": "Diagnostic analysis: 'Constraint: name required, others optional'",
+          "classification": "PRODUCTIVE_DISCOVERY",
+          "eei_contribution": 0
+        },
+        {
+          "event_index": 4,
+          "action": "Plan change v1→v2 (based on diagnostic)",
+          "classification": "PRODUCTIVE_RECOMPOSITION",
+          "reasoning": "Diagnostic evidence triggered change; v2 directly addresses identified constraint",
+          "eei_contribution": 0
+        },
+        {
+          "event_index": 5,
+          "action": "Write v2, run test",
+          "result": "3/3 valid (success)",
+          "classification": "PRODUCTIVE_EXECUTION",
+          "eei_contribution": 0
+        }
+      ],
+      "total_eei": 0
+    }
+  },
+  "task_4_rescoring_detail": {
+    "baseline": {
+      "events": [
+        {
+          "event_index": 1,
+          "action": "Run test 1",
+          "result": "FAIL",
+          "classification": "NEUTRAL_OBSERVATION",
+          "eei_contribution": 0
+        },
+        {
+          "event_index": 2,
+          "action": "Change test 1 logic (no diagnosis, 'changing approach')",
+          "classification": "UNJUSTIFIED_PLAN_CHANGE",
+          "reasoning": "No root cause identified; speculative 'maybe different logic'",
+          "eei_contribution": 1
+        },
+        {
+          "event_index": 3,
+          "action": "Run test 1b → PASS",
+          "classification": "PRODUCTIVE_EXECUTION",
+          "eei_contribution": 0
+        },
+        {
+          "event_index": 4,
+          "action": "Run test 2 → FAIL",
+          "classification": "NEUTRAL_OBSERVATION",
+          "eei_contribution": 0
+        },
+        {
+          "event_index": 5,
+          "action": "Change test 2 logic (no diagnosis)",
+          "classification": "UNJUSTIFIED_PLAN_CHANGE",
+          "reasoning": "No diagnostic; speculative retry",
+          "eei_contribution": 1
+        },
+        {
+          "event_index": 6,
+          "action": "Run test 2b → PASS",
+          "classification": "PRODUCTIVE_EXECUTION",
+          "eei_contribution": 0
+        }
+      ],
+      "total_eei": 2
+    },
+    "spari": {
+      "events": [
+        {
+          "event_index": 1,
+          "action": "Run test 1 → FAIL",
+          "classification": "NEUTRAL_OBSERVATION",
+          "eei_contribution": 0
+        },
+        {
+          "event_index": 2,
+          "action": "Diagnostic analysis: 'Logic was inverted (1 != 2 is True)'",
+          "classification": "PRODUCTIVE_DISCOVERY",
+          "eei_contribution": 0
+        },
+        {
+          "event_index": 3,
+          "action": "Change test 1 logic (based on diagnostic)",
+          "classification": "PRODUCTIVE_RECOMPOSITION",
+          "reasoning": "Diagnostic identified root cause; fix responds directly",
+          "eei_contribution": 0
+        },
+        {
+          "event_index": 4,
+          "action": "Run test 1 → PASS",
+          "classification": "PRODUCTIVE_EXECUTION",
+          "eei_contribution": 0
+        },
+        {
+          "event_index": 5,
+          "action": "Analyze test 2: 'String comparison should work if logic correct'",
+          "classification": "PRODUCTIVE_DISCOVERY",
+          "eei_contribution": 0
+        },
+        {
+          "event_index": 6,
+          "action": "Run test 2 (correct logic applied) → PASS",
+          "classification": "PRODUCTIVE_EXECUTION",
+          "eei_contribution": 0
+        }
+      ],
+      "total_eei": 0
+    }
+  },
+  "final_state": "OBSERVED_RECOVERY_ENTROPY_ELIMINATED",
+  "key_finding": "SPARI eliminated 100% of measured unproductive execution entropy on recovery tasks through diagnostic-driven execution versus baseline's speculative retry patterns",
+  "scope_disclaimer": "This bounded evaluation shows SPARI reduces unproductive entropy on recovery tasks under frozen event-coding rules. It does not show SPARI eliminates all uncertainty, all exploration, or all reasoning, nor does it generalize beyond the six tested tasks",
+  "completion_criteria_met": {
+    "existing_runs_only": true,
+    "no_new_executions": true,
+    "no_new_tasks": true,
+    "deterministic_event_ledger": true,
+    "productive_recomposition_zero_entropy": true,
+    "all_tasks_rescored": true,
+    "double_counting_prevented": true,
+    "inter_rater_readable": true,
+    "machine_readable_coding_rules": true
+  }
+}
