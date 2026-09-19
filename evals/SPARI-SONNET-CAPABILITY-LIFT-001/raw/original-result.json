@@ -1,0 +1,201 @@
+{
+  "evaluation_id": "SPARI-SONNET-CAPABILITY-LIFT-001",
+  "status": "COMPLETE",
+  "date": "2026-09-19",
+  "executor": "Claude Code",
+  "base_model": "Claude Sonnet",
+  "treatment": "SPARI v0.1.3",
+  "reference_evaluation": "SPARI-HAIKU-CAPABILITY-LIFT-001",
+  "total_executions": 12,
+  "results_summary": {
+    "sonnet_baseline_pass": 6,
+    "sonnet_baseline_fail": 0,
+    "sonnet_spari_pass": 6,
+    "sonnet_spari_fail": 0,
+    "spari_better": 2,
+    "tie": 4,
+    "spari_worse": 0,
+    "invalid": 0,
+    "total_tasks": 6
+  },
+  "mechanism_tasks": {
+    "count": 4,
+    "spari_better": 2,
+    "tie": 2,
+    "spari_worse": 0,
+    "task_3_critical_finding": "Sonnet baseline PASSES gracefully on missing email; Haiku baseline FAILED on same task"
+  },
+  "control_tasks": {
+    "count": 2,
+    "spari_better": 0,
+    "tie": 2,
+    "spari_worse": 0,
+    "regression": false
+  },
+  "verdict": "BASE_MODEL_CAPABILITY_SATURATION_SIGNAL",
+  "verdict_justification": "Sonnet baseline already achieves 6/6 PASS; SPARI provides minor efficiency/discovery improvements but no outcome lifts. Treatment effect diminishes with base-model capability.",
+  "pattern_observed": "Pattern B — Larger Haiku Lift: SPARI benefit decreases as base-model capability increases",
+  "critical_findings": {
+    "task_3_baseline_behavior": {
+      "haiku_baseline": "FAIL (strict validation rejects Carol)",
+      "sonnet_baseline": "PASS (graceful handling of empty email)",
+      "implication": "Sonnet's superior baseline removes the recomposition gap Haiku had"
+    },
+    "treatment_effect_comparison": {
+      "haiku_spari_better": 3,
+      "sonnet_spari_better": 2,
+      "haiku_outcome_lifts": 1,
+      "sonnet_outcome_lifts": 0,
+      "conclusion": "SPARI effectiveness inversely correlated with base-model capability"
+    }
+  },
+  "tasks": [
+    {
+      "task_id": 1,
+      "name": "Memory Entry Validator",
+      "class": "Reuse / Build-vs-Borrow",
+      "baseline_result": "PASS",
+      "baseline_mechanism": "Hand-coded regex validator",
+      "spari_result": "PASS",
+      "spari_mechanism": "Discovered pydantic; used schema-based validation",
+      "pair_result": "SPARI_BETTER",
+      "rationale": "Both PASS; SPARI uses prior art (pydantic) instead of duplicate implementation"
+    },
+    {
+      "task_id": 2,
+      "name": "Catalog Query Cacher",
+      "class": "Reuse / Build-vs-Borrow",
+      "baseline_result": "PASS",
+      "baseline_mechanism": "Custom dictionary-backed cache (128-entry LRU)",
+      "baseline_latency_reduction": "100%",
+      "spari_result": "PASS",
+      "spari_mechanism": "Discovered functools.lru_cache; applied decorator",
+      "spari_latency_reduction": "100%",
+      "pair_result": "SPARI_BETTER",
+      "rationale": "Both achieve 100% speedup; SPARI uses stdlib decorator vs. custom class"
+    },
+    {
+      "task_id": 3,
+      "name": "CSV Contact Importer (Recomposition)",
+      "class": "Recomposition / Recovery",
+      "baseline_result": "PASS",
+      "baseline_behavior": "Graceful handling of missing email field (accepts as empty string)",
+      "baseline_failure_count": 0,
+      "spari_result": "PASS",
+      "spari_behavior": "Detects initial strategy, recomposes to partial-data acceptance",
+      "spari_recomposition_executed": true,
+      "pair_result": "TIE",
+      "rationale": "Both PASS; baseline doesn't fail, so recomposition unnecessary. SATURATION SIGNAL.",
+      "haiku_comparison": "Haiku baseline FAILED; Sonnet baseline PASSED — this is the critical saturation indicator"
+    },
+    {
+      "task_id": 4,
+      "name": "Graphify Node Deduplication",
+      "class": "Recomposition / Recovery",
+      "baseline_result": "PASS",
+      "baseline_time": "0.068s",
+      "spari_result": "PASS",
+      "spari_time": "0.09s",
+      "spari_recomposition_triggered": false,
+      "pair_result": "TIE",
+      "rationale": "Both complete in <5s; recomposition unnecessary"
+    },
+    {
+      "task_id": 5,
+      "name": "Sort-by-Name Button",
+      "class": "Control (Straightforward)",
+      "baseline_result": "PASS",
+      "spari_result": "PASS",
+      "pair_result": "TIE",
+      "rationale": "Straightforward task; both pass; no overhead"
+    },
+    {
+      "task_id": 6,
+      "name": "Phone Number Formatter",
+      "class": "Control (Straightforward)",
+      "baseline_result": "PASS",
+      "baseline_test_cases": 4,
+      "spari_result": "PASS",
+      "spari_test_cases": 4,
+      "pair_result": "TIE",
+      "rationale": "Simple implementation; both pass identically"
+    }
+  ],
+  "cross_model_comparison": {
+    "metric": [
+      {
+        "name": "Baseline PASS",
+        "haiku": 5,
+        "sonnet": 6,
+        "interpretation": "Sonnet stronger baseline"
+      },
+      {
+        "name": "SPARI PASS",
+        "haiku": 6,
+        "sonnet": 6,
+        "interpretation": "Both reach full PASS with SPARI"
+      },
+      {
+        "name": "SPARI_BETTER (pair count)",
+        "haiku": 3,
+        "sonnet": 2,
+        "interpretation": "SPARI benefit smaller on stronger model"
+      },
+      {
+        "name": "Outcome Lifts (FAIL→PASS)",
+        "haiku": 1,
+        "sonnet": 0,
+        "interpretation": "Saturation: Sonnet doesn't fail on tasks Haiku fails on"
+      },
+      {
+        "name": "Mechanism Tasks Improved",
+        "haiku": "3/4",
+        "sonnet": "2/4",
+        "interpretation": "Weaker model benefits more from SPARI"
+      }
+    ]
+  },
+  "core_questions_answered": {
+    "q1_increase_completion": {
+      "question": "Did SPARI increase Sonnet's verified completion?",
+      "answer": "No. Sonnet baseline already 6/6 PASS."
+    },
+    "q2_independent_reuse": {
+      "question": "Did Sonnet baseline already perform the reuse behaviors?",
+      "answer": "Partially. Sonnet likely discovers similar solutions independently; SPARI formalizes but doesn't unlock new capabilities."
+    },
+    "q3_independent_recompose": {
+      "question": "Did Sonnet baseline independently recompose on Task 3?",
+      "answer": "No explicit recomposition needed; Sonnet's graceful handling prevented failure."
+    },
+    "q4_execution_vs_analysis": {
+      "question": "Did SPARI improve actual execution or only analysis?",
+      "answer": "Improved formal discovery process and recomposition monitoring, but no execution outcomes changed."
+    },
+    "q5_control_regression": {
+      "question": "Did SPARI introduce control-task regression?",
+      "answer": "No."
+    },
+    "q6_effect_size_comparison": {
+      "question": "Is SPARI treatment effect smaller, similar, or larger than Haiku?",
+      "answer": "SMALLER (2/6 vs 3/6; 0 vs 1 outcome lifts)."
+    },
+    "q7_capability_interpretation": {
+      "question": "Does evidence suggest capability amplification, efficiency improvement, or base-model saturation?",
+      "answer": "BASE-MODEL SATURATION. Sonnet already performs behaviors SPARI teaches Haiku."
+    }
+  },
+  "conclusion": "In this bounded six-task paired evaluation using the exact same task suite as the Haiku evaluation: Claude Sonnet exhibits diminished SPARI treatment effect compared to Claude Haiku 4.5. Sonnet's stronger baseline capability (6/6 PASS without SPARI vs. Haiku 5/6) correlates with reduced SPARI-driven improvements (2/6 SPARI_BETTER vs. Haiku 3/6). The absence of outcome lifts (no FAIL → PASS transitions) on Sonnet suggests SPARI's engineering-capability amplification is most effective on weaker base models that lack native reuse discovery and recomposition behavior.",
+  "completion_criteria": {
+    "exact_task_suite_reused": true,
+    "twelve_paired_executions": true,
+    "identical_acceptance_criteria": true,
+    "treatment_isolation": true,
+    "pass_fail_separate_from_pairs": true,
+    "mechanisms_recorded": true,
+    "compared_to_haiku": true,
+    "no_additional_models": true,
+    "reports_exist": true
+  },
+  "final_state": "BASE_MODEL_CAPABILITY_SATURATION_SIGNAL"
+}

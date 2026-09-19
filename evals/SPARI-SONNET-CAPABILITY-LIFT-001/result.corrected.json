@@ -1,0 +1,124 @@
+{
+  "evaluation_id": "SPARI-SONNET-CAPABILITY-LIFT-001",
+  "status": "COMPLETE",
+  "date": "2026-09-19",
+  "executor": "Claude Code",
+  "base_model": "Claude Sonnet",
+  "treatment": "SPARI v0.1.3",
+  "reference_evaluation": "SPARI-HAIKU-CAPABILITY-LIFT-001",
+  "total_executions": 12,
+  "verdict": "BASE_MODEL_CAPABILITY_SATURATION_SIGNAL",
+  "results": {
+    "pair_level": {
+      "spari_better": 2,
+      "tie": 4,
+      "spari_worse": 0,
+      "invalid": 0
+    },
+    "verified_completion": {
+      "baseline_pass": 6,
+      "baseline_fail": 0,
+      "spari_pass": 6,
+      "spari_fail": 0,
+      "outcome_lifts": 0
+    },
+    "mechanism_tasks": {
+      "spari_better": 2,
+      "tie": 2,
+      "spari_worse": 0
+    },
+    "control_tasks": {
+      "baseline_pass": 2,
+      "spari_pass": 2,
+      "regressions_observed": 0
+    }
+  },
+  "cross_model_comparison": {
+    "haiku": {
+      "baseline_pass": 5,
+      "spari_pass": 6,
+      "spari_better": 3,
+      "tie": 3,
+      "spari_worse": 0,
+      "outcome_lifts": 1,
+      "mechanism_tasks_improved": "3/4"
+    },
+    "sonnet": {
+      "baseline_pass": 6,
+      "spari_pass": 6,
+      "spari_better": 2,
+      "tie": 4,
+      "spari_worse": 0,
+      "outcome_lifts": 0,
+      "mechanism_tasks_improved": "2/4"
+    },
+    "bounded_interpretation": "The observed incremental SPARI treatment effect was smaller on Sonnet than on Haiku on this shared six-task evaluation."
+  },
+  "tasks": [
+    {
+      "task_id": 1,
+      "class": "Reuse / Build-vs-Borrow",
+      "baseline": "PASS",
+      "spari": "PASS",
+      "pair_result": "SPARI_BETTER",
+      "mechanism": "PRIOR_ART_FOUND + PRIOR_ART_USED",
+      "evidence": "pydantic/schema-based validation used instead of hand-coded validation"
+    },
+    {
+      "task_id": 2,
+      "class": "Reuse / Build-vs-Borrow",
+      "baseline": "PASS",
+      "spari": "PASS",
+      "pair_result": "SPARI_BETTER",
+      "mechanism": "PRIOR_ART_FOUND + PRIOR_ART_USED",
+      "evidence": "functools.lru_cache used instead of custom cache implementation"
+    },
+    {
+      "task_id": 3,
+      "class": "Recomposition / Recovery",
+      "baseline": "PASS",
+      "spari": "PASS",
+      "pair_result": "TIE",
+      "mechanism": "PLAN_CHANGED + RECOMPOSITION_EXECUTED",
+      "evidence": "SPARI recomposed, but Sonnet baseline already handled missing email successfully",
+      "cross_model_note": "Haiku baseline failed the corresponding task while Haiku + SPARI passed"
+    },
+    {
+      "task_id": 4,
+      "class": "Recomposition / Recovery",
+      "baseline": "PASS",
+      "spari": "PASS",
+      "pair_result": "TIE",
+      "mechanism": "NO_RECOMPOSITION_REQUIRED",
+      "baseline_time_seconds": 0.068,
+      "spari_time_seconds": 0.09
+    },
+    {
+      "task_id": 5,
+      "class": "Control",
+      "baseline": "PASS",
+      "spari": "PASS",
+      "pair_result": "TIE"
+    },
+    {
+      "task_id": 6,
+      "class": "Control",
+      "baseline": "PASS",
+      "spari": "PASS",
+      "pair_result": "TIE"
+    }
+  ],
+  "bounded_conclusion": "In this bounded six-task paired evaluation, Claude Sonnet completed all tasks with and without SPARI v0.1.3. SPARI produced two reuse-oriented execution improvements but no additional verified-completion lift. Compared with the matching Haiku evaluation, the observed incremental SPARI effect was smaller on Sonnet, consistent with a base-model capability saturation signal under the tested conditions.",
+  "limitations": [
+    "Only two base-model levels were compared",
+    "Only six paired tasks per model were used",
+    "No population-level statistical significance claim",
+    "No general inverse-correlation claim",
+    "No claim that SPARI is unnecessary on stronger models",
+    "No claim of Haiku+SPARI equivalence to Sonnet"
+  ],
+  "source_artifacts": [
+    "raw/original-report.md",
+    "raw/original-result.json"
+  ]
+}
