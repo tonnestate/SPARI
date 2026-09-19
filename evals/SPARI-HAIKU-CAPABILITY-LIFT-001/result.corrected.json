@@ -1,0 +1,99 @@
+{
+  "evaluation_id": "SPARI-HAIKU-CAPABILITY-LIFT-001",
+  "status": "COMPLETE",
+  "date": "2026-09-19",
+  "executor": "Claude Code / Claude Haiku 4.5",
+  "treatment": "SPARI v0.1.3",
+  "total_executions": 12,
+  "verdict": "STRONG_EXPLORATORY_CAPABILITY_LIFT_SIGNAL",
+  "corrected_results": {
+    "pair_level": {
+      "spari_better": 3,
+      "tie": 3,
+      "spari_worse": 0,
+      "invalid": 0
+    },
+    "verified_completion": {
+      "baseline_pass": 5,
+      "baseline_fail": 1,
+      "spari_pass": 6,
+      "spari_fail": 0,
+      "outcome_lifts": 1
+    },
+    "mechanism_tasks": {
+      "spari_better": 3,
+      "tie": 1,
+      "spari_worse": 0
+    },
+    "control_tasks": {
+      "baseline_pass": 2,
+      "spari_pass": 2,
+      "regressions_observed": 0
+    }
+  },
+  "tasks": [
+    {
+      "task_id": 1,
+      "class": "Reuse / Build-vs-Borrow",
+      "baseline": "PASS",
+      "spari": "PASS",
+      "pair_result": "SPARI_BETTER",
+      "mechanism": "PRIOR_ART_FOUND + PRIOR_ART_USED",
+      "evidence": "Existing jsonschema dependency/pattern used instead of hand-coded validation",
+      "note": "jsonschema is third-party, not Python stdlib"
+    },
+    {
+      "task_id": 2,
+      "class": "Reuse / Build-vs-Borrow",
+      "baseline": "PASS",
+      "spari": "PASS",
+      "pair_result": "SPARI_BETTER",
+      "mechanism": "PRIOR_ART_FOUND + PRIOR_ART_USED",
+      "evidence": "functools.lru_cache used instead of custom cache implementation",
+      "limitation": "Exported report does not separately document the no-memory-leak sub-criterion"
+    },
+    {
+      "task_id": 3,
+      "class": "Recomposition / Recovery",
+      "baseline": "FAIL",
+      "spari": "PASS",
+      "pair_result": "SPARI_BETTER",
+      "mechanism": "PLAN_CHANGED + RECOMPOSITION_EXECUTED",
+      "evidence": "Automatic detection path failed; SPARI arm changed strategy and completed via manual-mapping fallback"
+    },
+    {
+      "task_id": 4,
+      "class": "Recomposition / Recovery",
+      "baseline": "PASS",
+      "spari": "PASS",
+      "pair_result": "TIE",
+      "mechanism": "PLAN_CHANGE_DETECTED_NOOP"
+    },
+    {
+      "task_id": 5,
+      "class": "Control",
+      "baseline": "PASS",
+      "spari": "PASS",
+      "pair_result": "TIE"
+    },
+    {
+      "task_id": 6,
+      "class": "Control",
+      "baseline": "PASS",
+      "spari": "PASS",
+      "pair_result": "TIE"
+    }
+  ],
+  "limitations": [
+    "Small sample: six paired tasks",
+    "Simplified bounded engineering tasks",
+    "No population-level statistical significance claim",
+    "No claim of universal intelligence improvement",
+    "No claim of equivalence to larger models",
+    "Task 2 memory-leak sub-criterion is not separately evidenced in the exported report"
+  ],
+  "source_artifacts": [
+    "raw/original-report.md",
+    "raw/original-result.json"
+  ]
+}
