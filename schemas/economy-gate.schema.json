@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/tonnestate/SPARI/schemas/economy-gate.schema.json",
+  "title": "SPARI Economy Gate Decision",
+  "type": "object",
+  "required": ["schema_version", "decision", "reason_codes"],
+  "properties": {
+    "schema_version": {"const": "0.1.4"},
+    "case_id": {"type": ["string", "null"]},
+    "repository": {"type": ["string", "null"]},
+    "base_revision": {"type": ["string", "null"]},
+    "capability_key": {"type": ["string", "null"]},
+    "task_class": {
+      "type": ["string", "null"],
+      "enum": ["MICRO_EDIT", "BOUNDED_CHANGE", "REPAIR", "NEW_CAPABILITY", "DEPENDENCY_CHANGE", "ARCHITECTURE_CHANGE", "UNKNOWN", null]
+    },
+    "deterministic_hits": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["kind", "evidence_ref"],
+        "properties": {
+          "kind": {"type": "string"},
+          "key": {"type": ["string", "null"]},
+          "evidence_ref": {"type": "string"},
+          "fresh": {"type": ["boolean", "null"]},
+          "compatible": {"type": ["boolean", "null"]}
+        },
+        "additionalProperties": true
+      }
+    },
+    "risk_flags": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "execution_cost_estimate": {
+      "type": ["object", "null"],
+      "properties": {
+        "class": {"enum": ["TRIVIAL", "BOUNDED", "CONSEQUENTIAL", "UNKNOWN"]},
+        "tokens": {"type": ["number", "null"], "minimum": 0},
+        "time_seconds": {"type": ["number", "null"], "minimum": 0},
+        "monetary_cost": {"type": ["number", "null"], "minimum": 0},
+        "provenance": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "check_cost_estimate": {
+      "type": ["object", "null"],
+      "properties": {
+        "tokens": {"type": ["number", "null"], "minimum": 0},
+        "time_seconds": {"type": ["number", "null"], "minimum": 0},
+        "monetary_cost": {"type": ["number", "null"], "minimum": 0},
+        "provenance": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "decision": {
+      "enum": ["FAST_REUSE", "DIRECT_EXECUTION", "SPARI_PREFLIGHT", "SPARI_TARGETED", "SPARI_FULL", "RECOMPOSE"]
+    },
+    "max_search_radius": {"enum": ["NONE", "R1_LOCAL", "R3_TARGETED_EXTERNAL", "R4_BROAD_EXTERNAL", null]},
+    "inference_admitted": {"type": "boolean"},
+    "reason_codes": {"type": "array", "items": {"type": "string"}, "minItems": 1, "uniqueItems": true},
+    "evidence_refs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+  },
+  "additionalProperties": false
+}

@@ -1,17 +1,27 @@
 # Research Budget
 
-Research budgets control resource use. They do not define truth.
+SPARI v0.1.4 separates **admission cost control** from **research budgets**.
 
-## Two independent stop conditions
+## 1. Admission control
+
+Before model-heavy SPARI work, the Economy Gate asks whether additional decisioning is justified at all and what maximum profile is appropriate.
+
+Admission may consider configured evidence such as:
+
+- qualitative execution burden;
+- optional caller-provided token/time/cost estimates;
+- expected rework exposure;
+- architecture/dependency/security/license risk;
+- previous failed attempts;
+- unresolved decision value.
+
+Do not fabricate numeric estimates or a universal break-even threshold.
+
+## 2. Research budget after admission
 
 ### QUALITY_STOP
 
-Research converges because:
-
-- major solution families are stable;
-- new searches mostly repeat known candidates;
-- new candidates do not materially change the decision;
-- finalists have sufficient evidence.
+Research converges because major solution families are stable, new searches mostly repeat known candidates, new candidates do not materially change the decision, and finalists have sufficient evidence.
 
 ### RESOURCE_STOP
 
@@ -29,28 +39,17 @@ Possible controls:
 
 ## Cheap breadth, strong judgement
 
-Prefer inexpensive parallel agents for high-recall collection.
+Prefer inexpensive collection for high recall. Reserve stronger models for finalist synthesis, difficult architecture comparisons, contradictory evidence, contrarian review, and high-impact judgement.
 
-Reserve stronger models for:
+## Fail closed without over-escalating
 
-- finalist synthesis;
-- difficult architecture comparisons;
-- contradictory evidence;
-- contrarian review;
-- high-impact judgement.
+If a research budget ends before sufficient evidence exists:
 
-## Fail closed
+```text
+RESEARCH_BUDGET_EXHAUSTED
+→ RESEARCH_INCOMPLETE
+```
 
-If the resource budget ends before sufficient evidence exists:
+Do not infer that no reusable solution exists and do not automatically route to `BUILD`.
 
-`RESEARCH_BUDGET_EXHAUSTED`
-
-and:
-
-`RESEARCH_INCOMPLETE`
-
-Do not infer that no reusable solution exists.
-
-Do not automatically route to `BUILD`.
-
-The caller may increase the budget, accept a provisional decision, narrow the scope, or defer the decision.
+If the Economy Gate itself is undecidable because its deterministic evidence is missing/stale, fall back to the smallest useful local inspection rather than FULL research.

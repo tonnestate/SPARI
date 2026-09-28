@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.1.4 — 2026-09-28
+
+Economy-gate and persistent-reuse-index release.
+
+- added a pre-inference `ECONOMY_GATE` so SPARI no longer acts as a mandatory cognitive tax on every engineering task;
+- added deterministic fast matching before model-based prior-art reasoning where structured host evidence is available;
+- added `FAST_REUSE`, `DIRECT_EXECUTION`, `SPARI_PREFLIGHT`, `SPARI_TARGETED`, `SPARI_FULL`, and `RECOMPOSE` admission outcomes;
+- added explicit risk overrides so tiny patches that change dependencies, security, public interfaces, data/architecture authorities, provenance, or recovery state cannot bypass required reasoning;
+- added break-even admission without inventing a universal token threshold;
+- separated admission control from post-admission research budgets;
+- added persistent/incremental `REUSE_INDEX` guidance for symbols, exports, types, dependencies, API/schema keys, architecture authorities, structural fingerprints, tests, and Decision/Trajectory references;
+- made cached embeddings optional infrastructure rather than a per-task prerequisite and clarified that semantic retrieval is not a reuse verdict;
+- changed `ENGINEERING_CASE` and heavier SPARI artifacts to conditional outputs rather than mandatory ceremony for deterministic micro-tasks;
+- preserved v0.1.3 adaptive R0–R4 search radius and evidence-driven Recomposition;
+- added schemas for Economy Gate decisions and the persistent reuse index;
+- added adversarial economy-gate acceptance cases;
+- consolidated corrected v0.1.3 bounded evaluation evidence in `EVIDENCE_V0.1.3.md`;
+- explicitly marks v0.1.4 cost/capability effects as unproven until a dedicated controlled evaluation is run.
+
 ## 0.1.3 — 2026-09-17
 
 Recomposition and trajectory-memory release.
@@ -30,7 +49,8 @@ Internal-prior-art and execution-boundary release.
 - added executor-agnostic `EXECUTION_CONTRACT`;
 - added structured `EXECUTION_OUTCOME`;
 - added base/result revision linkage for auditable implementation evidence;
-- added planned-vs-actual reuse and planned-vs-actual Custom Delta tracking;
+- added planned-vs-actual reuse tracking;
+- added planned-vs-actual Custom Delta tracking;
 - added contract-deviation and unexpected-custom-code reporting;
 - clarified that passing tests do not prove Build-vs-Borrow adherence;
 - added Aider as conceptual prior art for repository mapping and execution-boundary design;

@@ -2,7 +2,12 @@
 
 SPARI treats the current system as first-class prior art.
 
-External reuse research is incomplete if the agent does not understand what the project already owns.
+v0.1.4 separates two layers:
+
+1. `REUSE_INDEX` — persistent, compact, deterministic lookup surface;
+2. `INTERNAL_SOFTWARE_MAP` — richer capability/dependency/architecture evidence used when the decision needs it.
+
+External reuse research is incomplete when material internal prior art has not been checked, but a full map must not be rebuilt for every micro-task.
 
 ## Purpose
 
@@ -22,13 +27,11 @@ A useful map may contain:
 
 - repositories/workspaces;
 - manifests and lockfiles;
-- packages/modules;
-- services;
+- packages/modules/services;
 - public interfaces;
 - important classes/functions/symbols;
 - dependency relationships;
-- architectural boundaries;
-- runtime/deployment boundaries;
+- architectural and runtime boundaries;
 - capability-to-code mappings;
 - existing third-party dependencies;
 - likely internal-reuse candidates;
@@ -36,37 +39,25 @@ A useful map may contain:
 
 ## Relevant slice, not context dump
 
-The durable map can be large.
-
-The active research agent should receive only the subset relevant to the current capability, constraints, and dependency neighborhood.
-
-A recommended pattern:
+The durable map can be large. Active context should contain only the subset relevant to the current capability, constraints, and dependency neighborhood.
 
 ```text
-full internal map
+persistent reuse index
       ↓
-capability relevance
+capability/exact match
+      ↓
+relevant map slice (only if needed)
       ↓
 dependency neighborhood
       ↓
-architectural boundary filter
+architecture boundary filter
       ↓
-active context slice
+active evidence context
 ```
-
-This preserves internal awareness without consuming the entire model context.
 
 ## Evidence
 
-Every material capability claim should point back to inspectable evidence where possible:
-
-- file/module path;
-- symbol;
-- manifest entry;
-- dependency edge;
-- test;
-- API/interface definition;
-- runtime configuration.
+Material capability claims should point to inspectable evidence where possible: file/module path, symbol, manifest entry, dependency edge, test, interface/API definition, runtime configuration, and base revision.
 
 ## Internal reuse decisions
 
@@ -79,15 +70,10 @@ Internal candidates can receive:
 - `REFERENCE_INTERNAL`
 - `NOT_RELEVANT`
 
-Do not replace a functioning internal component merely because an external alternative is more popular.
+Do not replace functioning internal software merely because an external alternative is more popular.
 
 ## Freshness
 
-Regenerate or incrementally refresh the relevant map when:
+Incrementally refresh the relevant index/map evidence when the base revision changes materially, manifests/lockfiles change, architecture boundaries change, or the requested capability touches previously unmapped areas.
 
-- the base revision changes materially;
-- manifests/lockfiles change;
-- architecture boundaries change;
-- the requested capability touches previously unmapped areas.
-
-The map is evidence about a specific system state, not timeless truth.
+Do not regenerate the complete map merely because an unrelated file changed.

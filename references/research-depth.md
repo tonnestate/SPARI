@@ -1,6 +1,21 @@
 # Research Depth and Search Radius
 
-SPARI v0.1.3 starts small. Research depth is governed by unresolved decision value, not by a fixed sequence of phases.
+SPARI v0.1.4 separates **admission** from **research depth**.
+
+## G0 — Economy Gate
+
+Before model-heavy research, use deterministic/indexed evidence to select one of:
+
+- `FAST_REUSE`
+- `DIRECT_EXECUTION`
+- `SPARI_PREFLIGHT`
+- `SPARI_TARGETED`
+- `SPARI_FULL`
+- `RECOMPOSE`
+
+See `economy-gate.md`.
+
+The search radius below applies only when SPARI is admitted or recomposition requires it.
 
 ## Search radius
 
@@ -8,7 +23,7 @@ SPARI v0.1.3 starts small. Research depth is governed by unresolved decision val
 Retrieve relevant Decision Memory and Trajectory Memory.
 
 ### R1_LOCAL
-Inspect the current code, tests, manifests, dependencies, and relevant internal-software-map slice.
+Inspect the current code, tests, manifests, dependencies, and relevant reuse-index/internal-map slice.
 
 ### R2_RELATED_INTERNAL
 Inspect analogous modules, repository history, previous fixes, nearby capabilities, and internal repair ingredients.
@@ -23,7 +38,7 @@ Use semantic solution-space expansion, broader candidate discovery, research swa
 
 Move outward only when evidence at the current radius leaves material uncertainty that can change:
 
-- the selected composition;
+- selected composition;
 - Custom Delta;
 - intervention surface;
 - hard-gate outcome;
@@ -34,13 +49,11 @@ Do not escalate merely because another search could be performed.
 
 ## Compatibility profiles
 
-`PREFLIGHT`, `TARGETED`, and `FULL` remain valid profiles:
-
 - `PREFLIGHT` normally uses R0–R1 and may escalate;
 - `TARGETED` normally uses R0–R3 around a known capability/candidate;
 - `FULL` permits R0–R4 and independent evaluation for consequential or ambiguous decisions.
 
-Profiles are ceilings and expected operating ranges, not mandatory linear pipelines.
+Profiles are ceilings/expected operating ranges, not mandatory linear pipelines.
 
 ## Stop rule
 

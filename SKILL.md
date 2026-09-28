@@ -1,260 +1,277 @@
 ---
 name: spari
-description: Evidence-driven software prior-art, composition, and recomposition intelligence for AI engineering agents. Starts with the smallest relevant local context, recalls prior decisions and engineering trajectories, widens research only when unresolved uncertainty requires it, composes the smallest justified intervention, and recomposes when execution evidence invalidates the current path.
+description: Evidence-driven software prior-art, composition, economy-gated reuse, and recomposition intelligence for AI engineering agents. Uses deterministic fast matching before inference, admits deeper research only when expected decision value or risk justifies it, reuses persistent repository intelligence, and recomposes when execution evidence invalidates the current path.
 license: Apache-2.0
 metadata:
-  version: "0.1.3"
+  version: "0.1.4"
   status: experimental
   category: software-intelligence
-  updated: "2026-09-17"
+  updated: "2026-09-28"
 ---
 
 # SPARI
 
-**Build-vs-Borrow and Software Composition Engine for AI Agents**
+**Build-vs-Borrow, Economy-Gated Composition, and Recomposition for AI Agents**
 
 *Software Prior Art & Reuse Intelligence*
 
-SPARI exists to stop AI agents from rebuilding software that already exists.
+SPARI exists to stop AI agents from rebuilding software that already exists without making the reuse check more expensive than the work it protects.
 
-Its primary job is to prevent premature solution lock-in: recognize the current engineering case, recall what is already known, inspect the smallest relevant internal context first, widen into external prior art only when needed, compose the smallest justified intervention, and recompose that solution when execution evidence changes what is believed.
+v0.1.4 adds an economy gate and persistent reuse index in front of the v0.1.3 small-first loop. The default is now: use deterministic evidence first, spend inference only when it can materially change the engineering decision, and preserve evidence-driven recomposition when execution disproves the current path.
 
-SPARI is not a generic project manager, interview framework, search-results generator, or code generator.
+SPARI is not a generic project manager, interview framework, search-results generator, code generator, or mandatory tax on every engineering task.
 
-## Closed loop
+## Operating loop
 
 ```text
 Raw or qualified engineering context
-→ Engineering Case
-→ Recall relevant decisions + trajectories
-→ Smallest relevant local/internal evidence
-→ Widen search radius only while material uncertainty remains
-→ Build-vs-Borrow composition
-→ Minimal justified Custom Delta + Intervention Surface
-→ Bounded execution
-→ Evidence checkpoint
-→ CONTINUE | ADAPT | RECOMPOSE | STOP
-→ Verified outcome
-→ Decision Memory + Trajectory Memory
-→ Next similar case starts smarter
+→ ECONOMY GATE
+   → deterministic fast match / persistent index
+   → risk override + break-even admission
+   ├─ FAST_REUSE / DIRECT_EXECUTION
+   └─ SPARI_ADMITTED
+        → Engineering Case
+        → R0 Recall
+        → R1 Local
+        → R2 Related Internal
+        → R3 Targeted External
+        → R4 Broad External
+        → Build-vs-Borrow composition
+        → Minimal justified Custom Delta + Intervention Surface
+        → Bounded execution
+        → Evidence checkpoint
+        → CONTINUE | ADAPT | RECOMPOSE | STOP
+        → Verified outcome
+        → Decision + Trajectory Memory
+        → Incremental index refresh
 ```
 
 ## Core objective
 
-> Preserve engineering evidence across time, reuse what is already known, and continuously compose or recompose the smallest evidence-backed solution before adding new software.
+> Reuse existing engineering evidence and software with the least justified cognitive and execution cost, while preserving the ability to recompose when new evidence changes what is true.
 
 ## Core invariants
 
-1. Start with the smallest relevant engineering case; do not launch broad research merely because research is available.
-2. Recall relevant prior decisions and engineering trajectories before repeating discovery.
-3. Treat literal wording as a starting signal, not the final ontology.
-4. Do not convert discovered alternatives into confirmed requirements without confirmation when material.
-5. Inspect relevant internal software before widening externally; widen the search radius only when unresolved uncertainty can still change the decision.
-6. Source evidence outranks README claims, popularity, rankings, and model memory.
-7. Apply hard constraints before qualitative preference.
-8. Separate claimed source from verified source.
-9. Do not reuse external artifacts without a license/provenance decision.
-10. Search failure or budget exhaustion never implies that no reusable solution exists.
-11. `BUILD` must be justified; it is never the default.
-12. Separate composition authority from code execution, but do not separate SPARI from execution evidence: bounded execution checkpoints may trigger adaptation or recomposition.
-13. Require structured execution evidence rather than accepting narrative claims of completion.
-14. Preserve both decision memory and trajectory memory: what was decided and how the system escaped failed or incomplete paths.
-15. Recomposition is a first-class control transition, not merely a terminal failure outcome.
-16. Preserve valid evidence across recomposition; do not restart from zero unless the evidence base itself is invalid.
-17. Prefer the smallest architecture-consistent intervention that satisfies verified requirements.
-18. Do not duplicate host-agent or toolchain work when equivalent trustworthy evidence is already available; consume it and continue from the unresolved gap.
+1. **Do not spend inference to decide whether inference is needed when deterministic evidence can decide first.**
+2. Run deterministic fast matching before model-based prior-art analysis where the host can provide the required index/state.
+3. Do not launch deep SPARI work when a bounded task can be safely resolved by an exact reusable match or direct execution.
+4. Bypass is allowed only when explicit evidence shows that architecture, dependency, provenance, security, public-interface, and recovery risks do not require deeper decisioning.
+5. Unknown admission state defaults to the smallest useful SPARI path, not to FULL research.
+6. Recall relevant decisions and trajectories before rediscovering them.
+7. Inspect the smallest relevant internal evidence before widening externally.
+8. Widen search radius only when unresolved uncertainty can materially change composition, Custom Delta, intervention surface, hard-gate outcome, architecture risk, or verification strategy.
+9. Source evidence outranks README claims, popularity, rankings, and model memory.
+10. Apply hard constraints before qualitative preference.
+11. Separate claimed source from verified source.
+12. Do not reuse external artifacts without a license/provenance decision.
+13. Search failure, index failure, or budget exhaustion never implies that no reusable solution exists.
+14. `BUILD` must be justified; it is never the default consequence of missing evidence.
+15. Separate composition authority from code execution while keeping execution evidence in the loop.
+16. Require structured execution evidence for consequential work rather than accepting narrative claims of completion.
+17. Preserve Decision Memory and Trajectory Memory: what was decided and how failed/incomplete paths were escaped.
+18. Recomposition is a first-class transition and may override an earlier economy bypass when new execution evidence creates material uncertainty.
+19. Preserve valid evidence across recomposition; reopen only the invalidated gap unless the evidence base itself is invalid.
+20. Prefer the smallest architecture-consistent intervention that satisfies verified requirements.
+21. Do not duplicate work already performed by the host agent, toolchain, IntakeGov, repository index, or prior validated SPARI evidence.
+22. Do not publish quantitative savings claims without reproducible measurement.
 
 ## Relationship to IntakeGov
 
-SPARI is standalone-capable. IntakeGov is an optional upstream governance layer, not a runtime dependency and not an authority that turns SPARI on or off.
+SPARI is standalone-capable. IntakeGov is an optional upstream governance layer.
 
-When IntakeGov or another intake system provides qualified context, SPARI consumes it instead of repeating qualification. When only raw engineering context is available, SPARI establishes only the minimum technical case state required to proceed.
+When IntakeGov or another intake system provides qualified context, SPARI consumes it instead of repeating qualification. The Economy Gate should also consume upstream estimates, risk flags, known project boundaries, and prior-attempt evidence when available.
 
-A useful handoff may include outcome, project context, constraints, known facts, unknowns, success criteria, risk flags, and prior attempts. SPARI then owns recall, prior-art depth, composition, and recomposition.
+No upstream flag may silently erase a hard safety, license, provenance, architecture, or recovery requirement. Conversely, SPARI must not repeat upstream work merely because it can.
 
 See `references/intakegov-handoff.md`.
 
-## Research depth
+# Economy Gate
 
-`PREFLIGHT`, `TARGETED`, and `FULL` remain compatibility profiles, but v0.1.3 treats them as ceilings/escalation profiles rather than mandatory linear pipelines.
+The Economy Gate runs before model-heavy prior-art reasoning.
 
-SPARI starts at the smallest useful search radius:
+Its purpose is not to decide the final architecture. It decides how much SPARI is justified for the current work slice.
+
+## Gate inputs
+
+Use deterministic/host-provided evidence where available:
+
+- task/work-slice identity and scope;
+- repository/base revision;
+- touched or likely-touched capability/path;
+- existing dependency and manifest evidence;
+- exact symbol/export/type/interface matches;
+- route/API/schema identifiers;
+- tests and canonical authorities;
+- structural fingerprints such as AST/signature hashes;
+- prior Decision/Trajectory keys;
+- prior failures/recomposition triggers;
+- optional caller estimates of execution cost/time/tokens;
+- configured risk and break-even policy.
+
+Do not invent missing numeric estimates.
+
+## Deterministic fast match
+
+The first pass should require zero model inference when the host environment supports it.
+
+Preferred evidence includes:
+
+```text
+exact capability key
+exact symbol/export name
+exact type/interface signature
+manifest/lockfile dependency
+route/API/schema key
+AST/structural fingerprint
+canonical authority mapping
+validated Decision Memory key
+validated Trajectory Memory key
+```
+
+Optional precomputed semantic/vector retrieval may be used as cached infrastructure, but its results are candidates, not final engineering judgements. The gate must not rebuild embeddings or repository semantics for every task.
+
+## Gate outcomes
+
+- `FAST_REUSE` — a fresh, compatible, validated reusable path is deterministically identified; use it with bounded verification.
+- `DIRECT_EXECUTION` — the work is a bounded micro-task with no material reuse/architecture/dependency/provenance/security/recovery uncertainty.
+- `SPARI_PREFLIGHT` — small uncertainty remains; admit the minimum R0/R1 path and escalate only if needed.
+- `SPARI_TARGETED` — a known candidate/capability requires focused evaluation up to R3.
+- `SPARI_FULL` — consequential or solution-family uncertainty justifies R4 and independent evaluation.
+- `RECOMPOSE` — execution evidence has invalidated the current path; reopen only the relevant gap.
+
+See `references/economy-gate.md` and `schemas/economy-gate.schema.json`.
+
+## Risk overrides
+
+Do not bypass merely because the patch is small when the task introduces or changes a material boundary, including:
+
+- new dependency or externally sourced code;
+- license/provenance uncertainty;
+- security-sensitive behavior;
+- public API/interface or schema change;
+- data model or persistence authority change;
+- new service/module/architecture authority;
+- irreversible/destructive operation;
+- repeated failed attempts;
+- contradiction between current evidence and the active plan;
+- unknown or stale exact-match evidence.
+
+Risk override should normally route to the smallest adequate SPARI profile, not automatically to FULL.
+
+## Break-even admission
+
+Inference-based SPARI work is justified when at least one of these is true:
+
+1. unresolved decision value can materially change composition or prevent meaningful rework;
+2. a configured risk override requires evidence before execution;
+3. prior failures or contradictory evidence require recomposition;
+4. expected execution/rework burden exceeds the configured cost of the additional check.
+
+There is no hard-coded universal token threshold in v0.1.4. Deployments may configure one, but public SPARI does not invent a number unsupported by evidence.
+
+# Persistent Reuse Index
+
+SPARI must prefer a persistent, incrementally refreshed index over reconstructing repository knowledge in model context for every intake.
+
+The index may contain:
+
+- repository/workspace revision;
+- manifests and lockfiles;
+- packages/modules/services;
+- symbols, exports, types, interfaces, routes, schemas;
+- dependency edges;
+- architecture authorities/boundaries;
+- capability-to-code mappings;
+- test/evidence references;
+- structural fingerprints;
+- installed third-party dependencies;
+- validated Decision/Trajectory references;
+- optional cached embedding references.
+
+The index stores evidence pointers and compact metadata. It is not a hidden reasoning transcript and not a substitute for source verification when freshness or compatibility is material.
+
+Incrementally refresh affected entries when revisions, manifests, lockfiles, architecture boundaries, or indexed files change materially.
+
+See `references/persistent-index.md` and `schemas/reuse-index.schema.json`.
+
+# Research depth
+
+The Economy Gate is admission control. Search radius begins only after SPARI is admitted.
 
 - `R0_RECALL` — relevant Decision/Trajectory Memory;
-- `R1_LOCAL` — current code, tests, manifests, dependencies, and relevant internal map slice;
-- `R2_RELATED_INTERNAL` — analogous modules, history, prior repairs, nearby capabilities;
-- `R3_TARGETED_EXTERNAL` — focused packages, repositories, standards, and reference implementations;
-- `R4_BROAD_EXTERNAL` — broader solution-space discovery and comparative research.
+- `R1_LOCAL` — current code/tests/manifests/dependencies and relevant indexed slice;
+- `R2_RELATED_INTERNAL` — analogous modules/history/previous fixes/internal repair ingredients;
+- `R3_TARGETED_EXTERNAL` — focused GitHub/PyPI/standards/reference search;
+- `R4_BROAD_EXTERNAL` — broader solution-space discovery, research swarm, comparative evaluation.
 
-Escalate only when the current radius leaves material uncertainty that can change composition, Custom Delta, risk, or verification. Narrow again after the uncertainty is resolved.
+`PREFLIGHT`, `TARGETED`, and `FULL` remain ceilings/operating ranges, not mandatory pipelines.
 
-A lighter radius never bypasses required license, provenance, security, or compatibility gates for artifacts that are actually considered for reuse.
+Escalate only when the unresolved question can materially change the decision. Narrow again after it is resolved.
 
 See `references/research-depth.md`.
 
-## Research budget
+# Research budget
 
-Research quality and resource control are separate.
+SPARI has two different cost controls:
 
-`QUALITY_STOP` is convergence.
+1. `ADMISSION_CONTROL` — should model-based SPARI work run at all, and at what maximum profile?
+2. `RESEARCH_BUDGET` — once admitted, how much research resource may be consumed?
 
-`RESOURCE_STOP` is an optional configured budget over scouts, candidates, proofs of fit, strong-model escalations, tokens, or monetary cost.
+`QUALITY_STOP` remains evidence convergence. `RESOURCE_STOP` remains configured exhaustion.
 
-If the resource envelope ends before evidence is sufficient:
+Possible research controls include:
 
-```text
-RESEARCH_BUDGET_EXHAUSTED
-→ RESEARCH_INCOMPLETE
-```
+- `max_scouts`;
+- `max_candidates_screened`;
+- `max_candidates_deep_inspected`;
+- `max_proofs_of_fit`;
+- `max_strong_model_escalations`;
+- optional `max_tokens`;
+- optional `max_cost`.
 
-Never convert budget exhaustion into `BUILD`.
+Budget exhaustion yields `RESEARCH_BUDGET_EXHAUSTED` + `RESEARCH_INCOMPLETE`, never automatic `BUILD`.
 
 See `references/research-budget.md`.
 
-## Engineering Case and recall
+# Engineering Case and recall
 
-Before broadening research, maintain a compact `ENGINEERING_CASE` working state. It is not a second intake/governance system. It exists to make recall, diagnosis, evidence updates, and recomposition explicit.
+Create a compact `ENGINEERING_CASE` only after SPARI is admitted or a recomposition trigger requires it. Do not force a full case artifact for a deterministic fast reuse/direct-execution bypass.
 
-At minimum, preserve where available:
+Where applicable preserve:
 
 - outcome / affected capability;
-- observed signal or failure;
+- observed signal/failure;
 - known evidence and constraints;
 - material unknowns;
 - current hypotheses;
 - current composition;
 - prior attempts and contradicting evidence.
 
-Query relevant Decision Memory and Trajectory Memory before repeating research. A prior trajectory is useful when it explains not only what was selected, but how a previous solution path failed, what evidence changed the diagnosis, and what recomposition produced a validated outcome.
+Before fresh discovery, query only relevant Decision Memory and Trajectory Memory. Do not inject the full historical store.
 
 See `references/memory-schema.md`.
 
-## Source model
+# Internal Software Map
 
-SPARI v0.x intentionally prioritizes:
+Internal software is first-class prior art.
 
-1. existing internal software, represented through an `INTERNAL_SOFTWARE_MAP`;
-2. GitHub;
-3. PyPI.
+The persistent reuse index provides the cheap lookup surface. The `INTERNAL_SOFTWARE_MAP` provides the richer capability/dependency/architecture evidence when the task needs it.
 
-Its evidence model is ecosystem-neutral so future adapters can be added without rewriting the decision engine. Future ecosystems are extension points, not mandatory v0.x search scope.
-
-See `references/source-model.md`.
-
-## Phase 0 — Internal Software Map
-
-Internal software is prior art too.
-
-Before external research, inspect the current system strongly enough to answer:
-
-- what capabilities already exist;
-- which modules, packages, classes, functions, services, and interfaces implement them;
-- which internal abstractions should be reused rather than duplicated;
-- which dependencies are already installed;
-- which architectural boundaries constrain new work;
-- which areas are relevant to the current request.
-
-Produce `INTERNAL_SOFTWARE_MAP`.
-
-The durable map may be rich, but the active agent context should receive only the slice relevant to the current capability and decision. A full repository dump is not a context strategy.
-
-The map is not merely a file tree. It should preserve useful relationships between code entities and capabilities where evidence permits.
+Do not rebuild the full map for every task. Retrieve the smallest relevant slice and inspect source only where the evidence must be refreshed or deepened.
 
 See `references/internal-software-map.md`.
 
-## Phase 1 — Broad Recon (when escalation requires it)
+# External prior art
 
-Broad Recon is deliberately broader than the user's literal request, but it is no longer an automatic first external step. Use it when local recall, internal prior art, and targeted evidence leave material solution-space uncertainty.
+SPARI v0.x prioritizes:
 
-Expand along meaningful semantic relationships:
+1. existing internal software;
+2. GitHub;
+3. PyPI.
 
-```text
-literal request
-→ underlying capability
-→ parent solution category
-→ adjacent solution classes
-→ complete systems solving the same outcome
-```
+External research is not a reflex. Use R3/R4 only after deterministic/indexed/internal evidence leaves a material gap.
 
-Example:
-
-```text
-"Excel import"
-→ Excel parsing
-→ tabular ingestion
-→ validation/mapping
-→ ETL/import frameworks
-→ complete import systems
-```
-
-Prioritize internal context, GitHub, and PyPI. Supporting evidence may include official docs, deps.dev, OSV, OpenSSF, registry metadata, releases, and attestations.
-
-Goal: resolve material solution-space uncertainty cheaply and broadly enough to improve composition, not to maximize research volume.
-
-Output: `SOLUTION_SPACE_BRIEF`.
-
-See `references/broad-recon.md`.
-
-## Phase 2 — Evidence-informed clarification
-
-After Broad Recon, ask only a few questions whose answers materially distinguish between solution families already discovered.
-
-Do not conduct a generic interview.
-
-Questions should reduce real decision uncertainty, not collect arbitrary preferences.
-
-## Phase 3 — Golden Plan
-
-After Broad Recon and required clarification, establish:
-
-- `GOAL`
-- `CONFIRMED_INTENT`
-- `NON_GOALS`
-- `IN_SCOPE`
-- `OUT_OF_SCOPE`
-- `REQUIRED_CAPABILITIES`
-- `CONSTRAINTS`
-- `EXISTING_SYSTEM_CONTEXT`
-- `TECHNICAL_ENVIRONMENT`
-- `SUCCESS_CRITERIA`
-- `KNOWN_FACTS`
-- `UNKNOWNS`
-- `ALLOWED_SCOPE_REFINEMENT`
-
-Deep Research may refine the technical shape but may not silently replace confirmed intent because an easier implementation exists.
-
-See `references/golden-plan.md`.
-
-## Phase 4 — Capability map
-
-Translate the Golden Plan into capabilities.
-
-Capabilities are the unit of discovery, comparison, composition, and Custom Delta accounting.
-
-## Phase 5 — Deep Research
-
-Deep Research compares concrete reusable software when the current Engineering Case still has consequential unresolved reuse/composition uncertainty.
-
-Prefer cheap parallel agents for breadth and stronger evaluators for judgement.
-
-Typical scout responsibilities include:
-
-- whole GitHub products;
-- frameworks/bases;
-- implementation patterns;
-- primary PyPI packages;
-- alternative PyPI packages;
-- internal reuse;
-- maintenance/security;
-- license/provenance.
-
-Scouts collect evidence. They do not independently finalize the architecture.
-
-See `references/research-swarm.md` and `references/deep-research.md`.
-
-## Phase 6 — Candidate linking
-
-For serious package candidates, resolve where possible:
+For serious package candidates resolve where possible:
 
 - exact package/version;
 - distribution artifact/hash;
@@ -267,59 +284,47 @@ For serious package candidates, resolve where possible:
 
 Do not collapse `CLAIMED_SOURCE` into `VERIFIED_SOURCE`.
 
-Treat registry metadata and source code as one evidence chain.
+# Broad Recon and clarification
 
-## Phase 7 — Source inspection
+Broad Recon is an escalation for solution-family uncertainty, not a mandatory first step.
 
-Shortlisted candidates must be inspected beyond README-level claims where access permits.
+When needed, expand semantically:
 
-Inspect relevant source, architecture, modules, APIs, extension points, tests, release/maintenance state, dependencies, integration burden, security posture, license scope, and provenance.
+```text
+literal request
+→ underlying capability
+→ parent solution category
+→ adjacent solution classes
+→ complete systems solving the same outcome
+```
 
-Source evidence outranks marketing claims.
+After recon, ask only questions whose answers materially distinguish discovered solution families. Do not conduct a generic interview.
 
-## Phase 8 — Capability coverage
+See `references/broad-recon.md`.
 
-Build a capability coverage view that identifies:
+# Golden Plan and capability map
 
-- strongest whole-product base;
-- strongest component libraries;
-- internal components worth keeping;
-- useful reference implementations;
-- gaps that genuinely remain.
+For consequential work, establish the confirmed goal, scope, non-goals, capabilities, constraints, environment, success criteria, known facts, unknowns, and allowed scope refinement.
 
-## Phase 9 — Hard gates
+Deep Research may refine technical shape but may not silently replace confirmed intent.
 
-Eliminate or explicitly mitigate candidates that fail mandatory constraints such as:
+Capabilities remain the unit of discovery, comparison, composition, and Custom Delta accounting.
 
-- runtime/platform compatibility;
-- deployment requirements;
-- architecture constraints;
-- security requirements;
-- license compatibility;
-- provenance requirements.
+See `references/golden-plan.md`.
 
-Popularity never compensates for a failed hard gate.
+# Deep Research and evaluation
 
-## Phase 10 — Independent evaluation
+Deep Research compares concrete reusable software only when consequential uncertainty remains.
 
-Use two passes for consequential decisions:
+Prefer cheap breadth and strong judgement. Scouts collect evidence; they do not independently finalize architecture.
 
-1. technical evaluator;
-2. contrarian reviewer.
+Shortlisted candidates should be inspected beyond README claims where access permits. Apply hard gates before preferences. Use technical evaluation and contrarian review for consequential decisions.
 
-Resolve disagreements with evidence. Run a proof-of-fit when a material uncertainty cannot be settled from source/docs alone.
+See `references/deep-research.md`, `references/research-swarm.md`, and `references/evaluation-composition.md`.
 
-The evaluation must answer:
+# Build-vs-Borrow composition
 
-- best overall base;
-- best component packages;
-- internal components to retain;
-- reference-only candidates;
-- genuinely unavoidable custom capabilities.
-
-## Phase 11 — Build-vs-Borrow decisions
-
-Assign each serious candidate one decision:
+Serious candidates may receive:
 
 - `ADOPT`
 - `ADAPT`
@@ -328,9 +333,7 @@ Assign each serious candidate one decision:
 - `REJECT`
 - `BUILD`
 
-`BUILD` requires evidence that viable existing options or compositions are insufficient.
-
-Selected artifacts may take roles such as:
+Selected roles may include:
 
 - `PRODUCT_BASE`
 - `DEPENDENCY`
@@ -340,22 +343,15 @@ Selected artifacts may take roles such as:
 - `VENDORED_COMPONENT`
 - `CUSTOM_IMPLEMENTATION`
 
-## Phase 12 — License and provenance
+Produce a concrete `REUSE_BLUEPRINT`, not a winner list.
 
-Track, where available:
+`CUSTOM_DELTA` is only the capability that still requires custom implementation after internal/external composition. Each item should explain why existing evidence is insufficient.
 
-- `DECLARED_LICENSE`
-- `DETECTED_LICENSE`
-- `EFFECTIVE_REUSE_DECISION`
+# License and provenance
 
-Track source state separately:
+Track declared/detected license and effective reuse decision separately from source verification.
 
-- `SOURCE_UNKNOWN`
-- `SOURCE_CLAIMED`
-- `SOURCE_VERIFIED`
-- `SOURCE_CONFLICT`
-
-Before incorporation, resolve one reuse state:
+Before incorporation, resolve reuse to one of:
 
 - `REFERENCE_ONLY`
 - `PATTERN_ONLY`
@@ -366,109 +362,48 @@ Before incorporation, resolve one reuse state:
 
 No reuse decision means no reuse.
 
-`PROVENANCE_VERIFIED` establishes stronger origin/integrity evidence; it does not prove security or suitability.
-
 See `references/license-provenance.md`.
 
-## Phase 13 — Reuse Blueprint
+# Execution boundary
 
-Produce a concrete composition, not a winner list.
+SPARI decides what should exist; an execution agent performs the code changes.
 
-Example:
+For consequential admitted work, emit an executor-agnostic `EXECUTION_CONTRACT` with composition reference, planned Custom Delta, required reuse/retention, allowed substitutions, prohibited scope changes, hard constraints, verification requirements, evidence expectations, and base revision where available.
 
-```text
-BASE
-GitHub Repo A
+Fast-path/direct-execution cases may use a reduced bounded instruction if a full contract would cost more than the task and no risk override requires it.
 
-KEEP_INTERNAL
-existing persistence layer
+Execution evidence may trigger:
 
-DEPENDENCY
-PyPI Package B
-
-REPLACE
-Repo A module C with PyPI Package D
-
-REFERENCE_ONLY
-Repo E pattern
-
-CUSTOM
-adapter F
-```
-
-See `references/evaluation-composition.md`.
-
-## Phase 14 — Custom Delta
-
-Produce `CUSTOM_DELTA`: only the capabilities that still require custom implementation after reuse composition.
-
-Each item should state why existing internal software, repositories, packages, or compositions are insufficient.
-
-A large Custom Delta is acceptable when justified.
-
-## Phase 15 — Research convergence
-
-Deep Research converges when:
-
-- major solution families are stable;
-- repeated searches mostly return known candidates;
-- new candidates no longer materially change the decision;
-- finalists have sufficient evidence;
-- unresolved uncertainty is explicit.
-
-If required sources are unavailable or budget ends early, research remains incomplete.
-
-## Phase 16 — Execution contract
-
-SPARI decides what should be built; an execution agent performs the code changes.
-
-The executor may be Aider, Claude Code, Codex, another coding agent, or a human engineering workflow. SPARI must not depend on one executor.
-
-Before execution, emit an `EXECUTION_CONTRACT` containing at minimum:
-
-- Golden Plan reference/version;
-- Reuse Blueprint reference/version;
-- planned Custom Delta;
-- components that must be reused or retained;
-- allowed substitutions;
-- prohibited scope changes;
-- hard constraints;
-- verification requirements;
-- evidence expected from the executor;
-- base repository revision when available.
-
-The executor must not silently expand the Custom Delta because writing new code is easier.
-
-Execution may be bounded by evidence checkpoints. At a checkpoint SPARI may issue `CONTINUE`, `ADAPT`, `RECOMPOSE`, or `STOP`. `RECOMPOSE` must record what new evidence invalidated the current path, what evidence remains valid, what assumptions were rejected, and how the new composition changes the Custom Delta or intervention surface.
+- `CONTINUE`
+- `ADAPT`
+- `RECOMPOSE`
+- `STOP`
 
 See `references/execution-boundary.md`.
 
+# Recomposition
 
-## Phase 17 — Structured execution outcome
+Recompose when new evidence materially weakens or falsifies the current path, for example:
 
-The loop is incomplete until implementation evidence returns.
+- verification contradicts the active hypothesis;
+- dependency/integration assumptions fail;
+- a previously unknown internal capability changes the solution;
+- implementation starts creating parallel architecture or unjustified Custom Delta;
+- repeated local repairs do not address root cause;
+- hard-gate evidence changes;
+- a materially stronger composition becomes available.
 
-Require an `EXECUTION_OUTCOME` rather than a prose-only completion claim.
+A recomposition event must record the trigger, invalidated assumptions, retained evidence, abandoned path, newly retrieved ingredients, composition change, Custom Delta/intervention change, and required verification.
 
-Where applicable, record:
+Do not restart all research from zero unless the evidence base itself is invalid.
 
-- executor identity/type;
-- repository;
-- base revision;
-- result revision;
-- planned reuse vs actual reuse;
-- dependencies added/removed;
-- files changed;
-- intervention surface;
-- trajectory/recomposition evidence;
-- planned Custom Delta vs actual Custom Delta;
-- tests/verification executed and results;
-- lint/static-analysis results;
-- integration failures;
-- abandoned components;
-- unexpected custom code;
-- deviations from the Execution Contract;
-- evidence references.
+See `references/closed-loop.md`.
+
+# Structured execution outcome
+
+For consequential work, require `EXECUTION_OUTCOME` rather than prose-only completion.
+
+Where applicable record executor, repository, base/result revision, planned vs actual reuse, dependencies, files changed, intervention surface, recomposition evidence, planned vs actual Custom Delta, verification results, abandoned components, unexpected custom code, deviations, and evidence references.
 
 Outcome states:
 
@@ -478,53 +413,32 @@ Outcome states:
 - `REJECTED_AFTER_IMPLEMENTATION`
 - `UNKNOWN_OUTCOME`
 
-A green test suite does not by itself prove that the Build-vs-Borrow decision was followed.
+A green test suite alone does not prove Build-vs-Borrow adherence.
 
-See `references/execution-boundary.md`.
+# Memory and index update
 
+Decision Memory answers what was decided and what happened.
 
-## Phase 18 — Decision Memory + Trajectory Memory
+Trajectory Memory answers how the system escaped or failed to escape the problem.
 
-Persist two different kinds of reusable intelligence.
+After validated work, update only the relevant memory/index records. Do not rebuild the entire store/index unless invalidation requires it.
 
-`DECISION_MEMORY` answers: what did we decide, for which candidate/version/context, and what happened after implementation?
+# Required outputs
 
-`TRAJECTORY_MEMORY` answers: how did we get out of the problem? Preserve material hypotheses, attempted paths, contradicting evidence, recomposition events, retained evidence, abandoned paths, validated recovery path, and applicability conditions.
+Outputs are conditional, not mandatory ceremony.
 
-Before fresh research:
+Fast path may emit only:
 
-1. retrieve relevant decisions;
-2. retrieve relevant trajectories;
-3. check freshness and applicability;
-4. revalidate only triggered areas;
-5. research only the unresolved gap.
+- `ECONOMY_GATE_DECISION`
+- deterministic evidence references;
+- bounded execution/verification evidence;
+- optional memory/index update.
 
-Retrieve only records relevant to the current capability, constraints, environment, failure pattern, and freshness. Do not inject the full historical store into active context.
-
-See `references/memory-schema.md` and `references/closed-loop.md`.
-
-## Phase 19 — Revalidation
-
-Re-open decisions when triggered by material changes such as:
-
-- major release;
-- maintenance collapse;
-- security advisory;
-- license/provenance change;
-- breaking dependency change;
-- stronger alternative;
-- integration failure;
-- target environment change.
-
-Revalidation re-enters the same Build-vs-Borrow loop.
-
-## Required outputs
-
-Depending on case state and research depth:
+Admitted work may additionally require:
 
 - `ENGINEERING_CASE`
 - `RESEARCH_PROFILE`
-- `INTERNAL_SOFTWARE_MAP`
+- relevant `INTERNAL_SOFTWARE_MAP` slice
 - `SOLUTION_SPACE_BRIEF`
 - `GOLDEN_PLAN`
 - `CAPABILITY_MAP`
@@ -534,25 +448,35 @@ Depending on case state and research depth:
 - `CANDIDATE_EVALUATIONS`
 - `REUSE_BLUEPRINT`
 - `CUSTOM_DELTA`
-- `INTERVENTION_SURFACE` when measurable
-- `RECOMPOSITION_EVENT` when triggered
-- `TRAJECTORY_RECORD` for material multi-step/repair paths
+- `INTERVENTION_SURFACE`
 - `LICENSE_PROVENANCE_DECISIONS`
 - `EXECUTION_CONTRACT`
 - `EXECUTION_OUTCOME`
-- `OUTCOME_RECORD`
+- `RECOMPOSITION_EVENT`
 - `DECISION_MEMORY_UPDATE`
-- `TRAJECTORY_MEMORY_UPDATE` when applicable
+- `TRAJECTORY_MEMORY_UPDATE`
+- `REUSE_INDEX_UPDATE`
 
-## Failure handling
+Do not generate artifacts that do not materially help the current decision.
 
-Use explicit failures rather than hallucinated completion.
+# Failure handling
+
+Use explicit failures rather than hallucinated completion. An unavailable/stale index falls back to the smallest source-backed local inspection; it does not force FULL research and does not justify `BUILD`.
 
 See `references/failure-codes.md`.
 
+# Evidence status
+
+v0.1.4 is an experimental design release. Its Economy Gate and persistent-index cost claims have not yet been validated by a dedicated controlled evaluation.
+
+The repository preserves v0.1.2 controlled evidence in `EVIDENCE.md` and v0.1.3 bounded capability/recovery evidence in `EVIDENCE_V0.1.3.md` and `evals/`.
+
+Do not claim a universal token-saving percentage, universal capability lift, or model-equivalence effect.
+
 ## Guiding principle
 
-> Start small and recall before rediscovering.  
-> Compose the smallest evidence-backed solution from what already exists.  
-> When execution evidence invalidates the path, preserve what is still true and recompose instead of patching blindly.  
-> Feed both decisions and successful/failed trajectories back into the next case.
+> Determinism before inference.  
+> Reuse before research.  
+> Research only while decision value exceeds its cost or risk requires it.  
+> Compose the smallest evidence-backed solution.  
+> Recompose when reality invalidates the path.

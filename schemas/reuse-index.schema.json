@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/tonnestate/SPARI/schemas/reuse-index.schema.json",
+  "title": "SPARI Persistent Reuse Index",
+  "type": "object",
+  "required": ["schema_version", "repository", "base_revision", "entries"],
+  "properties": {
+    "schema_version": {"const": "0.1.4"},
+    "repository": {"type": "string"},
+    "base_revision": {"type": "string"},
+    "generated_at": {"type": ["string", "null"], "format": "date-time"},
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "kind", "key", "evidence_ref"],
+        "properties": {
+          "id": {"type": "string"},
+          "kind": {
+            "enum": ["CAPABILITY", "SYMBOL", "EXPORT", "TYPE", "INTERFACE", "ROUTE", "SCHEMA", "DEPENDENCY", "ARCHITECTURE_AUTHORITY", "TEST", "STRUCTURAL_FINGERPRINT", "DECISION_MEMORY", "TRAJECTORY_MEMORY", "OTHER"]
+          },
+          "key": {"type": "string"},
+          "path": {"type": ["string", "null"]},
+          "symbol": {"type": ["string", "null"]},
+          "signature_hash": {"type": ["string", "null"]},
+          "structural_hash": {"type": ["string", "null"]},
+          "capabilities": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "dependencies": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "evidence_ref": {"type": "string"},
+          "content_revision": {"type": ["string", "null"]},
+          "fresh": {"type": ["boolean", "null"]},
+          "validated": {"type": ["boolean", "null"]},
+          "embedding_ref": {"type": ["string", "null"]}
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": false
+}
