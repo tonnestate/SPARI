@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.1.5 — 2026-10-01
+
+Runtime-evidence and trace-first repair release.
+
+- added a `RUNTIME_EVIDENCE_GATE` for observed failures, broken behavior, wrong output, performance regressions, intermittent failures, failed acceptance gates, and real end-to-end failures;
+- requires canonical entrypoint, reproduction, actual executed path, and first concrete failing condition before consequential speculative repair;
+- makes runtime evidence outrank repository proximity, naming similarity, legacy relevance, and architecture speculation;
+- adds capability-scoped reuse lookup after the failing runtime capability is known instead of defaulting to repository-wide archaeology;
+- adds `RUNTIME_CUSTOM_DELTA`: the smallest architecture-consistent change on the actually executed path that repairs the reproduced failure;
+- adds same-path retest discipline so repair evidence returns through the original canonical command/request/action;
+- adds decision-changing-evidence and audit-budget rules to prevent thousands of low-value queries from becoming a substitute for diagnosis;
+- routes unrelated inconsistencies to `FUTURE_WORK` unless they can change the active technical decision;
+- adds a default three-cycle failed-hypothesis cap before feedback-loop/hypothesis re-evaluation or `RECOMPOSE`, while explicitly avoiding a universal optimality claim;
+- extends Economy Gate outcomes with `RUNTIME_EVIDENCE_GATE`;
+- adds runtime-specific failure states, schema, adversarial cases, and metrics including time-to-first-concrete-failure, runtime relevance ratio, and speculative intervention count;
+- redesigns the README in the compact visual/project format used by BananaMe and adds a pink SPARI pig banner;
+- preserves v0.1.4 Economy Gate, Persistent Reuse Index, adaptive R0–R4 research, Build-vs-Borrow composition, and v0.1.3 Recomposition;
+- adds melodic-software/claude-code-plugins debugging skill as MIT-licensed conceptual prior art only; no source code or skill text is incorporated;
+- makes no universal token, latency, request-count, or completion-lift claim for v0.1.5 before controlled evaluation.
+
 ## 0.1.4 — 2026-09-28
 
 Economy-gate and persistent-reuse-index release.

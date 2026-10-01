@@ -1,0 +1,319 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/tonnestate/SPARI/schemas/runtime-evidence-gate.schema.json",
+  "title": "SPARI Runtime Evidence Gate Result",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "observed_failure",
+    "evidence_refs"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.5"
+    },
+    "case_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "task_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "repository": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "base_revision": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "observed_failure": {
+      "type": "string",
+      "minLength": 1
+    },
+    "canonical_entrypoint": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "reproduction": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "scenario": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "command": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "enum": [
+            "REPRODUCED",
+            "NOT_REPRODUCED",
+            "UNKNOWN"
+          ]
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "execution_path": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "component",
+          "evidence_ref"
+        ],
+        "properties": {
+          "component": {
+            "type": "string"
+          },
+          "path": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "symbol": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "evidence_ref": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "first_failure": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "component": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "condition": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "evidence_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "failing_capability": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "reuse_candidates": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "selected_existing_component": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "runtime_custom_delta": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "nonblocking_findings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "retest": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "scenario": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "command": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "NOT_RUN",
+            "UNKNOWN"
+          ]
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "metrics": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "request_count": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "tool_call_count": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "files_inspected": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "irrelevant_files_inspected": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "stores_scanned": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "queries_executed": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "runtime_relevant_tool_calls": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "runtime_relevance_ratio": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "time_to_first_concrete_failure_seconds": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "speculative_intervention_count": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "failed_hypothesis_cycles": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "status": {
+      "enum": [
+        "REPRODUCED",
+        "NOT_REPRODUCED",
+        "RUNTIME_EVIDENCE_INCOMPLETE",
+        "REUSE_FOUND",
+        "MINIMAL_REPAIR_REQUIRED",
+        "BLOCKED",
+        "RECOMPOSE",
+        "PASS"
+      ]
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": false
+}

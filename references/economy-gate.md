@@ -1,103 +1,114 @@
 # Economy Gate
 
-SPARI v0.1.4 adds admission control before model-heavy prior-art reasoning.
+The Economy Gate is SPARI's pre-inference admission layer.
 
-The gate answers one question:
+Its purpose is to prevent the reuse/control system from becoming more expensive than the bounded work it protects while still escalating when risk, uncertainty, failure evidence, or expected rework justifies deeper reasoning.
 
-> How much SPARI is justified for this work slice before we pay for inference and research?
+## Outcomes
 
-It does not choose the final architecture.
+```text
+FAST_REUSE
+DIRECT_EXECUTION
+SPARI_PREFLIGHT
+SPARI_TARGETED
+SPARI_FULL
+RUNTIME_EVIDENCE_GATE
+RECOMPOSE
+```
 
-## 1. Deterministic first
+## Deterministic first pass
 
-Where the host environment supports it, run a zero-model-inference lookup against fresh structured evidence before any semantic reasoning.
+Prefer zero-model evidence where the host provides it:
 
-Preferred keys include:
+- capability keys;
+- exact symbols/exports/types/interfaces;
+- manifests and lockfiles;
+- routes and schemas;
+- structural fingerprints;
+- architecture authorities;
+- validated Decision/Trajectory keys;
+- known task/repository revision;
+- known failure/reproducer/entrypoint state.
 
-- exact capability identifiers;
-- symbol/export names;
-- type/interface signatures;
-- manifest/lockfile dependencies;
-- route/API/schema identifiers;
-- canonical authority mappings;
-- AST/structural fingerprints;
-- validated Decision Memory keys;
-- validated Trajectory Memory keys.
+Do not rebuild embeddings or repository semantics merely to make the admission decision.
 
-A cached semantic/vector index may retrieve candidates after or alongside exact matching, but retrieval is not a final engineering decision. Do not regenerate embeddings or repository semantics per task.
+## Observed failure routing
 
-## 2. Admission outcomes
+An observed failure changes the cheapest justified path.
 
-### FAST_REUSE
+When work starts from broken behavior, wrong output, an acceptance failure, performance regression, intermittent failure, or real end-to-end failure:
 
-Use when a fresh, compatible, validated path is deterministically identified and no risk override requires deeper evaluation.
+```text
+ECONOMY_GATE
+→ RUNTIME_EVIDENCE_GATE
+```
 
-### DIRECT_EXECUTION
+unless a trustworthy canonical failing check already supplies the required runtime path evidence.
 
-Use for a bounded micro-task when all of the following are supported by evidence:
+Runtime Evidence Gate is normally cheaper than broad prior-art research because it narrows the question to:
 
-- known local scope;
-- no new dependency or external code;
-- no public interface/schema/data-authority change;
-- no architecture-boundary creation/replacement;
-- no security/license/provenance decision;
-- no repeated failure or contradictory evidence;
-- no unresolved Build-vs-Borrow choice likely to change the intervention.
+```text
+what actually runs?
+where does it first fail?
+what existing implementation already solves that capability?
+```
 
-### SPARI_PREFLIGHT
+See `runtime-evidence-gate.md`.
 
-Use when small uncertainty remains. Admit R0/R1 and escalate only if needed.
+## Micro-task bypass
 
-### SPARI_TARGETED
+`DIRECT_EXECUTION` or `FAST_REUSE` is appropriate only when deterministic evidence supports all material conditions:
 
-Use when a known candidate/capability requires focused due diligence, normally up to R3.
+- scope is bounded;
+- no unresolved Build-vs-Borrow choice can materially change the intervention;
+- no new dependency/external source is introduced;
+- no material license/provenance uncertainty exists;
+- no public API/schema/data authority changes;
+- no new architecture authority;
+- no security-sensitive uncertainty;
+- no repeated failure/contradictory evidence;
+- no observed failure requiring runtime-path diagnosis.
 
-### SPARI_FULL
+Patch size alone does not prove low risk.
 
-Use for consequential, ambiguous, cross-cutting, or solution-family decisions where R4/independent evaluation can materially change the outcome.
+## Risk overrides
 
-### RECOMPOSE
+Risk may admit the smallest adequate SPARI profile when the task changes or introduces:
 
-Use after execution evidence invalidates the current path. The Economy Gate does not suppress a legitimate recomposition trigger.
-
-## 3. Break-even rule
-
-Model-based SPARI work is admitted when one or more of these is true:
-
-- unresolved decision value can materially change composition, Custom Delta, intervention surface, hard-gate result, or verification;
-- configured risk policy requires evidence before execution;
-- prior failures/contradictory evidence require strategy repair;
-- expected rework/execution burden is greater than the configured cost of the check.
-
-SPARI does not define a universal numeric token threshold in v0.1.4. Deployments may configure thresholds using their own measured workload economics.
-
-If numeric cost estimates are unavailable, use explicit qualitative classes and reason codes. Do not manufacture precision.
-
-## 4. Risk overrides
-
-A small patch is not automatically a cheap decision. Escalate when material risk exists, including:
-
-- new dependency or vendored external code;
-- unclear license/provenance;
+- dependency/external code;
+- license/provenance;
 - security-sensitive behavior;
-- public API/interface/schema change;
-- persistent data-model/authority change;
-- new architectural authority/service/module;
-- irreversible/destructive operation;
+- public API/interface/schema;
+- persistent data authority;
+- architecture/service/module authority;
+- destructive/irreversible behavior;
 - repeated failed attempts;
-- active-plan contradiction;
-- stale/unverified fast-match evidence.
+- contradictory evidence;
+- stale/unverified reuse evidence.
 
-Risk override should select the smallest sufficient profile, not automatically FULL.
+Do not route everything to FULL.
 
-## 5. Unknown state
+## Break-even rule
 
-If the gate cannot decide because structured evidence is missing or stale:
+Model-based SPARI is justified when at least one is true:
+
+1. unresolved decision value can materially change the composition, Custom Delta, intervention surface, hard-gate outcome, architecture risk, or verification plan;
+2. configured risk policy requires evidence before execution;
+3. observed failure requires Runtime Evidence Gate;
+4. prior failures/contradictions require recomposition;
+5. expected execution/rework burden exceeds a deployment's configured additional-check cost.
+
+Public SPARI defines no universal token/time/currency threshold.
+
+## Unknown gate state
+
+When deterministic admission evidence is insufficient:
 
 ```text
 ECONOMY_GATE_UNDECIDABLE
-→ smallest useful local inspection (normally R1)
 ```
+
+Fall back to the smallest useful source-backed inspection.
 
 Do not:
 
@@ -106,25 +117,25 @@ unknown
 → FULL
 ```
 
-and do not:
+and never:
 
 ```text
 unknown
 → BUILD
 ```
 
-## 6. Audit record
+## Economy evidence
 
-For consequential admission decisions preserve a compact `ECONOMY_GATE_DECISION`:
+Where measurable record:
 
-- repository/base revision;
-- task/capability key when available;
-- deterministic hits;
-- freshness state;
+- exact/index hits;
+- evidence freshness;
 - risk flags;
-- optional execution/check cost estimates and their provenance;
-- selected outcome/profile;
-- reason codes;
-- evidence references.
+- observed-failure flag;
+- reproducer/entrypoint availability;
+- admitted profile;
+- inference admitted;
+- optional execution/check cost estimate and provenance;
+- reason codes.
 
-The gate record is engineering metadata, not chain-of-thought.
+See `../schemas/economy-gate.schema.json`.

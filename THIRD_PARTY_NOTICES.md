@@ -16,7 +16,7 @@ No affiliation or endorsement is implied.
 - repo-to-skill — https://github.com/zhangguiping-xydt/repo-to-skill — Apache-2.0 — source-level capability extraction/provenance.
 - skill-mining — https://github.com/voodootikigod/skill-mining — MIT — reusable knowledge extraction.
 - project-state-governor — https://github.com/Ghost011118/project-state-governor — Apache-2.0 — durable project truth.
-- tomzx/agents — https://github.com/tomzx/agents — used as conceptual research only in v0.1.0; no code/text reused without separate verified license review.
+- tomzx/agents — https://github.com/tomzx/agents — used as conceptual research only; no code/text reused without separate verified license review.
 
 ## search-first
 
@@ -36,19 +36,30 @@ Source: https://github.com/Aider-AI/aider
 License: Apache-2.0  
 Relevant conceptual area: repository mapping, relevance-constrained repository context, architect/editor separation, Git-native execution workflow.
 
-SPARI does not bundle Aider code. Aider is cited as conceptual prior art for internal software mapping and the execution boundary.
+SPARI does not bundle Aider code.
+
+## Melodic Software Claude Code Plugins — debugging skill
+
+Source: https://github.com/melodic-software/claude-code-plugins  
+Relevant path: `plugins/debugging/skills/debug/SKILL.md`  
+License: MIT  
+Copyright: Copyright (c) 2026 Melodic Software
+
+Relevant conceptual area for SPARI v0.1.5: disciplined runtime debugging around a tight feedback loop, faithful reproduction, falsifiable hypotheses, targeted instrumentation, focused root-cause repair, regression evidence, and retesting.
+
+SPARI v0.1.5 independently implements only generic engineering principles needed by the Runtime Evidence Gate. No source code, templates, tests, or skill text from the Melodic repository are incorporated.
+
+## Academic conceptual prior art
+
+- RepairAgent — Bouzenia, Devanbu, Pradel — https://arxiv.org/abs/2403.17134 — interleaving diagnosis, repair-ingredient retrieval, attempts, validation, and feedback-driven repair.
+- SWE-Search — https://arxiv.org/abs/2410.20285 — search/backtracking over software-agent trajectories.
+- CodePlan — https://arxiv.org/abs/2309.12499 — adaptive repository-level planning as code and evidence change.
+- RepoCoder — https://aclanthology.org/2023.emnlp-main.151/ — iterative retrieval-generation over repository context.
+
+These works support design hypotheses only; they do not establish SPARI performance claims.
 
 ## Policy
 
 Do not copy third-party text, source code, templates, tests, or other protected artifacts into SPARI without verifying the canonical source, exact applicable license, intended reuse permission, required notices, and license compatibility.
 
 When uncertain, treat external work as conceptual reference and independently implement the idea.
-
-## Academic conceptual prior art added for v0.1.3
-
-- RepairAgent — Bouzenia, Devanbu, Pradel — https://arxiv.org/abs/2403.17134 — conceptual prior art for interleaving diagnosis, repair-ingredient retrieval, attempts, validation, and feedback-driven repair. No paper text or implementation copied.
-- SWE-Search — https://arxiv.org/abs/2410.20285 — conceptual prior art for search/backtracking over software-agent trajectories and escaping linear solution paths. No paper text or implementation copied.
-- CodePlan — https://arxiv.org/abs/2309.12499 — conceptual prior art for adaptive repository-level planning as code and evidence change. No paper text or implementation copied.
-- RepoCoder — https://aclanthology.org/2023.emnlp-main.151/ — conceptual prior art for iterative retrieval-generation over repository context. No paper text or implementation copied.
-
-These works support research hypotheses and design comparison only; they do not establish SPARI performance claims.
