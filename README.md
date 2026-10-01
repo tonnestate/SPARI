@@ -6,15 +6,16 @@
 
 <p align="center">
   <strong>Build-vs-Borrow and Runtime-Evidence Intelligence for AI Engineering Agents.</strong><br>
-  Reuse what exists. Trace what runs. Build only the missing delta.
+  Verify the source. Reuse what exists. Trace what runs. Build only the missing delta.
 </p>
 
 <p align="center">
   <img alt="License" src="https://img.shields.io/badge/license-Apache--2.0-blue">
   <img alt="Status" src="https://img.shields.io/badge/status-experimental-orange">
-  <img alt="Version" src="https://img.shields.io/badge/version-0.1.5-ff69b4">
+  <img alt="Version" src="https://img.shields.io/badge/version-0.1.6-ff69b4">
   <img alt="Reuse First" src="https://img.shields.io/badge/reuse-first-c060ff">
   <img alt="Runtime First" src="https://img.shields.io/badge/runtime-first-ff69b4">
+  <img alt="Source Attested" src="https://img.shields.io/badge/source-attested-c060ff">
   <img alt="Agent Skill" src="https://img.shields.io/badge/agent-skill-purple">
   <img alt="Built-in LLM" src="https://img.shields.io/badge/built--in%20LLM-none-black">
 </p>
@@ -36,11 +37,18 @@ The agent keeps patching the first plausible approach after evidence contradicts
 
 WRONG-PATH DEBUGGING
 The agent audits, repairs or redesigns code that is not actually executed by the failing runtime path.
+
+CONTROL-PLANE DRIFT
+The agent claims to use current SPARI while actually executing a stale local skill copy or the wrong source-access path.
 ```
 
 SPARI changes the default:
 
 ```text
+resolve authoritative source
+        ↓
+attest the loaded SPARI surface
+        ↓
 deterministic evidence first
         ↓
 reuse existing software where justified
@@ -60,12 +68,15 @@ SPARI is not another coding agent. It does not contain a built-in LLM, code edit
 
 ---
 
-## What SPARI v0.1.5 can do today
+## What SPARI v0.1.6 can do today
 
-v0.1.5 keeps the v0.1.4 Economy Gate and Persistent Reuse Index and adds a **Runtime Evidence Gate** for observed failures.
+v0.1.6 keeps the v0.1.5 Runtime Evidence Gate and adds a **Source Attestation Gate** plus explicit **Authority Access routing** so a stale local skill or one failed transport cannot masquerade as current GitHub truth.
 
 | Capability | v0.1.5 behavior |
 |---|---|
+| Authority Access routing | Resolves the authoritative source through an available GitHub-capable transport instead of assuming shell `git` is the only route. |
+| Source Attestation Gate | Proves which SPARI revision/instruction surface is actually loaded before version-sensitive reasoning begins. |
+| Local-cache discipline | Treats installed skill copies as caches; they are never promoted to `current` without current-source evidence. |
 | Economy admission | Decides how much SPARI is justified before model-heavy prior-art reasoning begins. |
 | Deterministic fast reuse | Uses exact capability, symbol, interface, dependency, route/schema, structural and validated-memory evidence before inference where the host provides it. |
 | Micro-task bypass | Allows `FAST_REUSE` or `DIRECT_EXECUTION` when bounded work has no material architecture, dependency, provenance, security, public-interface or recovery uncertainty. |
@@ -88,9 +99,23 @@ v0.1.5 keeps the v0.1.4 Economy Gate and Persistent Reuse Index and adds a **Run
 
 ---
 
-## The v0.1.5 operating model
+## The v0.1.6 operating model
 
 ```text
+SPARI requested
+        │
+        ▼
+ AUTHORITY ACCESS PLAN
+        │
+        ▼
+ SOURCE ATTESTATION GATE
+   │             │
+   │             ├── stale / unresolved → fail closed for current-version claims
+   │             │
+   ▼
+CURRENT_ATTESTED / permitted PINNED_ATTESTED
+        │
+        ▼
 Raw / qualified engineering context
                 │
                 ▼
@@ -133,7 +158,51 @@ The Runtime Evidence Gate is deliberately **not** a second agent or a second wor
 
 ## How SPARI solves the problem
 
-### 1. Spend cognition only when it can change the decision
+### 1. Resolve and attest the authority before using local SPARI
+
+For SPARI itself, GitHub `tonnestate/SPARI` branch `main` is the canonical current source.
+
+A transport is not the source of truth.
+
+```text
+GitHub connector/API works
+        ↓
+use it
+
+shell git fails
+        ↓
+record transport failure
+        ↓
+do NOT conclude "GitHub unavailable" while another approved GitHub route exists
+```
+
+Preferred authority-resolution order is host-dependent, but normally:
+
+```text
+host-native GitHub connector / API
+→ direct GitHub API/fetch capability
+→ shell git remote
+→ direct github.com evidence that exposes an exact commit identity
+```
+
+Search-engine snippets are discovery evidence, not proof of the current `main` SHA.
+
+For SPARI, absence of a version tag does not invalidate `main`. The authoritative tuple is:
+
+```text
+repository
+branch = main
+resolved main SHA
+canonical SKILL.md version/hash
+installed SPARI surface
+attestation status
+```
+
+A local skill directory is a cache. If it is stale, it must not be described or evaluated as current SPARI.
+
+See [`references/source-attestation-gate.md`](references/source-attestation-gate.md) and [`schemas/source-attestation.schema.json`](schemas/source-attestation.schema.json).
+
+### 8. Spend cognition only when it can change the decision
 
 v0.1.4 introduced the Economy Gate:
 
@@ -271,6 +340,113 @@ reopen only the affected capability
 ```
 
 The correct action is not to keep improving module A.
+
+---
+
+## Source Attestation Gate
+
+The Source Attestation Gate protects SPARI's own control plane.
+
+It separates four questions that agents often collapse:
+
+```text
+Is GitHub authoritative?
+Which available tool can reach it?
+What is current main?
+Does the installed local SPARI surface match that authority?
+```
+
+### Authority Access Plan
+
+On first authoritative-source access in a session, build a small capability route and reuse it:
+
+```text
+AUTHORITY = github.com/tonnestate/SPARI
+REF       = refs/heads/main
+
+preferred available route
+→ fallback route(s)
+→ local cache only for comparison
+```
+
+Do not repeatedly retry a known-dead transport when a working approved route is already available.
+
+Do not report `GITHUB_UNAVAILABLE` merely because:
+
+```text
+git ls-remote
+```
+
+failed.
+
+That establishes only that one transport failed.
+
+### Current-source attestation
+
+For normal current-SPARI use:
+
+```text
+resolved GitHub main SHA
++
+canonical SKILL.md metadata/hash
++
+installed active instruction surface
+=
+CURRENT_ATTESTED
+```
+
+When the installed directory has no trustworthy Git metadata, attestation may use canonical content hashes/manifest evidence instead of inventing a local revision.
+
+A broken, missing, or empty local `.git` directory is therefore not authoritative evidence either way.
+
+### Offline / unavailable authority
+
+If all approved current-source routes are unavailable:
+
+```text
+SOURCE_UNRESOLVED
+```
+
+A previously attested local copy may still be identified by its exact previously proven revision:
+
+```text
+PINNED_ATTESTED
+```
+
+but it must not be relabeled `current`.
+
+Version-sensitive evaluations that require current GitHub `main` must stop unless their contract explicitly froze that exact previously attested SHA.
+
+### Tags are not branch authority
+
+For SPARI:
+
+```text
+main = current authority
+tag  = optional release metadata
+```
+
+A missing `v0.1.6` tag does not make resolved `main` unavailable.
+
+### Bootstrap limitation
+
+A skill cannot fully prevent a host from loading an old copy before that old copy has had a chance to self-check.
+
+Therefore v0.1.6 distinguishes:
+
+```text
+SPARI_SELF_ATTEST
+```
+
+from the stronger:
+
+```text
+HOST_LOADER_ATTEST
+```
+
+Hard prevention of stale-skill activation belongs in the installer/skill loader or another host-level enforcement layer.
+
+SPARI v0.1.6 makes the required attestation contract explicit; it does not falsely claim to control every host loader.
 
 ---
 
@@ -529,6 +705,10 @@ SPARI may identify the exact failing block or capability. BananaMe can provide g
 ## Safety and scope invariants
 
 ```text
+SOURCE AUTHORITY BEFORE LOCAL CACHE
+ONE FAILED TRANSPORT != SOURCE UNAVAILABLE
+CURRENT CLAIM REQUIRES ATTESTATION
+MAIN AUTHORITY != OPTIONAL TAG
 DETERMINISM BEFORE INFERENCE
 RUNTIME BEFORE REPOSITORY SPECULATION
 TRACE BEFORE REPAIR
@@ -577,11 +757,26 @@ across two recovery tasks
 
 These are bounded observations, not universal claims.
 
-v0.1.4 Economy Gate and v0.1.5 Runtime Evidence Gate effects are **not yet validated by dedicated controlled evaluations**.
+v0.1.4 Economy Gate, v0.1.5 Runtime Evidence Gate, and v0.1.6 Source Attestation/Authority Access effects are **not yet validated by dedicated controlled evaluations**.
 
 ---
 
-## v0.1.5 evaluation target
+## v0.1.6 evaluation target
+
+The next source-control-plane evaluation should include cases where:
+
+```text
+A — GitHub connector/API resolves main and local SPARI matches
+B — shell git fails but a GitHub-native connector still resolves main
+C — local SPARI is stale while GitHub main is newer
+D — all approved authority routes are unavailable
+E — main resolves but the expected version tag is absent
+F — local copy lacks trustworthy Git metadata but content hashes can be checked
+```
+
+Measure false `GITHUB_UNAVAILABLE` claims, stale-local acceptance, authority-route choice, attestation latency/cost, and whether version-sensitive work starts only under a permitted attestation state.
+
+The existing runtime-first evaluation remains useful after source attestation succeeds.
 
 The next runtime-first evaluation should compare at least:
 
@@ -636,6 +831,7 @@ SPARI/
 │   └── spari-banner.png
 │
 ├── references/
+│   ├── source-attestation-gate.md
 │   ├── economy-gate.md
 │   ├── runtime-evidence-gate.md
 │   ├── persistent-index.md
@@ -644,6 +840,7 @@ SPARI/
 │   └── ...
 │
 ├── schemas/
+│   ├── source-attestation.schema.json
 │   ├── economy-gate.schema.json
 │   ├── runtime-evidence-gate.schema.json
 │   ├── reuse-index.schema.json
@@ -652,7 +849,8 @@ SPARI/
 ├── tests/
 │   ├── adversarial-cases.md
 │   ├── economy-gate-cases.md
-│   └── runtime-evidence-gate-cases.md
+│   ├── runtime-evidence-gate-cases.md
+│   └── source-attestation-cases.md
 │
 └── evals/
     └── preserved historical evaluation evidence
@@ -667,6 +865,7 @@ SPARI keeps historical acceptance cases separate from release-specific additions
 - [`tests/adversarial-cases.md`](tests/adversarial-cases.md) — historical Build-vs-Borrow, research, execution and recomposition cases;
 - [`tests/economy-gate-cases.md`](tests/economy-gate-cases.md) — v0.1.4 admission/economy cases;
 - [`tests/runtime-evidence-gate-cases.md`](tests/runtime-evidence-gate-cases.md) — v0.1.5 runtime-path, trace-first, audit-budget and same-path-retest cases.
+- [`tests/source-attestation-cases.md`](tests/source-attestation-cases.md) — v0.1.6 source authority, tool routing, stale-local and offline/pinned-attestation cases.
 
 The runtime cases are behavioral contracts. They do not by themselves prove a measured v0.1.5 performance effect.
 
@@ -696,13 +895,15 @@ v0.1.5 defines an engineering contract and guardrails. It does **not** ship:
 
 Host tools provide tests, traces, logs, debuggers, coverage, CLI execution and runtime instrumentation.
 
+Source attestation also depends on host access to at least one trustworthy authority transport. SPARI can specify the routing/attestation contract, but only the host loader can guarantee that no stale skill is loaded before self-attestation begins.
+
 The Runtime Evidence Gate consumes that evidence and constrains the next engineering decision.
 
 ---
 
 ## Status
 
-SPARI v0.1.5 is an **experimental runtime-evidence release**.
+SPARI v0.1.6 is an **experimental source-attestation and runtime-evidence release**.
 
 The release extends v0.1.4 rather than replacing it:
 
@@ -714,11 +915,17 @@ economy before cognition
 
 v0.1.5
 runtime before repair
+
+        ↓
+
+v0.1.6
+source authority before local cache
 ```
 
 The governing sequence is now:
 
 ```text
+Source authority before local cache.
 Determinism before inference.
 Runtime before speculation.
 Reuse before research.
@@ -736,6 +943,6 @@ See [`LICENSE`](LICENSE), [`NOTICE`](NOTICE), and [`THIRD_PARTY_NOTICES.md`](THI
 
 ---
 
-# Trace what runs. Reuse what exists. Build only the delta.
+# Verify the source. Trace what runs. Reuse what exists. Build only the delta.
 
 **SPARI — Build vs Borrow, then compose; recompose when reality changes.**

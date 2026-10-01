@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.1.6 — 2026-10-01
+
+Source-attestation and authority-access release.
+
+- added a `SOURCE_ATTESTATION_GATE` before Economy Gate and Runtime Evidence Gate so local SPARI copies cannot silently masquerade as current authoritative policy;
+- declares `tonnestate/SPARI` branch `main` as SPARI's current authority and explicitly separates branch authority from optional release tags;
+- adds `AUTHORITY_ACCESS_PLAN` so agents discover and reuse available source transports instead of repeatedly assuming shell `git` is the only GitHub path;
+- makes `git ls-remote` failure a transport failure rather than automatic `GITHUB_UNAVAILABLE` when a GitHub connector/API or another approved route is available;
+- prioritizes host-native GitHub connector/API and direct GitHub authority access over generic web-search snippets for current revision proof;
+- adds current-source identity capture: repository, authoritative ref, resolved SHA, canonical Skill metadata/hash, transport, and evidence references;
+- adds local active-surface attestation by exact Git revision where trustworthy or by canonical content/manifest hashes when the installed skill is a copied directory without valid Git metadata;
+- adds explicit `CURRENT_ATTESTED`, `PINNED_ATTESTED`, `PARTIAL_ATTESTATION`, `STALE_LOCAL_COPY`, `INSTALLATION_UNATTESTED`, `SOURCE_UNRESOLVED`, and `SOURCE_CONFLICT` states;
+- prevents cached/offline copies from being promoted to `current` when current authority cannot be resolved;
+- adds evaluation-freeze rules so all comparable arms use the same attested SHA and one arm cannot silently refresh mid-experiment;
+- adds an explicit bootstrap boundary: SPARI self-attestation can fail closed after invocation, while hard pre-load stale-skill prevention belongs to the host installer/skill loader;
+- adds source-attestation schema, failure codes, adversarial cases, README capability/status updates, and release checksums;
+- preserves v0.1.5 Runtime Evidence Gate, v0.1.4 Economy Gate/Persistent Reuse Index, and earlier Build-vs-Borrow/Recomposition behavior;
+- makes no claim that v0.1.6 alone enforces freshness in hosts that load stale instructions before the gate can execute.
+
 ## 0.1.5 — 2026-10-01
 
 Runtime-evidence and trace-first repair release.

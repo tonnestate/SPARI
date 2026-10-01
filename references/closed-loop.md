@@ -2,9 +2,13 @@
 
 SPARI is incomplete unless execution evidence can change the active engineering strategy.
 
-v0.1.5 has two entry shapes:
+v0.1.6 first requires an allowed Source Attestation state. After that, the two v0.1.5 engineering entry shapes remain:
 
 ```text
+SOURCE ATTESTATION
+→ CURRENT_ATTESTED / permitted PINNED_ATTESTED
+→
+
 NEW / CHANGED CAPABILITY
 → Economy Gate
 → deterministic reuse / admitted R0–R4

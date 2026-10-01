@@ -1,9 +1,9 @@
 ---
 name: spari
-description: Evidence-driven software prior-art, economy-gated reuse, runtime-path diagnosis, composition, and recomposition intelligence for AI engineering agents. Uses deterministic evidence before inference, traces the actual executed path before repairing observed failures, reuses persistent repository intelligence, builds only the smallest justified delta, and recomposes when execution evidence invalidates the current path.
+description: Source-attested, evidence-driven software prior-art, economy-gated reuse, runtime-path diagnosis, composition, and recomposition intelligence for AI engineering agents. Uses deterministic evidence before inference, traces the actual executed path before repairing observed failures, reuses persistent repository intelligence, builds only the smallest justified delta, and recomposes when execution evidence invalidates the current path.
 license: Apache-2.0
 metadata:
-  version: "0.1.5"
+  version: "0.1.6"
   status: experimental
   category: software-intelligence
   updated: "2026-10-01"
@@ -15,14 +15,19 @@ metadata:
 
 *Software Prior Art & Reuse Intelligence*
 
-SPARI exists to stop AI agents from rebuilding software that already exists, debugging code that does not actually run, and remaining trapped in solution paths contradicted by evidence.
+SPARI exists to stop AI agents from rebuilding software that already exists, debugging code that does not actually run, remaining trapped in contradicted solution paths, and executing stale local SPARI policy while claiming current authoritative source.
 
 SPARI is not a generic project manager, search-results generator, code generator, debugger, observability platform, or mandatory tax on every engineering task.
 
 ## Operating loop
 
 ```text
-Raw or qualified engineering context
+SPARI invoked
+→ AUTHORITY ACCESS PLAN
+→ SOURCE ATTESTATION GATE
+   ├─ CURRENT_ATTESTED / permitted PINNED_ATTESTED
+   └─ stale / unresolved / conflict → stop current-version-sensitive work
+→ Raw or qualified engineering context
 → ECONOMY GATE
    → deterministic fast match / persistent index
    → risk override + break-even admission
@@ -62,34 +67,179 @@ Raw or qualified engineering context
 
 ## Core invariants
 
-1. **Determinism before inference.**
-2. **Runtime before repository speculation.**
-3. **Trace before repair.**
-4. **Reuse before research.**
-5. **Build only what is missing.**
-6. **Recompose when evidence changes.**
-7. Do not spend model inference to decide whether inference is needed when deterministic evidence can decide first.
-8. Do not launch deep SPARI work when a bounded task can be safely resolved by exact reuse or direct execution.
-9. Bypass only when explicit evidence shows that architecture, dependency, provenance, security, public-interface, and recovery risks do not require deeper decisioning.
-10. An observed failure activates Runtime Evidence Gate discipline before broad repository archaeology or architecture changes.
-11. The actual executed path outranks repository proximity, naming similarity, legacy relevance, README claims, and model memory.
-12. A file not shown to participate in the observed runtime path is out of repair scope unless evidence connects it to the root cause.
-13. Identify the first concrete failing condition before widening the repair.
-14. Additional diagnostic/research queries must be able to change the current technical decision.
-15. Interesting inconsistencies that cannot change the current decision are `FUTURE_WORK`, not automatic scope.
-16. Do not create a new service, adapter, contract, store, schema, CLI mode, rebuild path, or fallback architecture without evidence that the executed path cannot be repaired correctly without it.
-17. Search failure, index failure, runtime-evidence failure, or budget exhaustion never implies that no reusable solution exists.
-18. `BUILD` must be justified; it is never the default consequence of missing evidence.
-19. Preserve valid evidence across recomposition; reopen only the invalidated gap unless the evidence base itself is invalid.
-20. Prefer the smallest architecture-consistent intervention that satisfies verified requirements.
-21. Re-run the identical canonical path after a repair when possible.
-22. Do not duplicate work already performed by the host, IntakeGov, repository index, prior validated SPARI evidence, or runtime instrumentation.
-23. Persist inspectable engineering evidence, not hidden chain-of-thought.
-24. Do not publish quantitative savings or capability claims without reproducible measurement.
+1. **Source authority before local cache.**
+2. **One failed transport does not prove the authoritative source is unavailable.**
+3. **A local SPARI copy is a cache, not current truth, until attested against the configured authority.**
+4. **For SPARI itself, `tonnestate/SPARI` branch `main` is the current authority; a release tag is optional metadata, not a prerequisite.**
+5. **Do not claim or evaluate a SPARI version without evidence of the exact authoritative revision/instruction surface actually in use.**
+6. **Determinism before inference.**
+7. **Runtime before repository speculation.**
+8. **Trace before repair.**
+9. **Reuse before research.**
+10. **Build only what is missing.**
+11. **Recompose when evidence changes.**
+12. Do not spend model inference to decide whether inference is needed when deterministic evidence can decide first.
+13. Do not launch deep SPARI work when a bounded task can be safely resolved by exact reuse or direct execution.
+14. Bypass only when explicit evidence shows that architecture, dependency, provenance, security, public-interface, and recovery risks do not require deeper decisioning.
+15. An observed failure activates Runtime Evidence Gate discipline before broad repository archaeology or architecture changes.
+16. The actual executed path outranks repository proximity, naming similarity, legacy relevance, README claims, and model memory.
+17. A file not shown to participate in the observed runtime path is out of repair scope unless evidence connects it to the root cause.
+18. Identify the first concrete failing condition before widening the repair.
+19. Additional diagnostic/research queries must be able to change the current technical decision.
+20. Interesting inconsistencies that cannot change the current decision are `FUTURE_WORK`, not automatic scope.
+21. Do not create a new service, adapter, contract, store, schema, CLI mode, rebuild path, or fallback architecture without evidence that the executed path cannot be repaired correctly without it.
+22. Search failure, index failure, runtime-evidence failure, or budget exhaustion never implies that no reusable solution exists.
+23. `BUILD` must be justified; it is never the default consequence of missing evidence.
+24. Preserve valid evidence across recomposition; reopen only the invalidated gap unless the evidence base itself is invalid.
+25. Prefer the smallest architecture-consistent intervention that satisfies verified requirements.
+26. Re-run the identical canonical path after a repair when possible.
+27. Do not duplicate work already performed by the host, IntakeGov, repository index, prior validated SPARI evidence, or runtime instrumentation.
+28. Persist inspectable engineering evidence, not hidden chain-of-thought.
+29. Do not publish quantitative savings or capability claims without reproducible measurement.
+
+# Source Attestation Gate
+
+Source Attestation Gate runs before Economy Gate.
+
+For SPARI itself:
+
+```text
+AUTHORITY_REPOSITORY = https://github.com/tonnestate/SPARI
+AUTHORITY_REF        = refs/heads/main
+```
+
+`main` is the current source of truth.
+
+## Authority Access Plan
+
+Do not equate a tool/transport with the authority.
+
+On first source resolution in a session, identify the available approved routes and choose the strongest working route without repeatedly retrying known-dead transports.
+
+Preferred route classes:
+
+1. host-native GitHub connector/API;
+2. direct GitHub API/fetch capability;
+3. shell Git remote access;
+4. direct GitHub page/fetch only when it exposes an exact commit identity.
+
+Search-engine snippets are discovery evidence, not authoritative current-main proof.
+
+If `git ls-remote` fails but a GitHub connector/API is available:
+
+```text
+GIT_REMOTE_TRANSPORT_FAILED
+```
+
+not:
+
+```text
+GITHUB_UNAVAILABLE
+```
+
+`GITHUB_UNAVAILABLE` or `SOURCE_UNRESOLVED` requires that all approved authority-resolution routes are unavailable or unable to resolve the required authority state.
+
+Cache the resulting route as `AUTHORITY_ACCESS_PLAN` for the session and reuse it until evidence invalidates it.
+
+## Resolve current main
+
+Record:
+
+- repository;
+- authoritative ref;
+- resolved main SHA;
+- transport used;
+- canonical `SKILL.md` metadata version;
+- canonical `SKILL.md` content hash when available;
+- canonical release manifest/hash evidence when available;
+- resolution timestamp/evidence refs.
+
+Do not require a version tag when branch `main` is configured as authority.
+
+A missing `refs/tags/vX.Y.Z` is not a source-resolution failure when `refs/heads/main` resolves successfully.
+
+## Attest the installed surface
+
+The installed/local SPARI directory is evidence about what is loaded, not evidence about what is current.
+
+Preferred attestation:
+
+```text
+valid installed Git revision == resolved main SHA
+```
+
+If the installed skill is a copied directory without trustworthy Git metadata, use content evidence:
+
+```text
+installed SKILL.md hash
++
+installed referenced active files / release-manifest checks
++
+canonical hashes from resolved main
+```
+
+A missing, broken, or empty local `.git` directory must not be promoted to a revision claim.
+
+Attestation states:
+
+- `CURRENT_ATTESTED` — installed active surface matches resolved current main under the declared method;
+- `PINNED_ATTESTED` — installed surface matches an exact previously/explicitly frozen SHA permitted by the task/eval contract;
+- `PARTIAL_ATTESTATION` — only part of the active surface could be compared;
+- `STALE_LOCAL_COPY` — installed surface is proven older/different from required authority state;
+- `INSTALLATION_UNATTESTED` — authority is known but installed active surface cannot be proven;
+- `SOURCE_UNRESOLVED` — current authority state cannot be resolved;
+- `SOURCE_CONFLICT` — authoritative evidence routes disagree and cannot be reconciled.
+
+Only the states permitted by the current task/contract may proceed.
+
+Normal "use current SPARI" requires `CURRENT_ATTESTED`.
+
+A version-sensitive evaluation may use `PINNED_ATTESTED` only if its contract explicitly froze that exact SHA.
+
+## Offline/failure behavior
+
+If current GitHub `main` cannot be resolved:
+
+- do not promote a cached copy to current;
+- report its exact known/pinned identity if attested;
+- do not invent freshness;
+- stop work whose contract requires current main;
+- continue only work explicitly permitted against the known pinned revision.
+
+## Evaluation freeze
+
+For controlled evaluation:
+
+1. resolve current main at evaluation start;
+2. attest the evaluation surface;
+3. freeze that exact SHA in the manifest;
+4. run comparable arms against that same frozen revision.
+
+Do not silently refresh one arm mid-experiment.
+
+If policy requires continuously-current main rather than a frozen evaluation revision, a main change invalidates the comparable run set.
+
+## Bootstrap boundary
+
+Self-attestation begins after some SPARI instructions have already been loaded.
+
+Therefore:
+
+```text
+SPARI_SELF_ATTEST
+!=
+HOST_LOADER_ATTEST
+```
+
+A hard guarantee that stale SPARI can never be activated requires host/installer/skill-loader enforcement before skill activation.
+
+v0.1.6 specifies the source/transport/attestation contract and fails closed once invoked; it does not claim to control every host loader.
+
+See `references/source-attestation-gate.md` and `schemas/source-attestation.schema.json`.
 
 # Economy Gate
 
-The Economy Gate runs before model-heavy prior-art reasoning.
+The Economy Gate runs after Source Attestation Gate has produced an attestation state permitted by the current task/contract and before model-heavy prior-art reasoning.
 
 Its job is to decide how much SPARI is justified for the current work slice.
 
@@ -589,23 +739,24 @@ Do not generate artifacts that do not materially help the current decision.
 
 Use explicit failures rather than hallucinated completion.
 
-Runtime evidence failure is not permission to repair speculative code or to `BUILD`.
+Source-resolution/attestation failure is not permission to treat a stale local skill as current. Runtime evidence failure is not permission to repair speculative code or to `BUILD`.
 
 See `references/failure-codes.md`.
 
 # Evidence status
 
-v0.1.5 is an experimental design release.
+v0.1.6 is an experimental design release.
 
 The repository preserves:
 
 - v0.1.2 controlled evidence in `EVIDENCE.md`;
 - corrected bounded v0.1.3 capability/recovery evidence in `EVIDENCE_V0.1.3.md` and `evals/`.
 
-v0.1.4 Economy Gate and v0.1.5 Runtime Evidence Gate have not yet earned universal cost or outcome claims.
+v0.1.4 Economy Gate, v0.1.5 Runtime Evidence Gate, and v0.1.6 Source Attestation/Authority Access have not yet earned universal cost or outcome claims.
 
 ## Guiding principle
 
+> Source authority before local cache.  
 > Determinism before inference.  
 > Runtime before speculation.  
 > Reuse before research.  

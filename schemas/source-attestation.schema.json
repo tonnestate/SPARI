@@ -1,0 +1,194 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/tonnestate/SPARI/schemas/source-attestation.schema.json",
+  "title": "SPARI Source Attestation",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "authority_repository",
+    "authority_ref",
+    "attestation_status",
+    "reason_codes",
+    "evidence_refs"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.6"
+    },
+    "authority_repository": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authority_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "resolved_authority_sha": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "authority_transport": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "GITHUB_CONNECTOR",
+        "GITHUB_API",
+        "GIT_REMOTE",
+        "DIRECT_GITHUB_FETCH",
+        "OTHER",
+        null
+      ]
+    },
+    "attempted_transports": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "transport",
+          "status"
+        ],
+        "properties": {
+          "transport": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "SUCCEEDED",
+              "FAILED",
+              "UNAVAILABLE",
+              "SKIPPED"
+            ]
+          },
+          "detail": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "canonical_skill_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "canonical_skill_sha256": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "canonical_manifest_sha256": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "installed_path": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "installed_git_sha": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "installed_skill_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "installed_skill_sha256": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "attestation_method": {
+      "enum": [
+        "GIT_REVISION",
+        "CONTENT_HASH",
+        "MANIFEST_HASH_SET",
+        "MIXED",
+        "NONE"
+      ]
+    },
+    "checked_files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "path",
+          "status"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "canonical_sha256": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "installed_sha256": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "status": {
+            "enum": [
+              "MATCH",
+              "MISMATCH",
+              "MISSING",
+              "UNKNOWN"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "frozen_for_evaluation": {
+      "type": "boolean"
+    },
+    "attestation_status": {
+      "enum": [
+        "CURRENT_ATTESTED",
+        "PINNED_ATTESTED",
+        "PARTIAL_ATTESTATION",
+        "STALE_LOCAL_COPY",
+        "INSTALLATION_UNATTESTED",
+        "SOURCE_UNRESOLVED",
+        "SOURCE_CONFLICT"
+      ]
+    },
+    "reason_codes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,5 +1,25 @@
 # Failure Codes
 
+## Source authority / tool routing
+
+- `AUTHORITY_ACCESS_PLAN_MISSING`
+- `GIT_REMOTE_TRANSPORT_FAILED`
+- `AUTHORITY_TRANSPORT_UNAVAILABLE`
+- `SOURCE_UNRESOLVED`
+- `SOURCE_CONFLICT`
+- `CANONICAL_MAIN_SHA_UNKNOWN`
+- `LOCAL_REVISION_UNKNOWN`
+- `STALE_LOCAL_COPY`
+- `INSTALLATION_UNATTESTED`
+- `PARTIAL_ATTESTATION`
+- `CURRENT_VERSION_CLAIM_UNATTESTED`
+- `VERSION_TAG_MISSING_NONBLOCKING`
+- `TOOL_ROUTE_MISCLASSIFIED`
+
+A failed shell-Git transport does not imply `SOURCE_UNRESOLVED` while another approved GitHub authority route remains available.
+
+A cached/local SPARI copy must not be promoted to `current` without current-source attestation.
+
 ## Admission / research
 
 - `NOT_RECON_READY`

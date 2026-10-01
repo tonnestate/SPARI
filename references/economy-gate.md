@@ -1,8 +1,27 @@
 # Economy Gate
 
-The Economy Gate is SPARI's pre-inference admission layer.
+The Economy Gate is SPARI's pre-inference engineering admission layer. In v0.1.6 it runs only after Source Attestation Gate has produced an attestation state permitted by the current task/contract.
 
 Its purpose is to prevent the reuse/control system from becoming more expensive than the bounded work it protects while still escalating when risk, uncertainty, failure evidence, or expected rework justifies deeper reasoning.
+
+## Source-attestation precondition
+
+Before Economy Gate:
+
+```text
+SOURCE_ATTESTATION_GATE
+→ CURRENT_ATTESTED
+```
+
+or an explicitly contract-permitted:
+
+```text
+PINNED_ATTESTED
+```
+
+If source identity is stale, unresolved, conflicting, or unattested, do not silently continue as "current SPARI".
+
+See `source-attestation-gate.md`.
 
 ## Outcomes
 
