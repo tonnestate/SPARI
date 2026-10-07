@@ -1,6 +1,6 @@
 # Economy Gate
 
-The Economy Gate is SPARI's pre-inference engineering admission layer. In v0.1.6 it runs only after Source Attestation Gate has produced an attestation state permitted by the current task/contract.
+The Economy Gate is SPARI's pre-inference engineering admission layer. In v0.1.7 it runs only after Source Attestation Gate has produced an attestation state permitted by the current task/contract.
 
 Its purpose is to prevent the reuse/control system from becoming more expensive than the bounded work it protects while still escalating when risk, uncertainty, failure evidence, or expected rework justifies deeper reasoning.
 
@@ -34,6 +34,16 @@ SPARI_FULL
 RUNTIME_EVIDENCE_GATE
 RECOMPOSE
 ```
+
+## Handoff to Pre-Execution Decision Gate
+
+Economy Gate decides whether deeper decisioning is justified; it does not grant unconstrained search.
+
+- FAST_REUSE and DIRECT_EXECUTION may use a compact BYPASS decision record when deterministic evidence shows deeper research cannot change the bounded intervention.
+- SPARI_PREFLIGHT, SPARI_TARGETED, SPARI_FULL, and consequential RECOMPOSE paths enter Pre-Execution Decision Gate before non-trivial retrieval or mutation.
+- Observed failures may enter Runtime Evidence Gate to identify the failing capability/path, but repair mutation remains denied until the reuse decision grants execution authority.
+
+See `pre-execution-decision-gate.md`.
 
 ## Deterministic first pass
 
