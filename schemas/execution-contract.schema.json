@@ -4,6 +4,8 @@
   "type": "object",
   "required": [
     "schema_version",
+    "pre_execution_decision_ref",
+    "execution_authority",
     "golden_plan_ref",
     "reuse_blueprint_ref",
     "planned_custom_delta",
@@ -11,7 +13,14 @@
   ],
   "properties": {
     "schema_version": {
-      "const": "0.1.3"
+      "const": "0.1.7"
+    },
+    "pre_execution_decision_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "execution_authority": {
+      "const": "GRANTED"
     },
     "golden_plan_ref": {
       "type": "string"
