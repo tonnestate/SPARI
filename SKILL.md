@@ -1,12 +1,12 @@
 ---
 name: spari
-description: Source-attested, evidence-driven software prior-art, economy-gated reuse, runtime-path diagnosis, composition, and recomposition intelligence for AI engineering agents. Uses deterministic evidence before inference, traces the actual executed path before repairing observed failures, reuses persistent repository intelligence, builds only the smallest justified delta, and recomposes when execution evidence invalidates the current path.
+description: Source-attested software prior-art and reuse control for AI engineering agents. Requires a decision question before broad search, a Build-vs-Borrow decision before consequential implementation, deterministic evidence before inference, runtime-path diagnosis before repair, and the smallest justified custom delta.
 license: Apache-2.0
 metadata:
-  version: "0.1.6"
+  version: "0.1.7"
   status: experimental
   category: software-intelligence
-  updated: "2026-10-01"
+  updated: "2026-10-07"
 ---
 
 # SPARI
@@ -21,7 +21,7 @@ SPARI is not a generic project manager, search-results generator, code generator
 
 ## Operating loop
 
-```text
+~~~text
 SPARI invoked
 → AUTHORITY ACCESS PLAN
 → SOURCE ATTESTATION GATE
@@ -29,37 +29,36 @@ SPARI invoked
    └─ stale / unresolved / conflict → stop current-version-sensitive work
 → Raw or qualified engineering context
 → ECONOMY GATE
-   → deterministic fast match / persistent index
-   → risk override + break-even admission
-   → observed failure?
-      ├─ YES
-      │   → RUNTIME EVIDENCE GATE
-      │   → canonical entrypoint
-      │   → reproduce
-      │   → executed path
-      │   → first concrete failure
-      │   → capability-scoped reuse lookup
-      │   → minimal Runtime Custom Delta
-      │   → same-path retest
-      │   → CONTINUE | ADAPT | RECOMPOSE | STOP
-      └─ NO
-          ├─ FAST_REUSE / DIRECT_EXECUTION
-          └─ SPARI_ADMITTED
-              → Engineering Case
-              → R0 Recall
-              → R1 Local
-              → R2 Related Internal
-              → R3 Targeted External
-              → R4 Broad External
-              → Build-vs-Borrow composition
-              → Minimal Custom Delta + Intervention Surface
-              → Bounded execution
-              → Evidence checkpoint
-              → CONTINUE | ADAPT | RECOMPOSE | STOP
-→ Verified outcome
+   ├─ FAST_REUSE / DIRECT_EXECUTION
+   │    → minimal BYPASS decision record
+   │    → EXECUTION_AUTHORITY = GRANTED
+   └─ consequential decisioning
+        → PRE-EXECUTION DECISION GATE
+        → DEFINE capability + material constraints
+        → DECISION QUESTION
+        → SEARCH PLAN
+        → observed failure?
+           ├─ YES → RUNTIME EVIDENCE GATE
+           │        → canonical entrypoint
+           │        → reproduce
+           │        → executed path
+           │        → first concrete failure
+           │        → failing capability
+           └─ NO  → continue planned retrieval
+        → targeted deterministic/internal retrieval first
+        → external search only when the decision still requires it
+        → COMPARE
+        → ADOPT | ADAPT | COMPOSE | REFERENCE | REJECT | BUILD | BLOCKED
+        → BUILD requires explicit justification + bounded Custom Delta
+        → EXECUTION_AUTHORITY = GRANTED
+        → bounded execution
+        → same-path / required verification
+        → CONTINUE | ADAPT | RECOMPOSE | STOP
 → Decision + Trajectory Memory
-→ Incremental index refresh
-```
+→ incremental index refresh only where justified
+~~~
+
+The controller is intentionally sparse. SPARI should reuse host-native repo maps, symbol search, skills, MCP tools, indexes, and search providers instead of rebuilding them inside the decision layer.
 
 ## Core objective
 
@@ -68,34 +67,40 @@ SPARI invoked
 ## Core invariants
 
 1. **Source authority before local cache.**
-2. **One failed transport does not prove the authoritative source is unavailable.**
-3. **A local SPARI copy is a cache, not current truth, until attested against the configured authority.**
-4. **For SPARI itself, `tonnestate/SPARI` branch `main` is the current authority; a release tag is optional metadata, not a prerequisite.**
-5. **Do not claim or evaluate a SPARI version without evidence of the exact authoritative revision/instruction surface actually in use.**
-6. **Determinism before inference.**
-7. **Runtime before repository speculation.**
-8. **Trace before repair.**
-9. **Reuse before research.**
-10. **Build only what is missing.**
+2. **Determinism before inference.**
+3. **Think/define before broad search.**
+4. **No broad search or indexing without a named decision question.**
+5. **No consequential implementation before a recorded reuse decision.**
+6. **Execution authority is denied by default.**
+7. **BUILD is a justified decision, never the fallback for missing evidence.**
+8. **Runtime before repository speculation.**
+9. **Trace before repair.**
+10. **Reuse before external research.**
 11. **Recompose when evidence changes.**
-12. Do not spend model inference to decide whether inference is needed when deterministic evidence can decide first.
-13. Do not launch deep SPARI work when a bounded task can be safely resolved by exact reuse or direct execution.
-14. Bypass only when explicit evidence shows that architecture, dependency, provenance, security, public-interface, and recovery risks do not require deeper decisioning.
-15. An observed failure activates Runtime Evidence Gate discipline before broad repository archaeology or architecture changes.
-16. The actual executed path outranks repository proximity, naming similarity, legacy relevance, README claims, and model memory.
-17. A file not shown to participate in the observed runtime path is out of repair scope unless evidence connects it to the root cause.
-18. Identify the first concrete failing condition before widening the repair.
-19. Additional diagnostic/research queries must be able to change the current technical decision.
-20. Interesting inconsistencies that cannot change the current decision are `FUTURE_WORK`, not automatic scope.
-21. Do not create a new service, adapter, contract, store, schema, CLI mode, rebuild path, or fallback architecture without evidence that the executed path cannot be repaired correctly without it.
-22. Search failure, index failure, runtime-evidence failure, or budget exhaustion never implies that no reusable solution exists.
-23. `BUILD` must be justified; it is never the default consequence of missing evidence.
-24. Preserve valid evidence across recomposition; reopen only the invalidated gap unless the evidence base itself is invalid.
-25. Prefer the smallest architecture-consistent intervention that satisfies verified requirements.
-26. Re-run the identical canonical path after a repair when possible.
-27. Do not duplicate work already performed by the host, IntakeGov, repository index, prior validated SPARI evidence, or runtime instrumentation.
-28. Persist inspectable engineering evidence, not hidden chain-of-thought.
-29. Do not publish quantitative savings or capability claims without reproducible measurement.
+12. A local SPARI copy is a cache, not current truth, until attested against the configured authority.
+13. For SPARI itself, tonnestate/SPARI branch main is the current authority; a release tag is optional metadata, not a prerequisite.
+14. Do not claim or evaluate a SPARI version without evidence of the exact authoritative revision/instruction surface actually in use.
+15. Do not spend model inference to decide whether inference is needed when deterministic evidence can decide first.
+16. Do not launch deep SPARI work when a bounded task can be safely resolved by FAST_REUSE or DIRECT_EXECUTION.
+17. DIRECT_EXECUTION and FAST_REUSE still produce a compact BYPASS decision record stating why deeper prior-art work cannot change the bounded intervention.
+18. A non-trivial search plan must name the evidence source, query/lookup, decision impact, and stop condition before retrieval.
+19. R0–R4 are selectable search radii, not a mandatory pipeline.
+20. Do not build or refresh a broad repository index merely because a repository exists.
+21. Reuse host-provided repo maps, indexes, skills, symbol search, MCP tools, and search capabilities when they already provide the needed evidence.
+22. An observed failure activates Runtime Evidence Gate discipline before repair mutation.
+23. The actual executed path outranks repository proximity, naming similarity, legacy relevance, README claims, and model memory.
+24. A file not shown to participate in the observed runtime path is out of repair scope unless evidence connects it to the root cause.
+25. Identify the first concrete failing condition before widening the repair.
+26. Every additional diagnostic/research query must be able to change the current technical decision.
+27. Interesting inconsistencies that cannot change the current decision are FUTURE_WORK, not automatic scope.
+28. Do not create a new service, adapter, contract, store, schema, CLI mode, rebuild path, or fallback architecture without evidence that the required capability cannot be satisfied by the supported composition.
+29. Search failure, index failure, runtime-evidence failure, or budget exhaustion never implies that no reusable solution exists.
+30. Preserve valid evidence across recomposition; reopen only the invalidated gap unless the evidence base itself is invalid.
+31. Prefer the smallest architecture-consistent intervention that satisfies verified requirements.
+32. Re-run the identical canonical path after a repair when possible.
+33. Do not duplicate work already performed by the host, IntakeGov, repository index, prior validated SPARI evidence, or runtime instrumentation.
+34. Persist inspectable engineering evidence and decision summaries, not hidden chain-of-thought.
+35. Do not publish quantitative savings or capability claims without reproducible measurement.
 
 # Source Attestation Gate
 
@@ -233,7 +238,7 @@ HOST_LOADER_ATTEST
 
 A hard guarantee that stale SPARI can never be activated requires host/installer/skill-loader enforcement before skill activation.
 
-v0.1.6 specifies the source/transport/attestation contract and fails closed once invoked; it does not claim to control every host loader.
+v0.1.7 preserves the source/transport/attestation contract and fails closed once invoked; it does not claim to control every host loader.
 
 See `references/source-attestation-gate.md` and `schemas/source-attestation.schema.json`.
 
@@ -278,7 +283,107 @@ An observed failure normally routes to `RUNTIME_EVIDENCE_GATE` unless a trustwor
 
 Risk override should route to the smallest adequate profile, not automatically to FULL.
 
+Any path other than a deterministically justified FAST_REUSE or DIRECT_EXECUTION enters Pre-Execution Decision Gate before non-trivial retrieval or consequential mutation. Observed failures use Runtime Evidence Gate to establish the failing capability/path, but repair mutation remains denied until the reuse decision grants execution authority.
+
 See `references/economy-gate.md` and `schemas/economy-gate.schema.json`.
+
+# Pre-Execution Decision Gate
+
+Any consequential Build-vs-Borrow task enters this gate before broad search or implementation.
+
+The gate exists to prevent the common agent trajectory:
+
+~~~text
+intake
+→ index everything
+→ search widely
+→ consolidate unrelated context
+→ prefer a fresh implementation
+→ justify BUILD afterward
+~~~
+
+The required trajectory is:
+
+~~~text
+DEFINE
+→ DECISION QUESTION
+→ SEARCH PLAN
+→ TARGETED RETRIEVAL
+→ COMPARE
+→ REUSE DECISION
+→ EXECUTION AUTHORITY
+→ IMPLEMENT
+~~~
+
+## Required decision state
+
+Record only the compact, inspectable decision state:
+
+- required capability;
+- material constraints;
+- known state;
+- material unknowns;
+- one current decision question;
+- planned evidence sources/lookups;
+- stop condition.
+
+Do not persist hidden chain-of-thought.
+
+## Search permission
+
+Before a non-trivial search, index build, repo-map generation, source scan, or external query:
+
+~~~text
+What engineering decision can this operation change?
+~~~
+
+If there is no concrete answer:
+
+~~~text
+DO_NOT_QUERY
+~~~
+
+Broad search or broad indexing additionally requires evidence that narrower/existing sources cannot resolve a material solution-family uncertainty.
+
+## Reuse decision
+
+Before consequential mutation choose:
+
+- ADOPT
+- ADAPT
+- COMPOSE
+- REFERENCE
+- REJECT
+- BUILD
+- FAST_REUSE
+- DIRECT_EXECUTION
+- BLOCKED
+
+BUILD requires explicit evidence-based justification plus a bounded Custom Delta. "Nothing perfect found" is not sufficient.
+
+## Execution authority
+
+Default:
+
+~~~text
+EXECUTION_AUTHORITY = DENIED
+~~~
+
+Grant only when the applicable decision is complete.
+
+For consequential work this requires:
+
+- capability defined;
+- decision question defined;
+- search plan completed or validly bypassed;
+- relevant candidates/evidence evaluated;
+- reuse decision recorded;
+- Custom Delta bounded where custom work remains;
+- hard constraints preserved.
+
+If later evidence can materially change the reuse decision, authority returns to DENIED for the affected scope and control returns to ADAPT or RECOMPOSE.
+
+See references/pre-execution-decision-gate.md and schemas/pre-execution-decision.schema.json.
 
 # Runtime Evidence Gate
 
@@ -488,7 +593,7 @@ Economy Gate is admission control. Runtime Evidence Gate is repair scoping. Sear
 
 For observed failures, remain capability-scoped around the executed failing path until evidence justifies widening.
 
-`PREFLIGHT`, `TARGETED`, and `FULL` are ceilings/operating ranges, not mandatory pipelines.
+`PREFLIGHT`, `TARGETED`, and `FULL` are ceilings/operating ranges, not mandatory pipelines. R0–R4 are selectable evidence radii chosen by the current decision question; do not walk them sequentially by default.
 
 See `references/research-depth.md`.
 

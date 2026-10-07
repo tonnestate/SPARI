@@ -5,6 +5,9 @@ SPARI owns Build-vs-Borrow composition and recomposition. It does not need to be
 ## Separation of responsibilities
 
 ```text
+PRE_EXECUTION_DECISION
+execution_authority = GRANTED
+        ↓
 SPARI composition vN
         ↓
 EXECUTION_CONTRACT vN
@@ -26,10 +29,24 @@ Execution systems are optimized to modify software. SPARI preserves the prior-ar
 
 The boundary is not a one-way handoff. New execution evidence may return control to SPARI before the whole task is finished.
 
+## Execution authority prerequisite
+
+Consequential mutation is denied unless the referenced pre-execution decision is in state:
+
+```text
+execution_authority = GRANTED
+```
+
+The executor must not infer authority from a task prompt, candidate list, search failure, or partially completed SPARI analysis.
+
+If new evidence can materially change the Build-vs-Borrow decision, execution authority returns to `DENIED` for the affected scope and control returns to SPARI.
+
 ## EXECUTION_CONTRACT
 
 Identify where applicable:
 
+- `pre_execution_decision_ref`;
+- `execution_authority`;
 - `engineering_case_ref`;
 - `composition_version`;
 - `golden_plan_ref`;

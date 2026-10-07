@@ -12,7 +12,7 @@
 <p align="center">
   <img alt="License" src="https://img.shields.io/badge/license-Apache--2.0-blue">
   <img alt="Status" src="https://img.shields.io/badge/status-experimental-orange">
-  <img alt="Version" src="https://img.shields.io/badge/version-0.1.6-ff69b4">
+  <img alt="Version" src="https://img.shields.io/badge/version-0.1.7-ff69b4">
   <img alt="Reuse First" src="https://img.shields.io/badge/reuse-first-c060ff">
   <img alt="Runtime First" src="https://img.shields.io/badge/runtime-first-ff69b4">
   <img alt="Source Attested" src="https://img.shields.io/badge/source-attested-c060ff">
@@ -49,11 +49,15 @@ resolve authoritative source
         ↓
 attest the loaded SPARI surface
         ↓
-deterministic evidence first
+define the engineering decision before broad search
+        ↓
+plan the smallest evidence lookup that can change it
         ↓
 reuse existing software where justified
         ↓
 trace the real runtime path when behavior is broken
+        ↓
+grant execution only after Build-vs-Borrow is decided
         ↓
 build only the smallest missing delta
         ↓
@@ -68,12 +72,16 @@ SPARI is not another coding agent. It does not contain a built-in LLM, code edit
 
 ---
 
-## What SPARI v0.1.6 can do today
+## What SPARI v0.1.7 can do today
 
-v0.1.6 keeps the v0.1.5 Runtime Evidence Gate and adds a **Source Attestation Gate** plus explicit **Authority Access routing** so a stale local skill or one failed transport cannot masquerade as current GitHub truth.
+v0.1.7 keeps Source Attestation, Economy Gate, Runtime Evidence and Recomposition, and adds a **Pre-Execution Decision Gate**. Consequential agents must define the capability and decision question before broad discovery, plan the smallest search that can change that decision, record Build-vs-Borrow, and receive explicit execution authority before implementation.
 
-| Capability | v0.1.5 behavior |
+| Capability | Current behavior |
 |---|---|
+| Pre-Execution Decision Gate | Requires capability → decision question → bounded search plan → reuse decision → execution authority before consequential implementation. |
+| Search-before-search control | Prohibits broad search, broad indexing and repo-map generation unless they answer a named decision question that narrower evidence cannot resolve. |
+| Execution authority | Defaults to DENIED; BUILD requires explicit justification and a bounded Custom Delta before GRANTED. |
+| Host capability reuse | Reuses host-native repo maps, indexes, skills, symbol search, MCP and search providers instead of rebuilding generic discovery infrastructure. |
 | Authority Access routing | Resolves the authoritative source through an available GitHub-capable transport instead of assuming shell `git` is the only route. |
 | Source Attestation Gate | Proves which SPARI revision/instruction surface is actually loaded before version-sensitive reasoning begins. |
 | Local-cache discipline | Treats installed skill copies as caches; they are never promoted to `current` without current-source evidence. |
@@ -99,62 +107,64 @@ v0.1.6 keeps the v0.1.5 Runtime Evidence Gate and adds a **Source Attestation Ga
 
 ---
 
-## The v0.1.6 operating model
+## The v0.1.7 operating model
 
-```text
+~~~text
 SPARI requested
         │
         ▼
- AUTHORITY ACCESS PLAN
+ AUTHORITY ACCESS / SOURCE ATTESTATION
         │
         ▼
- SOURCE ATTESTATION GATE
-   │             │
-   │             ├── stale / unresolved → fail closed for current-version claims
-   │             │
-   ▼
-CURRENT_ATTESTED / permitted PINNED_ATTESTED
+      ECONOMY GATE
         │
-        ▼
-Raw / qualified engineering context
-                │
-                ▼
-          ECONOMY GATE
-                │
-        observed failure?
-          /             \
-        NO               YES
-        │                 │
-        ▼                 ▼
-deterministic         RUNTIME
-reuse lookup          EVIDENCE GATE
-        │                 │
-        │            canonical entrypoint
-        │                 ↓
-        │            reproduce failure
-        │                 ↓
-        │            actual executed path
-        │                 ↓
-        │            first concrete failure
-        │                 ↓
-        └──────────→ capability-scoped reuse
-                          ↓
-                     smallest delta
-                          ↓
-                    same-path retest
-                          ↓
-              CONTINUE / ADAPT / RECOMPOSE
-                          ↓
-                 verified outcome
-                          ↓
-            Decision + Trajectory Memory
-                          ↓
-             incremental index refresh
-```
+   deterministic fast path?
+      /              \
+    YES              NO
+     │                │
+FAST_REUSE /          ▼
+DIRECT_EXECUTION   PRE-EXECUTION DECISION GATE
+     │                │
+     │            DEFINE capability
+     │                ↓
+     │            DECISION QUESTION
+     │                ↓
+     │            SEARCH PLAN
+     │                ↓
+     │        targeted evidence/retrieval
+     │                ↓
+     │          observed failure?
+     │           /          \
+     │         YES          NO
+     │          │            │
+     │     RUNTIME EVIDENCE  │
+     │     actual path/root  │
+     │          └──────┬─────┘
+     │                 ↓
+     │              COMPARE
+     │                 ↓
+     │       BUILD-vs-BORROW DECISION
+     │                 ↓
+     │        EXECUTION AUTHORITY
+     └──────────────→ GRANTED
+                       ↓
+                bounded execution
+                       ↓
+                   verification
+                       ↓
+             CONTINUE / ADAPT /
+             RECOMPOSE / STOP
+~~~
 
-The Runtime Evidence Gate is deliberately **not** a second agent or a second workflow. It is an admission, scope and execution guard inside the existing SPARI loop.
+Three control rules define the release:
 
----
+~~~text
+NO BROAD SEARCH WITHOUT A DECISION QUESTION.
+NO BUILD WITHOUT A REUSE DECISION.
+NO CONSEQUENTIAL IMPLEMENTATION WITHOUT EXECUTION AUTHORITY.
+~~~
+
+R0–R4 remain available as search radii, but they are no longer something an agent should mechanically walk. The decision question selects the smallest useful evidence source, and search stops when the engineering decision is stable.
 
 ## How SPARI solves the problem
 
@@ -945,7 +955,7 @@ See [`LICENSE`](LICENSE), [`NOTICE`](NOTICE), and [`THIRD_PARTY_NOTICES.md`](THI
 
 # Verify the source. Trace what runs. Reuse what exists. Build only the delta.
 
-**SPARI — Build vs Borrow, then compose; recompose when reality changes.**
+**SPARI — Think, search with purpose, decide Build vs Borrow, then execute.**
 
 ---
 

@@ -25,6 +25,19 @@ A deployment may index compact evidence about:
 
 The index should store evidence pointers and compact metadata rather than large source dumps.
 
+## No reflexive indexing
+
+The existence of a repository is not a reason to build or refresh a broad index.
+
+Before index construction or broad refresh, Pre-Execution Decision Gate must identify:
+
+- the decision question;
+- why the current/existing lookup surface is insufficient;
+- what additional indexed structure can change the reuse decision;
+- the smallest affected scope.
+
+Prefer an existing host-native repo map, code index, symbol search, or cached SPARI index over reconstructing equivalent repository intelligence.
+
 ## Exact before semantic
 
 Prefer exact and structural matches first:
