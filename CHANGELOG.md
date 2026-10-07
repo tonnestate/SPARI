@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.1.7 — 2026-10-07
+
+Pre-execution decision-control and sparse-search release.
+
+- adds a hard `PRE_EXECUTION_DECISION_GATE` between admission and consequential search/implementation;
+- requires capability definition and one explicit Build-vs-Borrow decision question before broad discovery;
+- requires a bounded search plan before non-trivial repository scans, index builds, repo-map generation, or external search;
+- makes R0–R4 selectable evidence radii rather than a sequence an agent should mechanically traverse;
+- explicitly prohibits reflexive repository-wide indexing when narrower or already-existing host evidence can answer the decision;
+- reuses host-native skills, repo maps, symbol search, indexes, MCP tools, and search providers rather than duplicating them inside SPARI;
+- adds `EXECUTION_AUTHORITY = DENIED|GRANTED` with DENIED as the default;
+- requires a recorded reuse decision before consequential implementation;
+- makes `BUILD` require explicit evidence-based justification and a bounded Custom Delta;
+- extends the executor boundary so `EXECUTION_CONTRACT` requires both `pre_execution_decision_ref` and `execution_authority = GRANTED`;
+- returns execution authority to DENIED when new evidence can materially change the active reuse decision;
+- preserves deterministic `FAST_REUSE` and `DIRECT_EXECUTION` through an explicit BYPASS decision record so trivial work does not inherit research overhead;
+- adds pre-execution decision schema, failure states, reference contract, and adversarial acceptance cases;
+- preserves v0.1.6 source attestation, v0.1.5 runtime evidence, v0.1.4 economy/index behavior, and v0.1.3 recomposition.
+
 ## 0.1.6 — 2026-10-01
 
 Source-attestation and authority-access release.
