@@ -20,6 +20,18 @@ A failed shell-Git transport does not imply `SOURCE_UNRESOLVED` while another ap
 
 A cached/local SPARI copy must not be promoted to `current` without current-source attestation.
 
+## Pre-execution decision control
+
+- `CAPABILITY_UNDEFINED`
+- `DECISION_QUESTION_MISSING`
+- `SEARCH_PLAN_MISSING`
+- `BROAD_SEARCH_UNJUSTIFIED`
+- `REUSE_DECISION_MISSING`
+- `BUILD_JUSTIFICATION_MISSING`
+- `EXECUTION_AUTHORITY_DENIED`
+
+A missing decision, failed search, missing index, or incomplete candidate set never grants implementation authority and never implies `BUILD`.
+
 ## Admission / research
 
 - `NOT_RECON_READY`
