@@ -1,6 +1,6 @@
 # Research Depth and Search Radius
 
-SPARI v0.1.4 separates **admission** from **research depth**.
+SPARI v0.1.7 separates **admission**, **decision formation**, and **research depth**.
 
 ## G0 — Economy Gate
 
@@ -16,6 +16,14 @@ Before model-heavy research, use deterministic/indexed evidence to select one of
 See `economy-gate.md`.
 
 The search radius below applies only when SPARI is admitted or recomposition requires it.
+
+## Decision-question prerequisite
+
+For consequential work, Pre-Execution Decision Gate defines the current engineering decision before selecting a search radius.
+
+R0–R4 are not steps that must be walked in order. The search plan selects the cheapest radius/source that can change the active decision, and may jump directly to a targeted source when justified.
+
+No broad search is permitted merely to "understand everything" or "see what exists."
 
 ## Search radius
 
