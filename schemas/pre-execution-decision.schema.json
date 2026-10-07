@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SPARI Pre-Execution Decision",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "capability",
+    "decision_question",
+    "search_plan",
+    "reuse_decision",
+    "execution_authority"
+  ],
+  "properties": {
+    "schema_version": {"const": "0.1.7"},
+    "task_id": {"type": ["string", "null"]},
+    "repository": {"type": ["string", "null"]},
+    "base_revision": {"type": ["string", "null"]},
+    "capability": {"type": "string", "minLength": 1},
+    "constraints": {"type": "array", "items": {"type": "string"}},
+    "known_state": {"type": "array", "items": {"type": "string"}},
+    "unknowns": {"type": "array", "items": {"type": "string"}},
+    "decision_question": {"type": "string", "minLength": 1},
+    "search_plan": {
+      "type": "object",
+      "required": ["mode", "steps", "stop_condition"],
+      "properties": {
+        "mode": {"enum": ["BYPASS", "TARGETED", "BROAD"]},
+        "bypass_reason": {"type": ["string", "null"]},
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["source", "query", "decision_impact"],
+            "properties": {
+              "source": {"type": "string"},
+              "query": {"type": "string"},
+              "decision_impact": {"type": "string"}
+            },
+            "additionalProperties": false
+          }
+        },
+        "stop_condition": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "candidate_evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["candidate", "decision", "evidence_refs"],
+        "properties": {
+          "candidate": {"type": "string"},
+          "decision": {"enum": ["ADOPT", "ADAPT", "COMPOSE", "REFERENCE", "REJECT"]},
+          "reason": {"type": ["string", "null"]},
+          "evidence_refs": {"type": "array", "items": {"type": "string"}}
+        },
+        "additionalProperties": false
+      }
+    },
+    "reuse_decision": {
+      "enum": ["ADOPT", "ADAPT", "COMPOSE", "REFERENCE", "REJECT", "BUILD", "FAST_REUSE", "DIRECT_EXECUTION", "BLOCKED"]
+    },
+    "build_justification": {"type": ["string", "null"]},
+    "custom_delta": {"type": "array", "items": {"type": "string"}},
+    "execution_authority": {"enum": ["DENIED", "GRANTED"]},
+    "reason_codes": {"type": "array", "items": {"type": "string"}},
+    "evidence_refs": {"type": "array", "items": {"type": "string"}}
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {"reuse_decision": {"const": "BUILD"}},
+        "required": ["reuse_decision"]
+      },
+      "then": {
+        "required": ["build_justification", "custom_delta"],
+        "properties": {
+          "build_justification": {"type": "string", "minLength": 1},
+          "custom_delta": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {"execution_authority": {"const": "GRANTED"}},
+        "required": ["execution_authority"]
+      },
+      "then": {
+        "not": {
+          "properties": {"reuse_decision": {"const": "BLOCKED"}},
+          "required": ["reuse_decision"]
+        }
+      }
+    }
+  ],
+  "additionalProperties": false
+}
