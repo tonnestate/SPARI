@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/tonnestate/SPARI/blob/main/schemas/application-behavior.schema.json",
+  "title": "SPARI Application Behavior Model /1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "target", "scope", "initial_state", "sources", "requirements", "states", "transitions"],
+  "properties": {
+    "schema_version": {"const": "spari.application.behavior/1"},
+    "target": {"type": "string", "minLength": 1},
+    "scope": {"type": "string", "minLength": 1},
+    "initial_state": {"$ref": "#/$defs/identifier"},
+    "sources": {"type": "array", "items": {"$ref": "#/$defs/source"}},
+    "requirements": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/requirement"}},
+    "states": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/state"}},
+    "transitions": {"type": "array", "items": {"$ref": "#/$defs/transition"}}
+  },
+  "$defs": {
+    "identifier": {"type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.-]{0,63}$"},
+    "refs": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/identifier"}},
+    "source": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "kind", "locator"],
+      "properties": {
+        "id": {"$ref": "#/$defs/identifier"},
+        "kind": {"enum": ["OBSERVED", "DOCUMENTED", "INFERRED", "OWNER_APPROVAL"]},
+        "locator": {"type": "string", "minLength": 1}
+      }
+    },
+    "requirement": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "scope", "description", "source_refs"],
+      "properties": {
+        "id": {"$ref": "#/$defs/identifier"},
+        "scope": {"enum": ["REQUIRED", "OPTIONAL", "EXCLUDED_BY_OWNER"]},
+        "description": {"type": "string", "minLength": 1},
+        "source_refs": {"$ref": "#/$defs/refs"}
+      }
+    },
+    "state": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "description"],
+      "properties": {"id": {"$ref": "#/$defs/identifier"}, "description": {"type": "string", "minLength": 1}}
+    },
+    "transition": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "requirement_id", "from_state", "action", "to_state", "expected_output", "source_refs"],
+      "properties": {
+        "id": {"$ref": "#/$defs/identifier"},
+        "requirement_id": {"$ref": "#/$defs/identifier"},
+        "from_state": {"$ref": "#/$defs/identifier"},
+        "action": {"type": "string", "minLength": 1},
+        "to_state": {"$ref": "#/$defs/identifier"},
+        "expected_output": {},
+        "source_refs": {"$ref": "#/$defs/refs"}
+      }
+    }
+  }
+}

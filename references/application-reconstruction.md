@@ -50,3 +50,7 @@ When user criticism could change the feature scope or composition, inspect only 
 Use existing `BLOCKED`, research-incomplete and execution-denied rules. Unknown target access, missing feature evidence, contradictory observations and exhausted budgets do not become permission to BUILD or claims of 100% parity. Store only compact inspectable source references and decision results in existing SPARI outputs; do not add a permanent clone index or new governance authority.
 
 Acceptance scenarios: `tests/application-reconstruction-cases.md`.
+
+## Executable conformance (when behavior parity matters)
+
+Apply the bounded machine-readable behavior model, source-to-requirement-to-transition traceability, and host-controlled execution receipts specified in `references/application-conformance.md` and `schemas/application-behavior.schema.json`. Execute `tools/application_conformance.py` with independent harness results and trusted host receipts. Missing, partial, inferred or nonattested REQUIRED transitions remain UNVERIFIED; mismatches are FAILED. This produces deterministic **declared observed-scope** conformance, not proof of full reference equivalence or of unseen features.

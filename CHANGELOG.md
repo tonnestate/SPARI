@@ -3,6 +3,9 @@
 ## Unreleased — 2026-10-10
 
 - adds an optional evidence-first Application Reconstruction path to SPARI's existing decision gate for explicitly scoped external application behavior;
+- extends the path with a machine-readable state-transition behavior model, independent execution-receipt boundary, SHA-256 model binding and deterministic required-feature conformance CLI;
+- adds JSON Schema contracts for behavior, runs and receipts, plus 17 executable Python stdlib acceptance/negative-control tests;
+- retains only observed-scope completeness claims: no full ioco equivalence, hidden-feature completeness or production readiness is inferred;
 - adapts Replica-style screen/flow observation, required-feature functional parity, and sourced feedback signals without importing a second agent, execution layer or mandatory research stage;
 - preserves all required capabilities in the acceptance denominator even when omitted or unverified; does not treat screenshots, inferred internals or regex review themes as verified functional evidence;
 - adds behavioral acceptance cases; no universal reproduction, parity or productivity claims are asserted.

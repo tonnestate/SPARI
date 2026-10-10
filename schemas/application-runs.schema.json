@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/tonnestate/SPARI/blob/main/schemas/application-runs.schema.json",
+  "title": "SPARI Application Execution Observations /1",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "model_sha256", "runs"],
+  "properties": {
+    "schema_version": {"const": "spari.application.runs/1"},
+    "model_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "runs": {
+      "type": "array", "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "transition_id", "from_state", "action", "to_state", "output"],
+        "properties": {
+          "id": {"$ref": "#/$defs/id"},
+          "transition_id": {"$ref": "#/$defs/id"},
+          "from_state": {"$ref": "#/$defs/id"},
+          "action": {"type": "string", "minLength": 1},
+          "to_state": {"$ref": "#/$defs/id"},
+          "output": {}
+        }
+      }
+    }
+  },
+  "$defs": {"id": {"type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.-]{0,63}$"}}
+}

@@ -654,6 +654,8 @@ When the named engineering decision depends on reconstructing a specific applica
 
 Behavior-parity evidence must keep every REQUIRED feature in the denominator; missing, skipped, inferred, inaccessible and untested items cannot be counted as verified. Structural screenshot similarity and regex-classified reviews are supporting signals only. Do not introduce a parallel builder, deployer, policy controller, or index.
 
+For significant behavior-parity claims, use `references/application-conformance.md`: a scoped state-transition model, evidence-linked requirements, the deterministic `tools/application_conformance.py` gate and host-controlled execution receipts. An unverified or unobserved requirement never becomes PASS. Its machine result does not override SPARI execution authority or other hard gates.
+
 # Build-vs-Borrow composition
 
 Candidate decisions:

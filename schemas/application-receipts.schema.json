@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/tonnestate/SPARI/blob/main/schemas/application-receipts.schema.json",
+  "title": "SPARI Host-Held Application Execution Receipts /1",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "receipts"],
+  "properties": {
+    "schema_version": {"const": "spari.application.receipts/1"},
+    "receipts": {
+      "type": "array", "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "sha256"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.-]{0,63}$"},
+          "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+        }
+      }
+    }
+  }
+}

@@ -51,3 +51,7 @@ FAIL: build a fresh scheduling engine without a rejected reuse decision.
 Input: evidence or research budget expires during observation.
 PASS: preserve observations and unresolved gaps; BLOCKED/RESEARCH_INCOMPLETE; no forced BUILD.
 FAIL: convert missing evidence into proof that no reusable implementation exists.
+
+## Executable deterministic acceptance
+
+Run `python3 -m unittest discover -s tests -p 'test_application_conformance.py' -v` for 17 executable success/falsification controls, including absent required features, corrupted/missing host receipts, mismatched behavior, unobserved reference requirements, duplicate IDs, unreachable transitions, unapproved exclusions and CLI return codes. This test suite does not substitute for a controlled A/B/C application reconstruction evaluation.
