@@ -101,6 +101,8 @@ The controller is intentionally sparse. SPARI should reuse host-native repo maps
 33. Do not duplicate work already performed by the host, IntakeGov, repository index, prior validated SPARI evidence, or runtime instrumentation.
 34. Persist inspectable engineering evidence and decision summaries, not hidden chain-of-thought.
 35. Do not publish quantitative savings or capability claims without reproducible measurement.
+36. Reconstruct external application behavior only for a bounded named decision and permitted observation surface; evidence of UI similarity is not evidence of hidden implementations.
+37. Do not exclude unverified, skipped, inaccessible, inferred, or partial REQUIRED behavior from parity denominators or acceptance gates.
 
 # Source Attestation Gate
 
@@ -646,6 +648,12 @@ Do not use it merely because a runtime failure exposed an interesting adjacent a
 
 Ask only questions whose answers can materially distinguish evidence-backed solution paths.
 
+# Application Reconstruction (optional)
+
+When the named engineering decision depends on reconstructing a specific application's observable workflows, use `references/application-reconstruction.md` **after** the normal Source Attestation, Economy and Pre-Execution Decision gates. Scope public/permitted observations to the decision, inventory screens/flows/features with provenance, and reuse the existing SPARI Build-vs-Borrow controller and host executor. This is not a mandatory phase for normal coding or repair.
+
+Behavior-parity evidence must keep every REQUIRED feature in the denominator; missing, skipped, inferred, inaccessible and untested items cannot be counted as verified. Structural screenshot similarity and regex-classified reviews are supporting signals only. Do not introduce a parallel builder, deployer, policy controller, or index.
+
 # Build-vs-Borrow composition
 
 Candidate decisions:
@@ -826,6 +834,7 @@ Admitted consequential work may additionally require:
 - `CANDIDATE_SET`
 - `SOURCE_EVIDENCE`
 - `CAPABILITY_COVERAGE_MATRIX`
+- scoped `APPLICATION_BEHAVIOR_MAP` / `BEHAVIOR_PARITY_MATRIX` only when an external application's observable behavior materially informs the decision
 - `CANDIDATE_EVALUATIONS`
 - `REUSE_BLUEPRINT`
 - `CUSTOM_DELTA`

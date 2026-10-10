@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased — 2026-10-10
+
+- adds an optional evidence-first Application Reconstruction path to SPARI's existing decision gate for explicitly scoped external application behavior;
+- adapts Replica-style screen/flow observation, required-feature functional parity, and sourced feedback signals without importing a second agent, execution layer or mandatory research stage;
+- preserves all required capabilities in the acceptance denominator even when omitted or unverified; does not treat screenshots, inferred internals or regex review themes as verified functional evidence;
+- adds behavioral acceptance cases; no universal reproduction, parity or productivity claims are asserted.
+
 ## 0.1.7 — 2026-10-07
 
 Pre-execution decision-control and sparse-search release.

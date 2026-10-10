@@ -79,6 +79,7 @@ v0.1.7 keeps Source Attestation, Economy Gate, Runtime Evidence and Recompositio
 | Capability | Current behavior |
 |---|---|
 | Pre-Execution Decision Gate | Requires capability → decision question → bounded search plan → reuse decision → execution authority before consequential implementation. |
+| Optional Application Reconstruction | Scoped, source-grounded screen/flow inventory, reuse-first implementation decision, and fail-closed functional parity for specific reference applications; no new agent or execution layer. |
 | Search-before-search control | Prohibits broad search, broad indexing and repo-map generation unless they answer a named decision question that narrower evidence cannot resolve. |
 | Execution authority | Defaults to DENIED; BUILD requires explicit justification and a bounded Custom Delta before GRANTED. |
 | Host capability reuse | Reuses host-native repo maps, indexes, skills, symbol search, MCP and search providers instead of rebuilding generic discovery infrastructure. |
